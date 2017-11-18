@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business;
+package Business.Organization;
 
 /**
  *
  * @author Neha Varshney
  */
-public class EcoSystem {
+public class OrganizationDirectory {
+    // comment here
     
 }
