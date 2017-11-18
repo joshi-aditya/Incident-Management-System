@@ -10,5 +10,5 @@ package Business;
  * @author Neha Varshney
  */
 public class EcoSystem {
-    
+    //EcoSystem model
 }
