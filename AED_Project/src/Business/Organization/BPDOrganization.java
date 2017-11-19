@@ -5,10 +5,23 @@
  */
 package Business.Organization;
 
+import Business.Role.Role;
+import java.util.HashSet;
+
 /**
  *
  * @author Neha Varshney
  */
-public class BPDOrganization {
+public class BPDOrganization extends Organization {
+
+    public BPDOrganization() {
+        super(Type.BPDOrganization.getValue());
+    }
+    
+    @Override
+    public HashSet<Role> getSupportedRole() {
+        
+        return null;
+    }
     
 }

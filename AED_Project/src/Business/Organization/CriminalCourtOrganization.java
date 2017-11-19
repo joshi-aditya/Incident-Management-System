@@ -5,10 +5,23 @@
  */
 package Business.Organization;
 
+import Business.Role.Role;
+import java.util.HashSet;
+
 /**
  *
  * @author Neha Varshney
  */
-public class CriminalCourtOrganization {
+public class CriminalCourtOrganization extends Organization{
+
+    public CriminalCourtOrganization() {
+    super(Organization.Type.CriminalCourtOrganization.getValue());
+    }
+    
+    @Override
+    public HashSet<Role> getSupportedRole() {
+        
+        return null;
+    }
     
 }

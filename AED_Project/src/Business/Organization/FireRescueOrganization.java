@@ -5,10 +5,24 @@
  */
 package Business.Organization;
 
+import Business.Role.Role;
+import java.util.HashSet;
+
 /**
  *
  * @author Neha Varshney
  */
-public class FireRescueOrganization {
+public class FireRescueOrganization extends Organization{
+    
+    public FireRescueOrganization() {
+    super(Organization.Type.FireRescueOrganization.getValue());
+    }
+    
+    @Override
+    public HashSet<Role> getSupportedRole() {
+        
+        return null;
+    }
+    
     
 }

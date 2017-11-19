@@ -5,10 +5,23 @@
  */
 package Business.Organization;
 
+import Business.Role.Role;
+import java.util.HashSet;
+
 /**
  *
  * @author Neha Varshney
  */
-public class AmbulanceOrganization {
+public class AmbulanceOrganization extends Organization {
+
+    public AmbulanceOrganization() {
+        super(Organization.Type.AmbulanceOrganization.getValue());
+    }
+    
+    @Override
+    public HashSet<Role> getSupportedRole() {
+        
+        return null;
+    }
     
 }
