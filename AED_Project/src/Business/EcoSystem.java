@@ -42,15 +42,11 @@ public class EcoSystem extends Organization{
     public ArrayList<Network> getNetworkList() {
         return networkList;
     }
-
-
     
     public static void setInstance(EcoSystem system) {
         business=system;
     }
     
-
-
     public Network createAndAddNetwork() {
         Network network = new Network();
         networkList.add(network);

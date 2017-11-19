@@ -36,8 +36,8 @@ public class UserAccountDirectory {
         UserAccount userAccount = new UserAccount();
         userAccount.setUsername(username);
         userAccount.setPassword(password);
-       // userAccount.setEmployee(employee);
-       // userAccount.setRole(role);
+        userAccount.setEmployee(employee);
+        userAccount.setRole(role);
         userAccountList.add(userAccount);
         return userAccount;
     }
