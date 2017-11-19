@@ -1,8 +1,4 @@
-/*
- * AdminWorkAreaJPanel.java
- *
- * Created on October 10, 2008, 8:50 AM
- */
+
 package userinterface.SystemAdminWorkAreas;
 
 import Business.EcoSystem;
@@ -17,7 +13,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
- * @author raunak
+ * @author Sneha Kawitkar
  */
 public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 

@@ -19,7 +19,8 @@ public abstract class Role {
      public enum RoleType{
    
         SystemAdmin("SystemAdmin"),
-        PoliceOfficer("PoliceOfficer");
+        PoliceAdmin("Police Admin");
+        //PoliceOfficer("PoliceOfficer");
 
         private String value;
         private RoleType(String value){

@@ -8,9 +8,7 @@ import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import Business.Role.CDCAdminRole;
-import Business.Role.DistributorAdminRole;
-import Business.Role.HospitalAdminRole;
+import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -21,7 +19,7 @@ import utility.Validator;
 
 /**
  *
- * @author raunak
+ * @author Sneha Kawitkar
  */
 public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
@@ -207,13 +205,16 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
         if (EcoSystem.checkIfUsernameIsUnique(username)) {
             UserAccount account = null;
-            if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.CDC) {
-                account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new CDCAdminRole());
+            if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.PoliceEnterprise) {
+                account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new PoliceAdminRole());
+                
+            /*    
             } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Distributor) {
                 account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new DistributorAdminRole());
             } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Hospital) {
                 account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
             }
+            */
 
             populateTable();
         }
@@ -223,7 +224,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
  }else{
              JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-
+        }
     }//GEN-LAST:event_submitJButtonActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed

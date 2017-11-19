@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Administrator
+ * @author Sneha Kawitkar
  */
 public class MainJFrame extends javax.swing.JFrame {
 
@@ -25,17 +25,14 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     private EcoSystem system;
-   // private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
+    private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public MainJFrame() {
         initComponents();
         system = dB4OUtil.retrieveSystem();
         EcoSystem.setInstance(system);
         setExtendedState(getExtendedState()| JFrame.MAXIMIZED_BOTH);
-//        VaccineDirectory v= new VaccineDirectory();
-//        DiseaseDirectory d= new DiseaseDirectory();
-//        system.setDiseaseList(d);
-//        system.setVaccineList(v);
+
     }
 
     /**
