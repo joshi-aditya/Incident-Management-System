@@ -13,7 +13,7 @@ import Business.Enterprise.EnterpriseDirectory;
  */
 public class Network {
     
-     private String name;
+    private String name;
     private EnterpriseDirectory enterpriseDirectory;
 
     public Network() {

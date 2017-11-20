@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author raunak
+ * @author Sneha Kawitkar
  */
 public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
 

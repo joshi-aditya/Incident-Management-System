@@ -15,15 +15,13 @@ import java.util.HashSet;
  */
 public class AmbulanceEnterprise extends Enterprise {
     
-        public AmbulanceEnterprise(String name) {
+    public AmbulanceEnterprise(String name) {
         super(name, Enterprise.EnterpriseType.AmbulanceEnterprise);
     }
 
-        
-        //Need to add roles related to medical services
     @Override
     public HashSet<Role> getSupportedRole() {
-         roles= new HashSet<>();
+        roles= new HashSet<>();
         roles.add(new PoliceAdminRole());
         return roles;
     }

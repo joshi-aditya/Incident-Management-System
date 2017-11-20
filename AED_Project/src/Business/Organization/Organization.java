@@ -9,7 +9,6 @@ import Business.Employee.EmployeeDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -17,7 +16,7 @@ import java.util.HashSet;
  * @author Neha Varshney
  */
 public abstract class Organization {
-   private String name;
+    private String name;
     private WorkQueue workQueue;
     private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;

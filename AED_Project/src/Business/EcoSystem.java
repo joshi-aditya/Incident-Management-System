@@ -35,7 +35,6 @@ public class EcoSystem extends Organization{
     private EcoSystem() {
         super(null);
         networkList = new ArrayList<>();
-
     }
 
     public ArrayList<Network> getNetworkList() {
@@ -43,7 +42,7 @@ public class EcoSystem extends Organization{
     }
     
     public static void setInstance(EcoSystem system) {
-        business=system;
+        business = system;
     }
     
     public Network createAndAddNetwork() {

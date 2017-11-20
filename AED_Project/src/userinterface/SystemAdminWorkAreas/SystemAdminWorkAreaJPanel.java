@@ -34,9 +34,6 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     public void populateTree() {
         
         DefaultTreeModel model = (DefaultTreeModel) JTree.getModel();
-
-        
-        
         ArrayList<Network> networkList = system.getNetworkList();
         ArrayList<Enterprise> enterpriseList;
         ArrayList<Organization> organizationList;
@@ -115,7 +112,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageAdminJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(manageAdminJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
+        jPanel1.add(manageAdminJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 180, -1));
 
         manageEnterpriseJButton.setText("Manage Enterprise");
         manageEnterpriseJButton.addActionListener(new java.awt.event.ActionListener() {

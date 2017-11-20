@@ -189,16 +189,16 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
         String userName = nameJTextField.getText();
         String password = passwordJTextField.getText();
-         if(!((userName.equals("") || (password.equals(""))))){
-        if(EcoSystem.checkIfUsernameIsUnique(userName)){
-        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        Employee employee = (Employee) employeeJComboBox.getSelectedItem();
-        Role role = (Role) roleJComboBox.getSelectedItem();
-       if (role instanceof PoliceAdminRole){
-       BPDOrganization organizations = new BPDOrganization();
-       enterprise.getOrganizationDirectory().createOrganization(Type.BPDOrganization);
-       organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-     }
+        if(!((userName.equals("") || (password.equals(""))))){
+            if(EcoSystem.checkIfUsernameIsUnique(userName)){
+                Organization organization = (Organization) organizationJComboBox.getSelectedItem();
+                Employee employee = (Employee) employeeJComboBox.getSelectedItem();
+                Role role = (Role) roleJComboBox.getSelectedItem();
+                if (role instanceof PoliceAdminRole){
+                    BPDOrganization organizations = new BPDOrganization();
+                    enterprise.getOrganizationDirectory().createOrganization(Type.BPDOrganization);
+                    organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+                }
 //        else{
 //           Provider  organizations = new Provider();
 //            organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);

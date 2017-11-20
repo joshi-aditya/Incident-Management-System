@@ -15,7 +15,7 @@ import utility.Validator;
 
 /**
  *
- * @author raunak
+ * @author Sneha Kawitkar
  */
 public class PoliceManageEmployeeJPanel extends javax.swing.JPanel {
 

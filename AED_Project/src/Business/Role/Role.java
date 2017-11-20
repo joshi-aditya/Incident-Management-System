@@ -16,7 +16,8 @@ import javax.swing.JPanel;
  * @author joshiaditya
  */
 public abstract class Role {
-     public enum RoleType{
+    
+    public enum RoleType{
    
         SystemAdmin("SystemAdmin"),
         PoliceAdmin("Police Admin");
@@ -37,11 +38,11 @@ public abstract class Role {
         }
     }
      
-         public abstract JPanel createWorkArea(JPanel userProcessContainer, 
-            UserAccount account, 
-            Organization organization, 
-            Enterprise enterprise, 
-            EcoSystem business);
+    public abstract JPanel createWorkArea(JPanel userProcessContainer, 
+        UserAccount account, 
+        Organization organization, 
+        Enterprise enterprise, 
+        EcoSystem business);
 
     @Override
     public String toString() {

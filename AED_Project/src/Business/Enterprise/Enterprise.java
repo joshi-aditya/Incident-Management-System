@@ -60,6 +60,5 @@ public class Enterprise extends Organization {
     public OrganizationDirectory getOrganizationDirectory() {
         return organizationDirectory;
     }
-
     
 }

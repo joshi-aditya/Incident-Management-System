@@ -16,7 +16,7 @@ import utility.Validator;
 
 /**
  *
- * @author raunak
+ * @author Sneha Kawitkar
  */
 public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
@@ -84,7 +84,6 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         enterpriseTypeJComboBox = new javax.swing.JComboBox();
         submitJButton = new javax.swing.JButton();
         backJButton = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -96,10 +95,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         enterpriseJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Enterprise Name", "Network", "Type"
@@ -155,14 +151,6 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         });
         add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 331, -1, -1));
 
-        btnDelete.setText("Delete request");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, -1, -1));
-
         jLabel4.setText("Manage Enterprise Panel");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
@@ -200,33 +188,6 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        int selectedRow= enterpriseJTable.getSelectedRow();
-        if(selectedRow<0){
-            JOptionPane.showMessageDialog(null, "Please select the row to delete the account", "Warning", JOptionPane.WARNING_MESSAGE);
-        }
-        else{
-
-            Enterprise p=(Enterprise) enterpriseJTable.getValueAt(selectedRow, 0);
-
-            for (Network network : system.getNetworkList()) {
-                for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-                   
-                        if(p==enterprise){
-                           network.getEnterpriseDirectory().getEnterpriseList().remove(p);
-                            break;
-                        }
-
-                    
-                }
-            }
-
-            JOptionPane.showMessageDialog(null, "You have successfully deleted the account");
-            populateTable();
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void nameJTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameJTextFieldKeyPressed
         // TODO add your handling code here:
         Validator.onlyString(evt, nameJTextField);
@@ -238,7 +199,6 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JTable enterpriseJTable;
     private javax.swing.JComboBox enterpriseTypeJComboBox;
     private javax.swing.JLabel jLabel1;
