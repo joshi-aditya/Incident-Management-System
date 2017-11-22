@@ -14,7 +14,7 @@ import java.util.HashSet;
  *
  * @author Neha Varshney
  */
-public class Enterprise extends Organization {
+public abstract class Enterprise extends Organization {
     
     private EnterpriseType enterpriseType;
     private OrganizationDirectory organizationDirectory;
@@ -24,18 +24,12 @@ public class Enterprise extends Organization {
         this.enterpriseType = type;
         organizationDirectory = new OrganizationDirectory();
     }
-
-    @Override
-    public HashSet<Role> getSupportedRole() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
     
     public enum EnterpriseType{
         AmbulanceEnterprise("Ambulance Enterprise"),
         PoliceEnterprise("Police Enterprise"),
+        FireRescueEnterprise("FireRescueEnterprise"),
         CourtEnterprise("Court Enterprise");
-       // add Fire & Rescue
-       // Police enterprise
         
         private String value;
 

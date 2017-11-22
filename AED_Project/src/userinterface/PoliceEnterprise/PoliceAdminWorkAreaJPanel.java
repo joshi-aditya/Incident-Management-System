@@ -4,7 +4,7 @@
  * Created on October 10, 2008, 8:50 AM
  */
 
-package userinterface.Police;
+package userinterface.PoliceEnterprise;
 
 import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.Police;
+package userinterface.PoliceEnterprise;
 
 import Business.Employee.Employee;
 import Business.Organization.Organization;
@@ -15,7 +15,7 @@ import utility.Validator;
 
 /**
  *
- * @author Sneha Kawitkar
+ * @author raunak
  */
 public class PoliceManageEmployeeJPanel extends javax.swing.JPanel {
 

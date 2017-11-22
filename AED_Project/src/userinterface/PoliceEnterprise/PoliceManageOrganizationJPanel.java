@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.Police;
+package userinterface.PoliceEnterprise;
 
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
@@ -37,7 +37,7 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
        // for (Type type : Organization.Type.values()){
          //   if (!type.getValue().equals(Type.Admin.getValue()))
                 organizationJComboBox.addItem(Type.BPDOrganization);
-
+               // organizationJComboBox.addItem(Type.Supplier);
         //}
     }
 
