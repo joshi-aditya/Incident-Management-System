@@ -6,6 +6,9 @@
 package userinterface.User;
 
 import Business.Enterprise.Enterprise;
+import Business.Incident.Incident;
+
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -18,13 +21,14 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
      * Creates new form UserAreaWorkJPanel
      */
     
-    private JPanel container;
+    private JPanel userProcessContainer;
     private Enterprise enterprise;
+    private Incident incident;
 
-    public UserAreaWorkJPanel(JPanel container, Enterprise enterprise) {
+    public UserAreaWorkJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.enterprise = enterprise;
-        this.container = container;
+        this.userProcessContainer = userProcessContainer;
 
     }
     public UserAreaWorkJPanel() {
@@ -96,6 +100,10 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        ReportAnIncidentJPanel incidentJPanel = new ReportAnIncidentJPanel(userProcessContainer, incident);
+        userProcessContainer.add("ReportAnIncidentJPanel", incidentJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

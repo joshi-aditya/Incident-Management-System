@@ -25,8 +25,8 @@ public class UserAccountDirectory {
     }
     
     public UserAccount authenticateUser(String username, String password){
-        for (UserAccount ua: userAccountList) {
-            if (ua.getUsername().equals(username) && ua.getPassword().equals(password)){
+        for (UserAccount ua : userAccountList) {
+            if (ua.getUserName().equals(username) && ua.getPassword().equals(password)){
                 return ua;
             }
         }      
@@ -35,7 +35,7 @@ public class UserAccountDirectory {
     
     public UserAccount createUserAccount(String username, String password, Employee employee, Role role){
         UserAccount userAccount = new UserAccount();
-        userAccount.setUsername(username);
+        userAccount.setUserName(username);
         userAccount.setPassword(password);
         userAccount.setEmployee(employee);
         userAccount.setRole(role);
@@ -43,9 +43,11 @@ public class UserAccountDirectory {
         return userAccount;
     }
     
-     public UserAccount createUserAccount(String username, String password, Role role){
+     public UserAccount createUserAccount(String username, String password, Role role, String firstname, String lastname){
         UserAccount userAccount = new UserAccount();
-        userAccount.setUsername(username);
+        userAccount.setFirstName(firstname);
+        userAccount.setLastName(lastname);
+        userAccount.setUserName(username);
         userAccount.setPassword(password);
         userAccount.setRole(role);
         userAccountList.add(userAccount);
@@ -54,7 +56,7 @@ public class UserAccountDirectory {
     
     public boolean checkIfUsernameIsUnique(String username){
         for (UserAccount ua : userAccountList){
-            if (ua.getUsername().equals(username))
+            if (ua.getUserName().equals(username))
                 return false;
         }
         return true;
