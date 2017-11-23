@@ -50,9 +50,11 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
-                Object row[] = new Object[2];
+                Object row[] = new Object[4];
                 row[0] = ua;
                 row[1] = ua.getRole();
+                row[2] = ua.getFirstName();
+                row[3] = ua.getLastName();
                 ((DefaultTableModel) userJTable.getModel()).addRow(row);
             }
         }
@@ -69,7 +71,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         createUserJButton = new javax.swing.JButton();
-        nameJTextField = new javax.swing.JTextField();
+        lastNameJTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         userJTable = new javax.swing.JTable();
@@ -80,6 +82,10 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         organizationJComboBox = new javax.swing.JComboBox();
         roleTxtField = new javax.swing.JTextField();
+        userNameJTextField = new javax.swing.JTextField();
+        firstNameJTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -89,25 +95,25 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 createUserJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(createUserJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, -1, -1));
-        jPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 146, -1));
+        jPanel1.add(createUserJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 470, -1, -1));
+        jPanel1.add(lastNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 146, -1));
 
-        jLabel1.setText("User Name");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
+        jLabel1.setText("Last Name");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
 
         userJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "User Name", "Role"
+                "User Name", "Role", "FirstName", "LastName"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false
+                true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -120,11 +126,11 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(userJTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 375, 179));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 375, 179));
 
         jLabel2.setText("Password");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
-        jPanel1.add(passwordJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 146, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, -1, -1));
+        jPanel1.add(passwordJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 146, -1));
 
         backjButton1.setText("<<Back");
         backjButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -132,13 +138,13 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 backjButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(backjButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 444, 112, -1));
+        jPanel1.add(backjButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 112, -1));
 
         jLabel4.setText("Role");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
         jLabel5.setText("Organization");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
         organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         organizationJComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -146,17 +152,36 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 organizationJComboBoxActionPerformed(evt);
             }
         });
-        jPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 237, 146, -1));
+        jPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 146, -1));
 
         roleTxtField.setEditable(false);
         roleTxtField.setText("User");
-        jPanel1.add(roleTxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 150, -1));
+        roleTxtField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleTxtFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(roleTxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 150, -1));
+
+        userNameJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userNameJTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(userNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 146, -1));
+        jPanel1.add(firstNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 146, -1));
+
+        jLabel3.setText("User Name");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
+
+        jLabel6.setText("First Name");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 786, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -165,7 +190,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -182,16 +207,19 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backjButton1ActionPerformed
 
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
-        String userName = nameJTextField.getText();
+        String firstName= firstNameJTextField.getText();
+        String lastName= lastNameJTextField.getText();
+        String userName = lastNameJTextField.getText();
         String password = passwordJTextField.getText();
         if(!((userName.equals("") || (password.equals(""))))){
             if(EcoSystem.checkIfUsernameIsUnique(userName)){
                 Organization organization = (Organization) organizationJComboBox.getSelectedItem();
                 String role;
                 role = roleTxtField.getText();
-                organization.getUserAccountDirectory().createUserAccount(userName, password);
+                organization.getUserAccountDirectory().createUserAccount(firstName,lastName,userName, password);
                 popData();
                 JOptionPane.showMessageDialog(null,"User created successfully");
+                
             }
             else{
                 JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -205,20 +233,32 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
     }//GEN-LAST:event_organizationJComboBoxActionPerformed
 
+    private void roleTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleTxtFieldActionPerformed
+
+    private void userNameJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userNameJTextFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backjButton1;
     private javax.swing.JButton createUserJButton;
+    private javax.swing.JTextField firstNameJTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField nameJTextField;
+    private javax.swing.JTextField lastNameJTextField;
     private javax.swing.JComboBox organizationJComboBox;
     private javax.swing.JTextField passwordJTextField;
     private javax.swing.JTextField roleTxtField;
     private javax.swing.JTable userJTable;
+    private javax.swing.JTextField userNameJTextField;
     // End of variables declaration//GEN-END:variables
 }

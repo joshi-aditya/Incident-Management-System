@@ -5,6 +5,9 @@
  */
 package userinterface.User;
 
+import Business.Incident.Incident;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Sneha
@@ -14,8 +17,16 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReportAnIncidentJPanel
      */
-    public ReportAnIncidentJPanel() {
+    
+    JPanel userProcessContainer;
+    Incident incident;
+    
+
+    ReportAnIncidentJPanel(JPanel userProcessContainer, Incident incident) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.incident= incident;
+        
     }
 
     /**
@@ -31,6 +42,12 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         IncidentreportComboBox = new javax.swing.JComboBox<>();
 
         jLabel1.setText("What kind of incident you want to report ?");
+
+        IncidentreportComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IncidentreportComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -53,6 +70,10 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 .addContainerGap(363, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void IncidentreportComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IncidentreportComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IncidentreportComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
