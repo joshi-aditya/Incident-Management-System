@@ -6,7 +6,12 @@
 package userinterface.User;
 
 import Business.Incident.Incident;
+import java.io.File;
+import java.net.InetAddress;
 import javax.swing.JPanel;
+import com.maxmind.geoip.Location;
+import com.maxmind.geoip.LookupService;
+import com.maxmind.geoip.regionName;
 
 /**
  *
@@ -17,16 +22,14 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReportAnIncidentJPanel
      */
-    
     JPanel userProcessContainer;
     Incident incident;
-    
 
     ReportAnIncidentJPanel(JPanel userProcessContainer, Incident incident) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.incident= incident;
-        
+        this.incident = incident;
+
     }
 
     /**
@@ -121,9 +124,8 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
 
     private void IncidentreportComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IncidentreportComboBoxActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+
+
     }//GEN-LAST:event_IncidentreportComboBoxActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -133,13 +135,47 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         String zipCode = zipCodejTextField.getText();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public String getLocation(String ipAddress) {
+
+	File file = new File("GeoLiteCity.dat");
+	return getLocation(ipAddress, file);
+
+    }
+    
+    public String getLocation(String ipAddress, File file) {
+
+	//ServerLocation serverLocation = null;
+        String s = "";
+	try {
+
+	//serverLocation = new ServerLocation();
+
+	LookupService lookup = new LookupService(file,LookupService.GEOIP_MEMORY_CACHE);
+	Location locationServices = lookup.getLocation(ipAddress);
+
+	s = s + locationServices.region + String.valueOf(locationServices.latitude)
+                + String.valueOf(locationServices.longitude) + locationServices.postalCode;
+
+	} catch (Exception e) {
+		System.err.println(e.getMessage());
+	}
+
+	return s;
+
+  }
+    
     private void LocateMeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocateMeButtonActionPerformed
         // TODO add your handling code here:
-	//GetLocationExample obj = new GetLocationExample();
-	//ServerLocation location = obj.getLocation("206.190.36.45");
-	//System.out.println(location);
-  
-        
+        //GetLocationExample obj = new GetLocationExample();
+        //ServerLocation location = obj.getLocation("206.190.36.45");
+        //System.out.println(location);
+        try {
+            System.out.println("Your Host addr: " + InetAddress.getLocalHost().getHostAddress());
+            getLocation(InetAddress.getLocalHost().getHostAddress().toString());
+        } catch (Exception e) {
+            System.out.println("" + e.getMessage());
+        }
+
     }//GEN-LAST:event_LocateMeButtonActionPerformed
 
 
