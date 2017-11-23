@@ -8,6 +8,9 @@ import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Role.AmbulanceAdminRole;
+import Business.Role.CourtAdminRole;
+import Business.Role.FireRescueAdminRole;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -195,21 +198,22 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 UserAccount account = null;
                 if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.PoliceEnterprise) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new PoliceAdminRole());
-
-                /*    
-                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Distributor) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new DistributorAdminRole());
-                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Hospital) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
+                }    
+                else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.AmbulanceEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new AmbulanceAdminRole());
+                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.FireRescueEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new FireRescueAdminRole());
+                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.CourtEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new CourtAdminRole());
                 }
-                */
+                
 
                     populateTable();
                 }
-                else {
-                JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
-                }
-            }else{
+               //else {
+                //JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
+                //}
+            else{
                  JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
