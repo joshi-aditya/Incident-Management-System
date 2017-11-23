@@ -65,9 +65,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 loginJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(loginJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 149, 100, -1));
-        jPanel1.add(userNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 50, 118, -1));
-        jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 109, 118, -1));
+        jPanel1.add(loginJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 100, -1));
+        jPanel1.add(userNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 50, 110, -1));
+        jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 109, 110, -1));
 
         jLabel1.setText("User Name");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 21, -1, -1));
@@ -83,7 +83,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 logoutJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(logoutJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 208, 92, -1));
+        jPanel1.add(logoutJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 208, 100, -1));
 
         jSplitPane1.setLeftComponent(jPanel1);
 
@@ -148,7 +148,7 @@ public class MainJFrame extends javax.swing.JFrame {
             container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
             layout.next(container);
         }
-         loginJButton.setEnabled(false);
+        loginJButton.setEnabled(false);
         logoutJButton.setEnabled(true);
         userNameJTextField.setEnabled(false);
         passwordField.setEnabled(false);

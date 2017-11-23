@@ -1,14 +1,17 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package userinterface.Police;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
-import Business.Organization.BPDOrganization;
+import Business.Organization.PoliceOrganization;
 import Business.Organization.Organization.Type;
-import Business.Role.PoliceAdminRole;
 import Business.Role.Role;
+import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -17,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Sneha Kawitkar
+ * @author Administrator
  */
 public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
 
@@ -56,11 +59,16 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
     private void populateRoleComboBox(Enterprise e){
         roleJComboBox.removeAllItems();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(organization instanceof BPDOrganization){
+        if(organization instanceof PoliceOrganization){
        // for (Role role : e.getSupportedRole()){
             roleJComboBox.addItem(new PoliceAdminRole());
         }
-
+        
+        /*
+        if(organization instanceof ProviderOrganization){
+             roleJComboBox.addItem(new ProviderRole());
+        }
+        */
        // }
     }
 
@@ -182,23 +190,26 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
         jLabel4.setText("Role");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 324, -1, -1));
 
-        roleJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(roleJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(187, 321, 146, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
         String userName = nameJTextField.getText();
         String password = passwordJTextField.getText();
-         if(!((userName.equals("") || (password.equals(""))))){
-        if(EcoSystem.checkIfUsernameIsUnique(userName)){
-        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        Employee employee = (Employee) employeeJComboBox.getSelectedItem();
-        Role role = (Role) roleJComboBox.getSelectedItem();
-       if (role instanceof PoliceAdminRole){
-       BPDOrganization organizations = new BPDOrganization();
-       enterprise.getOrganizationDirectory().createOrganization(Type.BPDOrganization);
-       organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-     }
+        if(!((userName.equals("") || (password.equals(""))))){
+            if(EcoSystem.checkIfUsernameIsUnique(userName)){
+                Organization organization = (Organization) organizationJComboBox.getSelectedItem();
+                Employee employee = (Employee) employeeJComboBox.getSelectedItem();
+                Role role = (Role) roleJComboBox.getSelectedItem();
+                organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+                
+                /*
+                if (role instanceof PoliceAdminRole){
+                    PoliceOrganization organizations = new PoliceOrganization();
+                    enterprise.getOrganizationDirectory().createOrganization(Type.PoliceOrganization);
+                    organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+                }
+                */
 //        else{
 //           Provider  organizations = new Provider();
 //            organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
@@ -226,6 +237,7 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
         
         */
         popData();
+        JOptionPane.showMessageDialog(null,"User created successfully");
         }
         else{
            JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE); 

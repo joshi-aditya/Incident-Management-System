@@ -24,22 +24,32 @@ public class EnterpriseDirectory {
     
     public Enterprise createAndAddEnterprise(String name, Enterprise.EnterpriseType type){
         Enterprise enterprise = null;
-        /*
+        
         if (type == Enterprise.EnterpriseType.AmbulanceEnterprise){
             enterprise = new AmbulanceEnterprise(name);
             enterpriseList.add(enterprise);
         }
-        */
-        if (type == Enterprise.EnterpriseType.PoliceEnterprise){
+        
+        else if (type == Enterprise.EnterpriseType.PoliceEnterprise){
             enterprise = new PoliceEnterprise(name);
             enterpriseList.add(enterprise);
         }
-        /*
+        
         else  if (type == Enterprise.EnterpriseType.CourtEnterprise){
             enterprise = new CourtEnterprise(name);
             enterpriseList.add(enterprise);
         }
-*/
+        
+        else  if (type == Enterprise.EnterpriseType.FireRescueEnterprise){
+            enterprise = new FireRescueEnterprise(name);
+            enterpriseList.add(enterprise);
+        }
+        
+        else  if (type == Enterprise.EnterpriseType.GovernmentEnterprise){
+            enterprise = new GovernmentEnterprise(name);
+            enterpriseList.add(enterprise);
+        }
+
         return enterprise;
     }
     

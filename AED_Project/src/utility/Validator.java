@@ -11,30 +11,30 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Administrator
+ * @author Sneha Kawitkar
  */
 public class Validator {
    
-     public static void onlyString(KeyEvent evt, JTextField field) {
-          char c = evt.getKeyChar();
+    public static void onlyString(KeyEvent evt, JTextField field) {
+        char c = evt.getKeyChar();
         if (!((c >= 'A') && (c <= 'Z') || (c >= 'a') && (c <= 'z') || (c==evt.VK_SPACE) || (c==evt.VK_CAPS_LOCK) || (c==evt.VK_SHIFT)||
             (c == evt.VK_BACK_SPACE) ||
             (c == evt.VK_DELETE))) {
 
-        JOptionPane.showMessageDialog(null, "Enter Alphabets only");
-       field.setText("");
+                JOptionPane.showMessageDialog(null, "Enter Alphabets only");
+                field.setText("");
         }
-     }
+    }
      
-     public static void onlyInteger(KeyEvent evt, JTextField field) {
-          char c = evt.getKeyChar();
+    public static void onlyInteger(KeyEvent evt, JTextField field) {
+        char c = evt.getKeyChar();
         if (!((c >= '0') && (c <= '9')||
             (c == evt.VK_BACK_SPACE) ||
             (c == evt.VK_DELETE))) {
 
-        JOptionPane.showMessageDialog(null, "Enter Integers only");
-       field.setText("");
+            JOptionPane.showMessageDialog(null, "Enter Integers only");
+            field.setText("");
         }
-     }
+    }
     
 }

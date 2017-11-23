@@ -10,21 +10,21 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
+import userinterface.Police.PoliceAdminWorkAreaJPanel;
+import userinterface.Police.PoliceOfficer.PoliceOfficerWorkAreaJPanel;
 
 /**
  *
  * @author Sneha
  */
-public class PoliceOfficerRole extends Role {
-    
-    @Override
+public class PoliceOfficerRole extends Role{
+   @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
         return new PoliceOfficerWorkAreaJPanel(userProcessContainer, enterprise);
     }
 
      @Override
     public String toString(){
-        return RoleType.PoliceOfficer.getValue();
-    }
-    
+        return Role.RoleType.PoliceOfficerRole.getValue();
+    } 
 }

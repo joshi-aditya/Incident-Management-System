@@ -8,6 +8,10 @@ import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Role.AmbulanceAdminRole;
+import Business.Role.CourtAdminRole;
+import Business.Role.FireRescueAdminRole;
+import Business.Role.GovernmentAdminRole;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -97,16 +101,12 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         passwordJPasswordField = new javax.swing.JPasswordField();
         backJButton = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         enterpriseJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Enterprise Name", "Network", "Username"
@@ -174,14 +174,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             }
         });
         add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 423, -1, -1));
-
-        btnDelete.setText("Delete request");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void networkJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkJComboBoxActionPerformed
@@ -196,34 +188,37 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
         if(!nameJTextField.getText().equals("")){
-        Enterprise enterprise = (Enterprise) enterpriseJComboBox.getSelectedItem();
+            Enterprise enterprise = (Enterprise) enterpriseJComboBox.getSelectedItem();
 
-        String username = usernameJTextField.getText();
-        String password = String.valueOf(passwordJPasswordField.getPassword());
-        String name = nameJTextField.getText();
+            String username = usernameJTextField.getText();
+            String password = String.valueOf(passwordJPasswordField.getPassword());
+            String name = nameJTextField.getText();
 
-        Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
-        if (EcoSystem.checkIfUsernameIsUnique(username)) {
-            UserAccount account = null;
-            if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.PoliceEnterprise) {
-                account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new PoliceAdminRole());
-                
-            /*    
-            } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Distributor) {
-                account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new DistributorAdminRole());
-            } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Hospital) {
-                account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
+            Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
+            if (EcoSystem.checkIfUsernameIsUnique(username)) {
+                UserAccount account = null;
+                if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.PoliceEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new PoliceAdminRole());
+                }    
+                else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.AmbulanceEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new AmbulanceAdminRole());
+                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.FireRescueEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new FireRescueAdminRole());
+                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.CourtEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new CourtAdminRole());
+                }
+                else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.GovernmentEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new GovernmentAdminRole());
+                }
+
+                    populateTable();
+                }
+               //else {
+                //JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
+                //}
+            else{
+                 JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-            */
-
-            populateTable();
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
-        }
- }else{
-             JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
-        }
         }
     }//GEN-LAST:event_submitJButtonActionPerformed
 
@@ -237,32 +232,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = enterpriseJTable.getSelectedRow();
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select the row to delete the account", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-
-            UserAccount p = (UserAccount) enterpriseJTable.getValueAt(selectedRow, 2);
-
-            for (Network network : system.getNetworkList()) {
-                for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-                    for (UserAccount userAccount : enterprise.getUserAccountDirectory().getUserAccountList()) {
-                        if (p == userAccount) {
-                            enterprise.getUserAccountDirectory().getUserAccountList().remove(p);
-                            break;
-                        }
-
-                    }
-                }
-            }
-
-            JOptionPane.showMessageDialog(null, "You have successfully deleted the account");
-            populateTable();
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void nameJTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameJTextFieldKeyPressed
         // TODO add your handling code here:
         Validator.onlyString(evt, nameJTextField);
@@ -270,7 +239,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JComboBox enterpriseJComboBox;
     private javax.swing.JTable enterpriseJTable;
     private javax.swing.JLabel jLabel1;

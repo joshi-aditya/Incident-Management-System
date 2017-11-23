@@ -5,10 +5,26 @@
  */
 package Business.Enterprise;
 
+import Business.Role.AmbulanceAdminRole;
+import Business.Role.CourtAdminRole;
+import Business.Role.Role;
+import java.util.HashSet;
+
 /**
  *
  * @author Neha Varshney
  */
-public class CourtEnterprise {
+public class CourtEnterprise extends Enterprise {
+    
+    public CourtEnterprise(String name) {
+        super(name, Enterprise.EnterpriseType.CourtEnterprise);
+    }
+
+    @Override
+    public HashSet<Role> getSupportedRole() {
+        roles= new HashSet<>();
+        roles.add(new CourtAdminRole());
+        return roles;
+    }
     
 }

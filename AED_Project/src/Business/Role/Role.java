@@ -16,11 +16,17 @@ import javax.swing.JPanel;
  * @author joshiaditya
  */
 public abstract class Role {
-     public enum RoleType{
+    
+    public enum RoleType{
    
         SystemAdmin("SystemAdmin"),
-        PoliceAdmin("Police Admin");
-        //PoliceOfficer("PoliceOfficer");
+        User("User"),
+        PoliceAdmin("Police Admin"),
+        CourtAdmin("Court Admin"),
+        AmbulanceAdmin("Ambulance Admin"),
+        FireRescueAdmin("Fire Rescue Admin"),
+        GovernmentAdmin("Government Admin"),
+        PoliceOfficerRole("Police Officer");
 
         private String value;
         private RoleType(String value){
@@ -37,11 +43,11 @@ public abstract class Role {
         }
     }
      
-         public abstract JPanel createWorkArea(JPanel userProcessContainer, 
-            UserAccount account, 
-            Organization organization, 
-            Enterprise enterprise, 
-            EcoSystem business);
+    public abstract JPanel createWorkArea(JPanel userProcessContainer, 
+        UserAccount account, 
+        Organization organization, 
+        Enterprise enterprise, 
+        EcoSystem business);
 
     @Override
     public String toString() {
