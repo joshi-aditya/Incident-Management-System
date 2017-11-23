@@ -10,21 +10,21 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import userinterface.User.UserAdminWorkAreaJPanel;
+import userinterface.Government.GovernmentAdminWorkAreaJPanel;
 
 /**
  *
  * @author Sneha
  */
-public class UserAdminRole extends Role {
+public class GovernmentAdminRole extends Role {
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        return new UserAdminWorkAreaJPanel(userProcessContainer, enterprise);
+        return new GovernmentAdminWorkAreaJPanel(userProcessContainer, enterprise);
     }
 
-     @Override
+    @Override
     public String toString(){
-        return RoleType.UserAdmin.getValue();
+        return Role.RoleType.GovernmentAdmin.getValue();
     }
     
 }

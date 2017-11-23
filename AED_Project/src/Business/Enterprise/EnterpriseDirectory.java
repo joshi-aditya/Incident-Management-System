@@ -44,6 +44,11 @@ public class EnterpriseDirectory {
             enterprise = new FireRescueEnterprise(name);
             enterpriseList.add(enterprise);
         }
+        
+        else  if (type == Enterprise.EnterpriseType.GovernmentEnterprise){
+            enterprise = new GovernmentEnterprise(name);
+            enterpriseList.add(enterprise);
+        }
 
         return enterprise;
     }

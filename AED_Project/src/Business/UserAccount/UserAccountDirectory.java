@@ -25,11 +25,11 @@ public class UserAccountDirectory {
     }
     
     public UserAccount authenticateUser(String username, String password){
-        for (UserAccount ua : userAccountList) {
+        for (UserAccount ua: userAccountList) {
             if (ua.getUsername().equals(username) && ua.getPassword().equals(password)){
                 return ua;
             }
-        }
+        }      
         return null;
     }
     
@@ -43,11 +43,11 @@ public class UserAccountDirectory {
         return userAccount;
     }
     
-     public UserAccount createUserAccount(String username, String password){
+     public UserAccount createUserAccount(String username, String password, Role role){
         UserAccount userAccount = new UserAccount();
         userAccount.setUsername(username);
         userAccount.setPassword(password);
-        userAccount.setRole((Role)(Object)Role.RoleType.User.getValue());
+        userAccount.setRole(role);
         userAccountList.add(userAccount);
         return userAccount;  
      }

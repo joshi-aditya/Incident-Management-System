@@ -11,6 +11,7 @@ import Business.Network.Network;
 import Business.Role.AmbulanceAdminRole;
 import Business.Role.CourtAdminRole;
 import Business.Role.FireRescueAdminRole;
+import Business.Role.GovernmentAdminRole;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -206,7 +207,9 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.CourtEnterprise) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new CourtAdminRole());
                 }
-                
+                else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.GovernmentEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new GovernmentAdminRole());
+                }
 
                     populateTable();
                 }

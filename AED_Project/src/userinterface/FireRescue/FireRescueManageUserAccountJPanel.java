@@ -4,14 +4,13 @@
  */
 package userinterface.FireRescue;
 
-import userinterface.Ambulance.*;
-import userinterface.Police.*;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
+import Business.Organization.FireRescueOrganization;
 import Business.Organization.Organization;
-import Business.Organization.BPDOrganization;
-import Business.Organization.Organization.Type;
+import static Business.Organization.Organization.Type.FireRescueOrganization;
+import Business.Role.FireRescueAdminRole;
 import Business.Role.Role;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
@@ -61,9 +60,9 @@ public class FireRescueManageUserAccountJPanel extends javax.swing.JPanel {
     private void populateRoleComboBox(Enterprise e){
         roleJComboBox.removeAllItems();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(organization instanceof BPDOrganization){
+        if(organization instanceof FireRescueOrganization){
        // for (Role role : e.getSupportedRole()){
-            roleJComboBox.addItem(new PoliceAdminRole());
+            roleJComboBox.addItem(new FireRescueAdminRole());
         }
         
         /*
@@ -208,8 +207,8 @@ public class FireRescueManageUserAccountJPanel extends javax.swing.JPanel {
                 
                 /*
                 if (role instanceof PoliceAdminRole){
-                    BPDOrganization organizations = new BPDOrganization();
-                    enterprise.getOrganizationDirectory().createOrganization(Type.BPDOrganization);
+                    PoliceOrganization organizations = new PoliceOrganization();
+                    enterprise.getOrganizationDirectory().createOrganization(Type.PoliceOrganization);
                     organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
                 }
                 */

@@ -26,10 +26,11 @@ public abstract class Organization {
     
     public enum Type{
         AmbulanceOrganization("Ambulance Organization"),
-        BPDOrganization("BPD Organization"),
+        PoliceOrganization("Police Organization"),
         CivilCourtOrganization("CivilCourt Organization"), 
         CriminalCourtOrganization("CriminalCourt Organization"), 
         DrugEnforcementOrganization("DrugEnforcement Organization"),
+        GovernmentOrganization("Government Organization"),
         User("User"),
         FireRescueOrganization("FireRescue Organization");
         private String value;

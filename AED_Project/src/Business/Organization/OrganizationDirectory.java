@@ -28,8 +28,8 @@ public class OrganizationDirectory {
             organization = new AmbulanceOrganization();
             organizationList.add(organization);
         }
-        else if (type.getValue().equals(Organization.Type.BPDOrganization.getValue())){
-            organization = new BPDOrganization();
+        else if (type.getValue().equals(Organization.Type.PoliceOrganization.getValue())){
+            organization = new PoliceOrganization();
             organizationList.add(organization);
         }
        
@@ -39,6 +39,14 @@ public class OrganizationDirectory {
         }
         else if (type.getValue().equals(Organization.Type.CriminalCourtOrganization.getValue())){
             organization = new CriminalCourtOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Organization.Type.User.getValue())){
+            organization = new UserOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Organization.Type.GovernmentOrganization.getValue())){
+            organization = new GovernmentOrganization();
             organizationList.add(organization);
         }
         

@@ -5,6 +5,8 @@
  */
 package Business.Organization;
 
+import Business.Role.GovernmentAdminRole;
+import Business.Role.PoliceAdminRole;
 import Business.Role.Role;
 import java.util.HashSet;
 
@@ -12,16 +14,17 @@ import java.util.HashSet;
  *
  * @author Neha Varshney
  */
-public class BPDOrganization extends Organization {
+public class PoliceOrganization extends Organization {
 
-    public BPDOrganization() {
-        super(Type.BPDOrganization.getValue());
+    public PoliceOrganization() {
+        super(Type.PoliceOrganization.getValue());
     }
     
     @Override
     public HashSet<Role> getSupportedRole() {
-        
-        return null;
+       roles= new HashSet<>();
+        roles.add(new PoliceAdminRole() );
+        return roles;
     }
     
 }

@@ -29,6 +29,7 @@ public abstract class Enterprise extends Organization {
         AmbulanceEnterprise("Ambulance Enterprise"),
         PoliceEnterprise("Police Enterprise"),
         FireRescueEnterprise("Fire Rescue Enterprise"),
+        GovernmentEnterprise("Government Enterprise"),
         CourtEnterprise("Court Enterprise");
         
         private String value;

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.User;
+package userinterface.Government;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.Organization.UserOrganization;
 import Business.Role.Role;
+import Business.Role.UserRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -26,22 +28,33 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
      */
     JPanel container;
     Enterprise enterprise;
+
     public ManageUserAccountJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.container = userProcessContainer;
         this.enterprise = enterprise;
-         popOrganizationComboBox();
-       // employeeJComboBox.removeAllItems();
+        popOrganizationComboBox();
+        populateRoleComboBox(enterprise);
+        // employeeJComboBox.removeAllItems();
     }
 
     public void popOrganizationComboBox() {
         organizationJComboBox.removeAllItems();
 
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if(organization instanceof UserOrganization)
             organizationJComboBox.addItem(organization);
         }
     }
-        
+    
+    private void populateRoleComboBox(Enterprise e){
+        roleTxtField.removeAllItems();
+        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
+        if(organization instanceof UserOrganization){
+            roleTxtField.addItem(new UserRole());
+        }
+    }
+
     public void popData() {
 
         DefaultTableModel model = (DefaultTableModel) userJTable.getModel();
@@ -49,11 +62,13 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
-                Object row[] = new Object[2];
-                row[0] = ua;
-                row[1] = ua.getRole();
-                ((DefaultTableModel) userJTable.getModel()).addRow(row);
+            if (organization instanceof UserOrganization) {
+                for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
+                    Object row[] = new Object[2];
+                    row[0] = ua;
+                    row[1] = ua.getRole();
+                    ((DefaultTableModel) userJTable.getModel()).addRow(row);
+                }
             }
         }
     }
@@ -79,7 +94,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         organizationJComboBox = new javax.swing.JComboBox();
-        roleTxtField = new javax.swing.JTextField();
+        roleTxtField = new javax.swing.JComboBox<>();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -148,8 +163,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         });
         jPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 237, 146, -1));
 
-        roleTxtField.setEditable(false);
-        roleTxtField.setText("User");
+        roleTxtField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User" }));
         jPanel1.add(roleTxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 150, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -184,19 +198,18 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
         String userName = nameJTextField.getText();
         String password = passwordJTextField.getText();
-        if(!((userName.equals("") || (password.equals(""))))){
-            if(EcoSystem.checkIfUsernameIsUnique(userName)){
+        if (!((userName.equals("") || (password.equals(""))))) {
+            if (EcoSystem.checkIfUsernameIsUnique(userName)) {
                 Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-                String role;
-                role = roleTxtField.getText();
-                organization.getUserAccountDirectory().createUserAccount(userName, password);
+                Role role;
+                role = (Role) roleTxtField.getSelectedItem();
+                organization.getUserAccountDirectory().createUserAccount(userName, password, role);
                 popData();
-                JOptionPane.showMessageDialog(null,"User created successfully");
-            }
-            else{
+                JOptionPane.showMessageDialog(null, "User created successfully");
+            } else {
                 JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_createUserJButtonActionPerformed
@@ -218,7 +231,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField nameJTextField;
     private javax.swing.JComboBox organizationJComboBox;
     private javax.swing.JTextField passwordJTextField;
-    private javax.swing.JTextField roleTxtField;
+    private javax.swing.JComboBox<Object> roleTxtField;
     private javax.swing.JTable userJTable;
     // End of variables declaration//GEN-END:variables
 }

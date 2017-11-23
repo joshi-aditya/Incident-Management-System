@@ -37,7 +37,7 @@ public class FireRescueManageOrganizationJPanel extends javax.swing.JPanel {
         organizationJComboBox.removeAllItems();
        // for (Type type : Organization.Type.values()){
          //   if (!type.getValue().equals(Type.Admin.getValue()))
-                organizationJComboBox.addItem(Type.BPDOrganization);
+                organizationJComboBox.addItem(Type.FireRescueOrganization);
                // organizationJComboBox.addItem(Type.Supplier);
         //}
     }

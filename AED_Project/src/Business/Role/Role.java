@@ -24,8 +24,8 @@ public abstract class Role {
         PoliceAdmin("Police Admin"),
         CourtAdmin("Court Admin"),
         AmbulanceAdmin("Ambulance Admin"),
-        UserAdmin("User Admin"),
         FireRescueAdmin("Fire Rescue Admin"),
+        GovernmentAdmin("Government Admin"),
         PoliceOfficerRole("Police Officer");
 
         private String value;

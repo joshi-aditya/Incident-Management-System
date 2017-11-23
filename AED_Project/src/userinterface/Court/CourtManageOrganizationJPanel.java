@@ -37,7 +37,8 @@ public class CourtManageOrganizationJPanel extends javax.swing.JPanel {
         organizationJComboBox.removeAllItems();
        // for (Type type : Organization.Type.values()){
          //   if (!type.getValue().equals(Type.Admin.getValue()))
-                organizationJComboBox.addItem(Type.BPDOrganization);
+                organizationJComboBox.addItem(Type.CivilCourtOrganization);
+                organizationJComboBox.addItem(Type.CriminalCourtOrganization);
                // organizationJComboBox.addItem(Type.Supplier);
         //}
     }

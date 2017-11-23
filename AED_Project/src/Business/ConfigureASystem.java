@@ -18,10 +18,12 @@ public class ConfigureASystem {
      public static EcoSystem configure(){
         
         EcoSystem system = EcoSystem.getInstance();
-        
+         System.err.println("");
         Employee employee = system.getEmployeeDirectory().createEmployee("RRH");
         
         UserAccount ua = system.getUserAccountDirectory().createUserAccount("admin", "admin", employee, new SystemAdminRole());
+        
+        //UserAccount ua1 = system.getUserAccountDirectory().createUserAccount("uadmin", "uadmin",new UserAdminRole1());
         
         return system;
     }

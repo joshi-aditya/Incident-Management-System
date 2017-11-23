@@ -4,13 +4,11 @@
  */
 package userinterface.Court;
 
-import userinterface.Police.*;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
+import Business.Organization.CriminalCourtOrganization;
 import Business.Organization.Organization;
-import Business.Organization.BPDOrganization;
-import Business.Organization.Organization.Type;
 import Business.Role.Role;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
@@ -60,9 +58,11 @@ public class CourtManageUserAccountJPanel extends javax.swing.JPanel {
     private void populateRoleComboBox(Enterprise e){
         roleJComboBox.removeAllItems();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(organization instanceof BPDOrganization){
+        if(organization instanceof CriminalCourtOrganization){
        // for (Role role : e.getSupportedRole()){
-            roleJComboBox.addItem(new PoliceAdminRole());
+            //roleJComboBox.addItem(new PoliceAdminRole());
+        } else if(organization instanceof CriminalCourtOrganization){
+            //roleJComboBox.addItem(new PoliceAdminRole());
         }
         
         /*
@@ -206,8 +206,8 @@ public class CourtManageUserAccountJPanel extends javax.swing.JPanel {
                 
                 /*
                 if (role instanceof PoliceAdminRole){
-                    BPDOrganization organizations = new BPDOrganization();
-                    enterprise.getOrganizationDirectory().createOrganization(Type.BPDOrganization);
+                    PoliceOrganization organizations = new PoliceOrganization();
+                    enterprise.getOrganizationDirectory().createOrganization(Type.PoliceOrganization);
                     organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
                 }
                 */

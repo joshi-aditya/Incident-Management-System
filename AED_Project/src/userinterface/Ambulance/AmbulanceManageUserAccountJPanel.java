@@ -8,9 +8,11 @@ import userinterface.Police.*;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
+import Business.Organization.AmbulanceOrganization;
 import Business.Organization.Organization;
-import Business.Organization.BPDOrganization;
+import Business.Organization.PoliceOrganization;
 import Business.Organization.Organization.Type;
+import Business.Role.AmbulanceAdminRole;
 import Business.Role.Role;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
@@ -60,9 +62,9 @@ public class AmbulanceManageUserAccountJPanel extends javax.swing.JPanel {
     private void populateRoleComboBox(Enterprise e){
         roleJComboBox.removeAllItems();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(organization instanceof BPDOrganization){
+        if(organization instanceof AmbulanceOrganization){
        // for (Role role : e.getSupportedRole()){
-            roleJComboBox.addItem(new PoliceAdminRole());
+            roleJComboBox.addItem(new AmbulanceAdminRole());
         }
         
         /*
@@ -207,8 +209,8 @@ public class AmbulanceManageUserAccountJPanel extends javax.swing.JPanel {
                 
                 /*
                 if (role instanceof PoliceAdminRole){
-                    BPDOrganization organizations = new BPDOrganization();
-                    enterprise.getOrganizationDirectory().createOrganization(Type.BPDOrganization);
+                    PoliceOrganization organizations = new PoliceOrganization();
+                    enterprise.getOrganizationDirectory().createOrganization(Type.PoliceOrganization);
                     organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
                 }
                 */
