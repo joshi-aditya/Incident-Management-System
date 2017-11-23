@@ -45,6 +45,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         addressjTextField = new javax.swing.JTextField();
         zipCodejTextField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        LocateMeButton = new javax.swing.JButton();
 
         jLabel1.setText("What kind of incident you want to report ?");
 
@@ -65,6 +66,13 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
             }
         });
 
+        LocateMeButton.setText("Locate Me");
+        LocateMeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LocateMeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,7 +81,6 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -82,9 +89,10 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addressjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(zipCodejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(162, 162, 162)))
+                    .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(LocateMeButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,17 +101,19 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(addressjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addComponent(jLabel3))
                     .addComponent(zipCodejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(LocateMeButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addGap(96, 96, 96))
         );
@@ -123,9 +133,19 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         String zipCode = zipCodejTextField.getText();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void LocateMeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocateMeButtonActionPerformed
+        // TODO add your handling code here:
+	//GetLocationExample obj = new GetLocationExample();
+	//ServerLocation location = obj.getLocation("206.190.36.45");
+	//System.out.println(location);
+  
+        
+    }//GEN-LAST:event_LocateMeButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> IncidentreportComboBox;
+    private javax.swing.JButton LocateMeButton;
     private javax.swing.JTextField addressjTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
