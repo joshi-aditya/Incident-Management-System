@@ -30,6 +30,7 @@ public abstract class Organization {
         CivilCourtOrganization("CivilCourt Organization"), 
         CriminalCourtOrganization("CriminalCourt Organization"), 
         DrugEnforcementOrganization("DrugEnforcement Organization"),
+        User("User"),
         FireRescueOrganization("FireRescue Organization");
         private String value;
         private Type(String value) {

@@ -5,10 +5,23 @@
  */
 package Business.Enterprise;
 
+import Business.Role.FireRescueAdminRole;
+import Business.Role.Role;
+import java.util.HashSet;
+
 /**
  *
  * @author Neha Varshney
  */
-public class FireRescueEnterprise {
-    
+public class FireRescueEnterprise extends Enterprise {
+    public FireRescueEnterprise(String name) {
+        super(name, Enterprise.EnterpriseType.FireRescueEnterprise);
+    }
+
+    @Override
+    public HashSet<Role> getSupportedRole() {
+        roles= new HashSet<>();
+        roles.add(new FireRescueAdminRole());
+        return roles;
+    }
 }

@@ -14,7 +14,7 @@ import java.util.HashSet;
  * @author Neha Varshney
  */
 public class PoliceEnterprise extends Enterprise {
-        public PoliceEnterprise(String name) {
+    public PoliceEnterprise(String name) {
         super(name, Enterprise.EnterpriseType.PoliceEnterprise);
     }
 
