@@ -12,7 +12,16 @@ package Business.Incident;
 public class Incident {
    
     String address;
-    int pinCode;
+    String status;
+    int zipCode;
+    int incidentId;
+    private static int counter =0;
+
+    public Incident() {
+        counter ++;
+        incidentId = counter;
+    }
+    
     
     
     public enum IncidentType{
@@ -39,7 +48,40 @@ public class Incident {
         
 
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public int getIncidentId() {
+        return incidentId;
+    }
+    
+    @Override
+    public String toString() {
+        return address;
+    }
     
   
 }
