@@ -161,7 +161,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         try{
             if(!addressjTextField.getText().trim().isEmpty() && !zipCodejTextField.getText().trim().isEmpty()){
                 String address = addressjTextField.getText();
-                int zipCode = Integer.parseInt(zipCodejTextField.getText());
+                String zipCode = zipCodejTextField.getText();
 
                 IncidentWorkRequest incidentWorkRequest = new IncidentWorkRequest();
                 incidentWorkRequest.setAddress(address);

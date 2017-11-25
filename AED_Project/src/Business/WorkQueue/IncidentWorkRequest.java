@@ -12,7 +12,7 @@ package Business.WorkQueue;
 public class IncidentWorkRequest extends WorkRequest{
     
     String address;
-    int zipCode;
+    String zipCode;
     int incidentId;
     private static int counter =0;
     double latitude;
@@ -55,11 +55,11 @@ public class IncidentWorkRequest extends WorkRequest{
         this.address = address;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
