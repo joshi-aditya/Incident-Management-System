@@ -5,8 +5,10 @@
  */
 package userinterface.User;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Incident.Incident;
+import Business.Network.Network;
+import Business.UserAccount.UserAccount;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -23,13 +25,17 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
     
     private JPanel userProcessContainer;
     private Enterprise enterprise;
-    private Incident incident;
+    private UserAccount userAccount;
+    private EcoSystem ecoSystem;
+    private Network network;
 
-    public UserAreaWorkJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public UserAreaWorkJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network, EcoSystem ecoSystem) {
         initComponents();
         this.enterprise = enterprise;
         this.userProcessContainer = userProcessContainer;
-
+        this.userAccount = account;
+        this.network = network;
+        this.ecoSystem = ecoSystem;
     }
     public UserAreaWorkJPanel() {
         initComponents();
@@ -100,7 +106,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ReportAnIncidentJPanel incidentJPanel = new ReportAnIncidentJPanel(userProcessContainer, incident);
+        ReportAnIncidentJPanel incidentJPanel = new ReportAnIncidentJPanel(userProcessContainer, userAccount, enterprise, network, ecoSystem);
         userProcessContainer.add("ReportAnIncidentJPanel", incidentJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

@@ -5,13 +5,28 @@
  */
 package userinterface.User;
 
-import Business.Incident.Incident;
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.PoliceEnterprise;
+import Business.Network.Network;
+import Business.Organization.Organization;
+import Business.Organization.PoliceOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.IncidentWorkRequest.IncidentType;
 import java.io.File;
 import java.net.InetAddress;
 import javax.swing.JPanel;
 import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
-import com.maxmind.geoip.regionName;
+import javax.swing.JOptionPane;
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import java.io.FileReader;
+import java.util.ArrayList;
+import org.json.JSONObject;
 
 /**
  *
@@ -23,13 +38,26 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
      * Creates new form ReportAnIncidentJPanel
      */
     JPanel userProcessContainer;
-    Incident incident;
+    UserAccount userAccount;
+    Enterprise enterprise;
+    EcoSystem ecoSystem;
+    Network network;
 
-    ReportAnIncidentJPanel(JPanel userProcessContainer, Incident incident) {
+    ReportAnIncidentJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, Network network, EcoSystem ecoSystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.incident = incident;
-
+        this.userAccount = userAccount;
+        this.enterprise = enterprise;
+        this.ecoSystem = ecoSystem;
+        this.network = network;
+        populateIncidentType();
+    }
+    
+    public void populateIncidentType(){
+        IncidentreportComboBox.removeAllItems();
+        for(IncidentType type: IncidentWorkRequest.IncidentType.values()){
+            IncidentreportComboBox.addItem(type.getValue());
+        }
     }
 
     /**
@@ -47,7 +75,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         addressjTextField = new javax.swing.JTextField();
         zipCodejTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnReportIncident = new javax.swing.JButton();
         LocateMeButton = new javax.swing.JButton();
 
         jLabel1.setText("What kind of incident you want to report ?");
@@ -62,10 +90,10 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Zip Code:");
 
-        jButton1.setText("Submit Incident");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnReportIncident.setText("Report Incident");
+        btnReportIncident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnReportIncidentActionPerformed(evt);
             }
         });
 
@@ -95,7 +123,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                     .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(LocateMeButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
+                        .addComponent(btnReportIncident, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,7 +145,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(LocateMeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnReportIncident)
                 .addGap(96, 96, 96))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -128,12 +156,53 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_IncidentreportComboBoxActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnReportIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportIncidentActionPerformed
         // TODO add your handling code here:
-        //String type = ;
-        String address = addressjTextField.getText();
-        String zipCode = zipCodejTextField.getText();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try{
+            if(!addressjTextField.getText().trim().isEmpty() && !zipCodejTextField.getText().trim().isEmpty()){
+                String address = addressjTextField.getText();
+                int zipCode = Integer.parseInt(zipCodejTextField.getText());
+
+                IncidentWorkRequest incidentWorkRequest = new IncidentWorkRequest();
+                incidentWorkRequest.setAddress(address);
+                incidentWorkRequest.setZipCode(zipCode);
+                incidentWorkRequest.setSender(userAccount);
+                incidentWorkRequest.setStatus("Authorization Requested");
+                
+                String addressString = (address+", "+zipCode);
+
+//                Geocoder geocoder = new Geocoder();
+//                GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(addressString).setLanguage("en").getGeocoderRequest();
+//                GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+//                
+//                JSONObject obj = new JSONObject(geocoderResponse);
+//
+//                System.out.println(obj.getString("name")); //John
+                
+                Organization org = null;
+                
+                for(Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()){
+                    if(ent instanceof PoliceEnterprise){
+                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
+                            if (organization instanceof PoliceOrganization){
+
+                                organization.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
+                                break;
+                            }
+                        }
+                    }  
+                }
+                
+                addressjTextField.setText("");
+                zipCodejTextField.setText("");
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "Please enter all the details");
+            }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Please enter the correct details");
+        }
+    }//GEN-LAST:event_btnReportIncidentActionPerformed
 
     public String getLocation(String ipAddress) {
 
@@ -183,7 +252,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> IncidentreportComboBox;
     private javax.swing.JButton LocateMeButton;
     private javax.swing.JTextField addressjTextField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReportIncident;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
