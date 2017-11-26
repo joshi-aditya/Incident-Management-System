@@ -24,8 +24,7 @@ import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
-import java.io.FileReader;
-import java.util.ArrayList;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -171,15 +170,20 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 
                 String addressString = (address+", "+zipCode);
 
-//                Geocoder geocoder = new Geocoder();
-//                GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(addressString).setLanguage("en").getGeocoderRequest();
-//                GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-//                
-//                JSONObject obj = new JSONObject(geocoderResponse);
-//
-//                System.out.println(obj.getString("name")); //John
+                Geocoder geocoder = new Geocoder();
+                GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(addressString).setLanguage("en").getGeocoderRequest();
+                GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
                 
-                Organization org = null;
+                JSONObject json = new JSONObject(geocoderResponse);                
+                JSONArray result = json.getJSONArray("results");
+                JSONObject result1 = result.getJSONObject(0);
+                JSONObject geometry = result1.getJSONObject("geometry");
+                JSONObject locat = geometry.getJSONObject("location");
+                double lat = locat.getDouble("lat");
+                double lng = locat.getDouble("lng");
+                
+                incidentWorkRequest.setLatitude(lat);
+                incidentWorkRequest.setLongitude(lng);
                 
                 for(Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()){
                     if(ent instanceof PoliceEnterprise){
