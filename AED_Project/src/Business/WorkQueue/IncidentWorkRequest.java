@@ -18,6 +18,7 @@ public class IncidentWorkRequest extends WorkRequest{
     private static int counter =0;
     double latitude;
     double longitude;
+    String status;
 
     public IncidentWorkRequest() {
         counter ++;
@@ -48,6 +49,14 @@ public class IncidentWorkRequest extends WorkRequest{
         
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     public IncidentType getIncidentType() {
         return incidentType;
     }
@@ -106,6 +115,6 @@ public class IncidentWorkRequest extends WorkRequest{
     
     @Override
     public String toString() {
-        return address;
+        return String.valueOf(incidentId);
     }
 }

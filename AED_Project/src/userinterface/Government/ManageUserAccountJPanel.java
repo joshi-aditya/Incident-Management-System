@@ -35,6 +35,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         popOrganizationComboBox();
         populateRoleComboBox(enterprise);
+        popData();
         // employeeJComboBox.removeAllItems();
     }
 
@@ -74,13 +75,6 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 }
             }
         }
-    }
-
-    private void backjButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        container.remove(this);
-        CardLayout layout = (CardLayout) container.getLayout();
-        layout.previous(container);
     }
 
     private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +137,11 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         jLabel6.setText("Password");
 
         backjButton1.setText("<<back");
+        backjButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backjButton1ActionPerformed(evt);
+            }
+        });
 
         createUserJButton.setText("Create");
         createUserJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +191,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 .addGap(124, 124, 124))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {firstNameJTextField, lastNameJTextField, passwordJTextField, userNameJTextField});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {firstNameJTextField, lastNameJTextField, organizationJComboBox, passwordJTextField, roleTxtField, userNameJTextField});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6});
 
@@ -235,27 +234,33 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
         // TODO add your handling code here:
-         String firstName = firstNameJTextField.getText();
+        String firstName = firstNameJTextField.getText();
         String lastName = lastNameJTextField.getText();
-        String userName = lastNameJTextField.getText();
+        String userName = userNameJTextField.getText();
         String password = passwordJTextField.getText();
         if (!((userName.equals("") || (password.equals(""))))) {
             if (EcoSystem.checkIfUsernameIsUnique(userName)) {
                 Organization organization = (Organization) organizationJComboBox.getSelectedItem();
                 Role role;
                 role = (Role) roleTxtField.getSelectedItem();
-                organization.getUserAccountDirectory().createUserAccount(userName, password, role,firstName,lastName);
+                organization.getUserAccountDirectory().createUserAccount(userName, password, role, firstName, lastName);
                 popData();
                 JOptionPane.showMessageDialog(null, "User created successfully");
-            } 
-            else{
-                        JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_createUserJButtonActionPerformed
+
+    private void backjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backjButton1ActionPerformed
+        // TODO add your handling code here:
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);
+    }//GEN-LAST:event_backjButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

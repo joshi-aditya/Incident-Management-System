@@ -185,7 +185,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 incidentWorkRequest.setAddress(address);
                 incidentWorkRequest.setZipCode(zipCode);
                 incidentWorkRequest.setSender(userAccount);
-                incidentWorkRequest.setStatus("Authorization Requested");
+                incidentWorkRequest.setStatus("Authentication Required");
                 
                 String addressString = (address+", "+zipCode);
 
@@ -216,6 +216,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                     }  
                 }
                 
+                JOptionPane.showMessageDialog(null, "Incident Reported");
                 addressjTextField.setText("");
                 zipCodejTextField.setText("");
                 

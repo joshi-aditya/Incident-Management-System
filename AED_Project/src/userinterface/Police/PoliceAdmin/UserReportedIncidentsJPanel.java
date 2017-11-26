@@ -10,6 +10,7 @@ import Business.Organization.Organization;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,35 +19,36 @@ import javax.swing.table.DefaultTableModel;
  * @author Sneha
  */
 public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
-    
+
     /**
      * Creates new form UserReportedIncidentsJPanel
      */
-    
     private JPanel userProcessContainer;
     private Enterprise enterprise;
-    
+
     public UserReportedIncidentsJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         populateTable();
     }
-    
-    public void populateTable(){
-        
+
+    public void populateTable() {
+
         DefaultTableModel model = (DefaultTableModel) ReportedIncidentTable.getModel();
         model.setRowCount(0);
-        
-        for (Organization org: enterprise.getOrganizationDirectory().getOrganizationList()){
-            for(WorkRequest req: org.getWorkQueue().getWorkRequestList() ){
-                if(req instanceof IncidentWorkRequest){
-                    
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (WorkRequest req : org.getWorkQueue().getWorkRequestList()) {
+                if (req instanceof IncidentWorkRequest) {
+
                     IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) req;
-                    Object[] row = new Object[3];
-                    row[0] = incidentWorkRequest.getSender().getUserName();
+                    Object[] row = new Object[5];
+                    row[0] = incidentWorkRequest;
                     row[1] = incidentWorkRequest.getIncidentType();
-                    row[2] = incidentWorkRequest.getZipCode();
+                    row[2] = incidentWorkRequest.getSender().getUserName();
+                    row[3] = incidentWorkRequest.getZipCode();
+                    row[4] = incidentWorkRequest.getStatus();
 
                     model.addRow(row);
                 }
@@ -75,11 +77,11 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Username", "Incident Type", "Area"
+                "Incident ID", "Incident Type", "Username", "Area", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -92,8 +94,18 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         }
 
         jButton1.setText("Authenticate an incident");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Investigate the case");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Close the case");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +133,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -150,8 +162,34 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            IncidentWorkRequest request = (IncidentWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            request.setStatus("Resolved");
+            populateTable();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row from the table first!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            IncidentWorkRequest request = (IncidentWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            request.setStatus("Authenticated");
+            populateTable();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row from the table first!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
