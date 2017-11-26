@@ -4,7 +4,6 @@
  */
 package userinterface.Government;
 
-import userinterface.Police.*;
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;

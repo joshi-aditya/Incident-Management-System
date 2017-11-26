@@ -11,6 +11,7 @@ package Business.WorkQueue;
  */
 public class IncidentWorkRequest extends WorkRequest{
     
+    IncidentType incidentType;
     String address;
     String zipCode;
     int incidentId;
@@ -45,6 +46,14 @@ public class IncidentWorkRequest extends WorkRequest{
             return value;
         }
         
+    }
+
+    public IncidentType getIncidentType() {
+        return incidentType;
+    }
+
+    public void setIncidentType(IncidentType incidentType) {
+        this.incidentType = incidentType;
     }
 
     public String getAddress() {

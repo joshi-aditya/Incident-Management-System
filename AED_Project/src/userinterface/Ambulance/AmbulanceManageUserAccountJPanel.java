@@ -4,7 +4,6 @@
  */
 package userinterface.Ambulance;
 
-import userinterface.Police.*;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;

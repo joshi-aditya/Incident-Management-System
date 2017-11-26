@@ -163,6 +163,13 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 String zipCode = zipCodejTextField.getText();
 
                 IncidentWorkRequest incidentWorkRequest = new IncidentWorkRequest();
+                
+                for(IncidentType type: IncidentWorkRequest.IncidentType.values()){
+                    if(IncidentreportComboBox.getSelectedItem().toString().equals(type.getValue())){
+                        incidentWorkRequest.setIncidentType(type);
+                    }
+                }
+                
                 incidentWorkRequest.setAddress(address);
                 incidentWorkRequest.setZipCode(zipCode);
                 incidentWorkRequest.setSender(userAccount);
