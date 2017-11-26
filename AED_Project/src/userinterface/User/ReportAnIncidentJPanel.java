@@ -24,6 +24,7 @@ import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
+import java.awt.CardLayout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -76,6 +77,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         zipCodejTextField = new javax.swing.JTextField();
         btnReportIncident = new javax.swing.JButton();
         LocateMeButton = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("What kind of incident you want to report ?");
 
@@ -103,6 +105,13 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("<< Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,6 +119,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +155,9 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 .addComponent(LocateMeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReportIncident)
-                .addGap(96, 96, 96))
+                .addGap(18, 18, 18)
+                .addComponent(btnBack)
+                .addGap(55, 55, 55))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -258,11 +270,19 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_LocateMeButtonActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> IncidentreportComboBox;
     private javax.swing.JButton LocateMeButton;
     private javax.swing.JTextField addressjTextField;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReportIncident;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

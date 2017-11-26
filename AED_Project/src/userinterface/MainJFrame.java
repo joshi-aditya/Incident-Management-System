@@ -130,6 +130,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         }
                     } else {
                         inEnterprise = enterprise;
+                        inNetwork = network;
                         break;
                     }
                     if (inOrganization != null) {

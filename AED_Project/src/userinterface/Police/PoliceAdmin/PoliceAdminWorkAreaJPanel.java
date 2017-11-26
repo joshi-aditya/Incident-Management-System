@@ -1,12 +1,15 @@
 /*
  * AdminWorkAreaJPanel.java
  *
- * Created on October 10, 2008, 8:50 AM
  */
 
 package userinterface.Police.PoliceAdmin;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -17,12 +20,20 @@ import javax.swing.JPanel;
 public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
+    UserAccount userAccount;
+    Organization organization;
     Enterprise enterprise;
+    Network network;
+    EcoSystem ecoSystem;
     /** Creates new form AdminWorkAreaJPanel */
-    public PoliceAdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public PoliceAdminWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem ecoSystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
+        this.userAccount = account;
+        this.organization = organization;
         this.enterprise = enterprise;
+        this.network = network;
+        this.ecoSystem = ecoSystem;
         valueLabel.setText(enterprise.getName());
     }
     
@@ -40,7 +51,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         manageOrganizationJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBroadcastMsg = new javax.swing.JButton();
         btnUserReportedIncidents = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -80,8 +91,13 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel.setText("<value>");
         add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 130, -1));
 
-        jButton1.setText("Broadcast Messages");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 150, -1));
+        btnBroadcastMsg.setText("Broadcast Messages");
+        btnBroadcastMsg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBroadcastMsgActionPerformed(evt);
+            }
+        });
+        add(btnBroadcastMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 150, -1));
 
         btnUserReportedIncidents.setText("User Reported Incidents");
         btnUserReportedIncidents.addActionListener(new java.awt.event.ActionListener() {
@@ -126,12 +142,20 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnUserReportedIncidentsActionPerformed
+
+    private void btnBroadcastMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBroadcastMsgActionPerformed
+        // TODO add your handling code here:
+        BroadcastMessageJPanel panel = new BroadcastMessageJPanel(userProcessContainer, userAccount, enterprise, network);
+        userProcessContainer.add("BroadcastMessageJPanel", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnBroadcastMsgActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBroadcastMsg;
     private javax.swing.JButton btnUserReportedIncidents;
     private javax.swing.JLabel enterpriseLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton manageEmployeeJButton;
     private javax.swing.JButton manageOrganizationJButton;

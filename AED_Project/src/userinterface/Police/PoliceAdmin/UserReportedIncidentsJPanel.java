@@ -9,6 +9,7 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,11 +23,12 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
      * Creates new form UserReportedIncidentsJPanel
      */
     
-    private JPanel container;
+    private JPanel userProcessContainer;
     private Enterprise enterprise;
     
-    public UserReportedIncidentsJPanel(JPanel container, Enterprise enterprise) {
+    public UserReportedIncidentsJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         populateTable();
     }
@@ -38,13 +40,16 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         
         for (Organization org: enterprise.getOrganizationDirectory().getOrganizationList()){
             for(WorkRequest req: org.getWorkQueue().getWorkRequestList() ){
-                IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) req;
-                Object[] row = new Object[3];
-                row[0] = incidentWorkRequest.getSender().getUserName();
-                row[1] = incidentWorkRequest.getIncidentType();
-                row[2] = incidentWorkRequest.getZipCode();
-                
-                model.addRow(row);
+                if(req instanceof IncidentWorkRequest){
+                    
+                    IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) req;
+                    Object[] row = new Object[3];
+                    row[0] = incidentWorkRequest.getSender().getUserName();
+                    row[1] = incidentWorkRequest.getIncidentType();
+                    row[2] = incidentWorkRequest.getZipCode();
+
+                    model.addRow(row);
+                }
             }
         }
     }
@@ -63,6 +68,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        backJButton = new javax.swing.JButton();
 
         ReportedIncidentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,6 +96,18 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         jButton2.setText("Investigate the case");
 
         jButton3.setText("Close the case");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        backJButton.setText("<< Back");
+        backJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -98,11 +116,12 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backJButton)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,19 +129,33 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(33, 33, 33)
                 .addComponent(jButton1)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(backJButton)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backJButtonActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
+    private javax.swing.JButton backJButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

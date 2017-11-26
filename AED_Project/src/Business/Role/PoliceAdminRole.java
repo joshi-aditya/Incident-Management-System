@@ -20,7 +20,7 @@ import userinterface.Police.PoliceAdmin.PoliceAdminWorkAreaJPanel;
 public class PoliceAdminRole extends Role{
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
-        return new PoliceAdminWorkAreaJPanel(userProcessContainer, enterprise);
+        return new PoliceAdminWorkAreaJPanel(userProcessContainer, account, organization, enterprise, network, business);
     }
 
     @Override

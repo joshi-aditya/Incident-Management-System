@@ -8,10 +8,13 @@ package userinterface.User;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-
+import Business.WorkQueue.BroadcastWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,19 +29,36 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private Enterprise enterprise;
     private UserAccount userAccount;
+    private Organization organization;
     private EcoSystem ecoSystem;
     private Network network;
 
-    public UserAreaWorkJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise, Network network, EcoSystem ecoSystem) {
+    public UserAreaWorkJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem ecoSystem) {
         initComponents();
         this.enterprise = enterprise;
         this.userProcessContainer = userProcessContainer;
+        this.organization = organization;
         this.userAccount = account;
         this.network = network;
         this.ecoSystem = ecoSystem;
+        populateTable();
     }
-    public UserAreaWorkJPanel() {
-        initComponents();
+    
+    public void populateTable(){
+        DefaultTableModel model = (DefaultTableModel) tblMessage.getModel();
+        model.setRowCount(0);
+        
+        for(WorkRequest req: organization.getWorkQueue().getWorkRequestList() ){
+            if(req instanceof BroadcastWorkRequest){
+                    
+                BroadcastWorkRequest broadcastWorkRequest = (BroadcastWorkRequest) req;
+                Object[] row = new Object[2];
+                row[0] = broadcastWorkRequest.getTimestamp();
+                row[1] = broadcastWorkRequest.getMessage();
+
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -52,7 +72,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
 
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblMessage = new javax.swing.JTable();
 
         jButton1.setText("Report an incident");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -61,23 +81,23 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblMessage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null}
+
             },
             new String [] {
-                "Broadcasted Messages"
+                "Date", "Message"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblMessage);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,6 +136,6 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblMessage;
     // End of variables declaration//GEN-END:variables
 }
