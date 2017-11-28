@@ -100,7 +100,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Investigate the case");
+        jButton2.setText("Create a case");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -188,7 +188,10 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+        PoliceManageCasesJPanel panel = new PoliceManageCasesJPanel(userProcessContainer, enterprise);
+        userProcessContainer.add("PoliceManageCasesJPanel", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

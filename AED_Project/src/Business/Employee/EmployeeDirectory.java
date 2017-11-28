@@ -23,9 +23,17 @@ public class EmployeeDirectory {
         return employeeList;
     }
     
-     public Employee createEmployee(String name){
+    public Employee createEmployee(String name){
         Employee employee = new Employee();
         employee.setName(name);
+        employeeList.add(employee);
+        return employee;
+    }
+    
+     public Employee createEmployee(String name,String location){
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setLocation(location);
         employeeList.add(employee);
         return employee;
     }

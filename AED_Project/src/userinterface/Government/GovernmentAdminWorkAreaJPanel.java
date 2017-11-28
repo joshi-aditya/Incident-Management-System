@@ -85,7 +85,7 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 150, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 150, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
