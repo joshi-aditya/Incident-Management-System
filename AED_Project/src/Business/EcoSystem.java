@@ -23,8 +23,16 @@ public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private ArrayList<Network> networkList;
+    private ArrayList locationList;
 
+    public ArrayList getLocationList() { 
+        return locationList;
+    }
 
+    public void setLocationList(ArrayList locationList) {
+        this.locationList = locationList;
+    }
+    
     public static EcoSystem getInstance() {
         if (business == null) {
             business = new EcoSystem();

@@ -6,24 +6,27 @@
 package userinterface.Police.PoliceAdmin;
 
 import Business.Enterprise.Enterprise;
+import Business.WorkQueue.IncidentWorkRequest;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Sneha
  */
-public class PoliceManageCasesJPanel extends javax.swing.JPanel {
+public class PoliceCreateACaseJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form PoliceManageCasesJPanel
+     * Creates new form PoliceCreateACaseJPanel
      */
     JPanel userProcessContainer;
     Enterprise enterprise;
+    IncidentWorkRequest incidentWorkRequest;
     
-    PoliceManageCasesJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    PoliceCreateACaseJPanel(JPanel userProcessContainer, IncidentWorkRequest incidentWorkRequest,Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.incidentWorkRequest = incidentWorkRequest;
     }
 
     /**
@@ -35,30 +38,19 @@ public class PoliceManageCasesJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-
-        jButton1.setText("Further investigate the case");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+            .addGap(0, 648, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jButton1)
-                .addContainerGap(369, Short.MAX_VALUE))
+            .addGap(0, 477, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

@@ -68,7 +68,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         ReportedIncidentTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCreateCase = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         backJButton = new javax.swing.JButton();
 
@@ -100,10 +100,10 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Create a case");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateCase.setText("Create a case");
+        btnCreateCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCreateCaseActionPerformed(evt);
             }
         });
 
@@ -132,7 +132,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCreateCase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
@@ -144,7 +144,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnCreateCase)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
@@ -186,19 +186,24 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCreateCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCaseActionPerformed
         // TODO add your handling code here:
-        PoliceManageCasesJPanel panel = new PoliceManageCasesJPanel(userProcessContainer, enterprise);
-        userProcessContainer.add("PoliceManageCasesJPanel", panel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
+        if(selectedRow >= 0){
+            IncidentWorkRequest request = (IncidentWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            PoliceCreateACaseJPanel panel = new PoliceCreateACaseJPanel(userProcessContainer, request,enterprise);
+            userProcessContainer.add("PoliceCreateACaseJPanel", panel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }
+        
+    }//GEN-LAST:event_btnCreateCaseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
     private javax.swing.JButton backJButton;
+    private javax.swing.JButton btnCreateCase;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
