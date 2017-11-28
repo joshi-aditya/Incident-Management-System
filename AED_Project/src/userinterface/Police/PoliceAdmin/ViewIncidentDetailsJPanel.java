@@ -7,22 +7,23 @@ package userinterface.Police.PoliceAdmin;
 
 import Business.Enterprise.Enterprise;
 import Business.WorkQueue.IncidentWorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Sneha
  */
-public class PoliceCreateACaseJPanel extends javax.swing.JPanel {
+public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form PoliceCreateACaseJPanel
+     * Creates new form ViewIncidentDetailsJPanel
      */
     JPanel userProcessContainer;
     Enterprise enterprise;
     IncidentWorkRequest incidentWorkRequest;
     
-    PoliceCreateACaseJPanel(JPanel userProcessContainer, IncidentWorkRequest incidentWorkRequest,Enterprise enterprise) {
+    ViewIncidentDetailsJPanel(JPanel userProcessContainer, IncidentWorkRequest incidentWorkRequest,Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
@@ -38,19 +39,42 @@ public class PoliceCreateACaseJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        backJButton = new javax.swing.JButton();
+
+        backJButton.setText("<< Back");
+        backJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 648, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backJButton)
+                .addContainerGap(565, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(387, Short.MAX_VALUE)
+                .addComponent(backJButton)
+                .addGap(67, 67, 67))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backJButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backJButton;
     // End of variables declaration//GEN-END:variables
 }

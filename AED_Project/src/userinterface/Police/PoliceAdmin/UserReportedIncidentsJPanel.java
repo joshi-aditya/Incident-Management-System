@@ -68,7 +68,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         ReportedIncidentTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        btnCreateCase = new javax.swing.JButton();
+        btnViewIncident = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         backJButton = new javax.swing.JButton();
 
@@ -100,10 +100,10 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnCreateCase.setText("Create a case");
-        btnCreateCase.addActionListener(new java.awt.event.ActionListener() {
+        btnViewIncident.setText("View Incident Details");
+        btnViewIncident.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateCaseActionPerformed(evt);
+                btnViewIncidentActionPerformed(evt);
             }
         });
 
@@ -132,8 +132,8 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCreateCase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)))
+                        .addComponent(btnViewIncident, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,7 +144,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
-                .addComponent(btnCreateCase)
+                .addComponent(btnViewIncident)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
@@ -186,23 +186,25 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnCreateCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCaseActionPerformed
+    private void btnViewIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewIncidentActionPerformed
         // TODO add your handling code here:
         int selectedRow = ReportedIncidentTable.getSelectedRow();
         if(selectedRow >= 0){
             IncidentWorkRequest request = (IncidentWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
-            PoliceCreateACaseJPanel panel = new PoliceCreateACaseJPanel(userProcessContainer, request,enterprise);
-            userProcessContainer.add("PoliceCreateACaseJPanel", panel);
+            ViewIncidentDetailsJPanel panel = new ViewIncidentDetailsJPanel(userProcessContainer, request,enterprise);
+            userProcessContainer.add("ViewIncidentDetailsJPanel", panel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an incident from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         
-    }//GEN-LAST:event_btnCreateCaseActionPerformed
+    }//GEN-LAST:event_btnViewIncidentActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
     private javax.swing.JButton backJButton;
-    private javax.swing.JButton btnCreateCase;
+    private javax.swing.JButton btnViewIncident;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
