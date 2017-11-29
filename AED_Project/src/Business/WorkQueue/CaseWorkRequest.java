@@ -36,7 +36,6 @@ public class CaseWorkRequest extends WorkRequest {
     public void setCaseID(int caseID) {
         this.caseID = caseID;
     }
-
     
     public UserAccount getIncidentReportedBy() {
         return incidentReportedBy;
@@ -92,6 +91,11 @@ public class CaseWorkRequest extends WorkRequest {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+    
+    @Override
+    public String toString() {
+        return String.valueOf(caseID);
     }
 
 }

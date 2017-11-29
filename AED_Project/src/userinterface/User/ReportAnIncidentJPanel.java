@@ -15,7 +15,6 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest.IncidentType;
 import java.io.File;
-import java.net.InetAddress;
 import javax.swing.JPanel;
 import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
@@ -80,6 +79,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         msgTextArea = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setText("What kind of incident you want to report ?");
 
@@ -113,6 +113,9 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         msgTextArea.setRows(5);
         jScrollPane1.setViewportView(msgTextArea);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Report an incident");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,7 +124,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -131,20 +134,27 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addressjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(zipCodejTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                                    .addComponent(btnReportIncident)))))
+                                    .addComponent(btnReportIncident)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(addressjTextField)
+                                        .addGap(91, 91, 91))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnBack)))
-                .addContainerGap(414, Short.MAX_VALUE))
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)))
+                .addContainerGap(421, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,7 +172,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnReportIncident)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(54, 54, 54))
         );
@@ -284,6 +294,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea msgTextArea;
     private javax.swing.JTextField zipCodejTextField;

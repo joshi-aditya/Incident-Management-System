@@ -162,9 +162,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageCaseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCaseBtnActionPerformed
         // TODO add your handling code here:
-        ManageCasesJPanel manageCasesJPanel = new ManageCasesJPanel(userProcessContainer);
-        ///////only added userprocesscontainer for noe --- Edit
-        
+        ManageCasesJPanel manageCasesJPanel = new ManageCasesJPanel(userProcessContainer, enterprise);
         userProcessContainer.add("ManageCasesJPanel", manageCasesJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
