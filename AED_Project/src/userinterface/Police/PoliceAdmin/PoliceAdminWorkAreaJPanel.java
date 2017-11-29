@@ -53,6 +53,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel = new javax.swing.JLabel();
         btnBroadcastMsg = new javax.swing.JButton();
         btnUserReportedIncidents = new javax.swing.JButton();
+        manageCaseBtn = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -66,7 +67,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 userJButtonActionPerformed(evt);
             }
         });
-        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 250, -1));
+        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, 250, -1));
 
         manageEmployeeJButton.setText("Manage Employee");
         manageEmployeeJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +75,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageEmployeeJButtonActionPerformed(evt);
             }
         });
-        add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 250, -1));
+        add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 250, -1));
 
         manageOrganizationJButton.setText("Manage Organization");
         manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +83,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageOrganizationJButtonActionPerformed(evt);
             }
         });
-        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 250, -1));
+        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 250, -1));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Enterprise :");
@@ -106,6 +107,14 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(btnUserReportedIncidents, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 230, -1));
+
+        manageCaseBtn.setText("Manage Cases");
+        manageCaseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageCaseBtnActionPerformed(evt);
+            }
+        });
+        add(manageCaseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 230, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
@@ -150,6 +159,16 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnBroadcastMsgActionPerformed
+
+    private void manageCaseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCaseBtnActionPerformed
+        // TODO add your handling code here:
+        ManageCasesJPanel manageCasesJPanel = new ManageCasesJPanel(userProcessContainer);
+        ///////only added userprocesscontainer for noe --- Edit
+        
+        userProcessContainer.add("ManageCasesJPanel", manageCasesJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_manageCaseBtnActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -157,6 +176,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnUserReportedIncidents;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton manageCaseBtn;
     private javax.swing.JButton manageEmployeeJButton;
     private javax.swing.JButton manageOrganizationJButton;
     private javax.swing.JButton userJButton;
