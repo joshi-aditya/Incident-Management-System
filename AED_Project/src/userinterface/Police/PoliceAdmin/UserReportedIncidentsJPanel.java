@@ -10,6 +10,7 @@ import Business.Organization.Organization;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -37,12 +38,13 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) ReportedIncidentTable.getModel();
         model.setRowCount(0);
-
+        
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            for (WorkRequest req : org.getWorkQueue().getWorkRequestList()) {
-                if (req instanceof IncidentWorkRequest) {
+            ArrayList<WorkRequest> reqObj = org.getWorkQueue().getWorkRequestList();
+            for (int i = org.getWorkQueue().getWorkRequestList().size() - 1 ; i>=0 ; i--) {
+                if (reqObj.get(i) instanceof IncidentWorkRequest) {
 
-                    IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) req;
+                    IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) reqObj.get(i);
                     Object[] row = new Object[5];
                     row[0] = incidentWorkRequest;
                     row[1] = incidentWorkRequest.getIncidentType();
@@ -55,6 +57,17 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                 }
             }
         }
+        
+        //Timer to refresh table every 5 seconds
+        new java.util.Timer().schedule( 
+            new java.util.TimerTask() {
+                @Override
+                public void run() {
+                    populateTable();
+                }
+            }, 
+            5000
+        );
     }
 
     /**
@@ -78,7 +91,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Incident ID", "Incident Type", "Username", "Address", "Status"
+                "Incident ID", "Incident Type", "Reported By", "Address", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -138,7 +151,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnViewIncident, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

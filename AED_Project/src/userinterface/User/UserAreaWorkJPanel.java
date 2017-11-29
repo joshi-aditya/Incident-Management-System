@@ -11,7 +11,6 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BroadcastWorkRequest;
-import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -48,10 +47,10 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblMessage.getModel();
         model.setRowCount(0);
         
-        for(WorkRequest req: organization.getWorkQueue().getWorkRequestList() ){
-            if(req instanceof BroadcastWorkRequest){
+        for(int i = organization.getWorkQueue().getWorkRequestList().size() - 1 ; i >= 0 ; i-- ){
+            if(organization.getWorkQueue().getWorkRequestList().get(i) instanceof BroadcastWorkRequest){
                     
-                BroadcastWorkRequest broadcastWorkRequest = (BroadcastWorkRequest) req;
+                BroadcastWorkRequest broadcastWorkRequest = (BroadcastWorkRequest) organization.getWorkQueue().getWorkRequestList().get(i);
                 Object[] row = new Object[2];
                 row[0] = broadcastWorkRequest.getTimestamp();
                 row[1] = broadcastWorkRequest.getMessage();
@@ -59,6 +58,17 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                 model.addRow(row);
             }
         }
+        
+        //Timer to refresh table every 60 seconds
+        new java.util.Timer().schedule( 
+            new java.util.TimerTask() {
+                @Override
+                public void run() {
+                    populateTable();
+                }
+            }, 
+            60000
+        );
     }
 
     /**
