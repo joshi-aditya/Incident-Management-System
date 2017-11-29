@@ -19,6 +19,7 @@ public class IncidentWorkRequest extends WorkRequest{
     double latitude;
     double longitude;
     String status;
+    boolean caseCreated = false;
 
     public IncidentWorkRequest() {
         counter ++;
@@ -111,6 +112,14 @@ public class IncidentWorkRequest extends WorkRequest{
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public boolean isCaseCreated() {
+        return caseCreated;
+    }
+
+    public void setCaseCreated(boolean caseCreated) {
+        this.caseCreated = caseCreated;
     }
     
     @Override

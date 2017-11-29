@@ -8,6 +8,7 @@ package userinterface.Police.PoliceAdmin;
 import Business.Enterprise.Enterprise;
 import Business.WorkQueue.IncidentWorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -107,6 +108,11 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
         });
 
         createBtn.setText("Create Case");
+        createBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createBtnActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Incident Type:");
 
@@ -218,6 +224,19 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
     private void statusjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusjTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_statusjTextFieldActionPerformed
+
+    private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
+        // TODO add your handling code here:
+        if(incidentWorkRequest.isCaseCreated() == false){
+            
+            CreateNewCaseJPanel panel = new CreateNewCaseJPanel(userProcessContainer, incidentWorkRequest, enterprise);
+            userProcessContainer.add("CreateNewCaseJPanel", panel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        } else {
+            JOptionPane.showMessageDialog(this, "Case already exists for this incident!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_createBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

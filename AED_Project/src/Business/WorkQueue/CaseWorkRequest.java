@@ -19,10 +19,14 @@ public class CaseWorkRequest extends WorkRequest {
     private String suspectName;
     private int caseID; 
     private static int counter = 1;
+    private String initialObservation;
+    private String incidentType;
+    private String address;
+    private String zipCode;
 
     public CaseWorkRequest() {
         caseID = counter;
-        
+        counter++;
     }
 
     public int getCaseID() {
@@ -57,6 +61,37 @@ public class CaseWorkRequest extends WorkRequest {
     public void setSuspectName(String suspectName) {
         this.suspectName = suspectName;
     }
-    
+
+    public String getInitialObservation() {
+        return initialObservation;
+    }
+
+    public void setInitialObservation(String initialObservation) {
+        this.initialObservation = initialObservation;
+    }
+
+    public String getIncidentType() {
+        return incidentType;
+    }
+
+    public void setIncidentType(String incidentType) {
+        this.incidentType = incidentType;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
 
 }
