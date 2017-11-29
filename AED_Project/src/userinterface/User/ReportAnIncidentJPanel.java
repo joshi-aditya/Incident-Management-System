@@ -228,6 +228,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Incident Reported");
                 addressjTextField.setText("");
                 zipCodejTextField.setText("");
+                msgTextArea.setText("");
                 
             }else{
                 JOptionPane.showMessageDialog(null, "Please enter all the details");
