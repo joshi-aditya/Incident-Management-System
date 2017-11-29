@@ -5,12 +5,15 @@
  */
 package userinterface.Police.PoliceAdmin;
 
+import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.Police.PoliceOfficer.PoliceOfficerWorkAreaJPanel;
 
 /**
  *
@@ -30,6 +33,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         populateTable();
+        populatePoliceTable();
     }
     
     public void populateTable(){
@@ -51,6 +55,32 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             }
         }
     }
+    
+    public void populatePoliceTable()
+    {
+        
+        DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
+        dtm.setRowCount(0);
+        
+        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+            
+                for(Employee emp: org.getEmployeeDirectory().getEmployeeList()){
+                Object[] row = new Object[3];
+                row[0] = emp;
+                row[1] = emp.getId();
+                row[2] = emp.getLocation();
+                
+                
+                dtm.addRow(row);
+                    }
+        
+        
+    }
+    }
+    
+    
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,6 +95,11 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCases = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        nearestPolicejButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        policeOfficerjTable = new javax.swing.JTable();
+        assignjButton = new javax.swing.JButton();
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -101,17 +136,64 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Manage Cases");
 
+        jLabel3.setText("Nearest Police Officers: ------ to be done ");
+
+        nearestPolicejButton.setText("Find Nearest Ofiicers");
+
+        policeOfficerjTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Officer Name", "Officer Id", "Zip Code"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(policeOfficerjTable);
+        if (policeOfficerjTable.getColumnModel().getColumnCount() > 0) {
+            policeOfficerjTable.getColumnModel().getColumn(0).setResizable(false);
+            policeOfficerjTable.getColumnModel().getColumn(1).setResizable(false);
+            policeOfficerjTable.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        assignjButton.setText("Assign to selected Officer");
+        assignjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backJButton)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(162, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backJButton)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel3)
+                        .addGap(63, 63, 63)
+                        .addComponent(nearestPolicejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addComponent(assignjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,9 +202,17 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(nearestPolicejButton))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(assignjButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addComponent(backJButton)
-                .addGap(70, 70, 70))
+                .addGap(27, 27, 27))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -133,11 +223,21 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
+    private void assignjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignjButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_assignjButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton assignjButton;
     private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton nearestPolicejButton;
+    private javax.swing.JTable policeOfficerjTable;
     private javax.swing.JTable tblCases;
     // End of variables declaration//GEN-END:variables
 }

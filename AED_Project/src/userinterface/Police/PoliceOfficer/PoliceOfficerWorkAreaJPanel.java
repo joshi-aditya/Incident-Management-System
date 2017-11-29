@@ -7,6 +7,7 @@ package userinterface.Police.PoliceOfficer;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -29,6 +30,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        populateTable();
     }
 
     /**
@@ -57,7 +59,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Incident ID", "Incident Type", "Username", "Area", "Status"
+                "Case ID", "Incident Type", "Date", "Area ZipCode", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -106,6 +108,34 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void populateTable(){
+        
+        DefaultTableModel dtm = (DefaultTableModel) ReportedIncidentTable.getModel();
+        dtm.setRowCount(0);
+        
+        for(WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()){
+            
+            if( req instanceof CaseWorkRequest){
+                
+                CaseWorkRequest caseRequest = (CaseWorkRequest)req;
+                Object[] row =new Object[5];
+                row[0] = caseRequest;
+                row[1] = caseRequest.getIncidentType();
+                row[2] = caseRequest.getSender().getUserName();
+                row[3] = caseRequest.getZipCode();
+                row[4] = caseRequest.getStatus();
+                
+                dtm.addRow(row);
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
     private javax.swing.JButton jButton1;
