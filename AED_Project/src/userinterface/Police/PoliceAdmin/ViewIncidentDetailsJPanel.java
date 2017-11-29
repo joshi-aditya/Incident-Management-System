@@ -30,19 +30,24 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
         this.incidentWorkRequest = incidentWorkRequest;
         displayIncident();
         
+        
     }
 
     public void displayIncident(){
         
+       int id= incidentWorkRequest.getIncidentId();        
        String type= incidentWorkRequest.getIncidentType().getValue();
-       String userName = incidentWorkRequest.getSender().getFirstName()+" "+incidentWorkRequest.getSender().getLastName();
-       String area= incidentWorkRequest.getAddress();
+       String fullName = incidentWorkRequest.getSender().getFirstName()+" "+incidentWorkRequest.getSender().getLastName();
+       String area= incidentWorkRequest.getAddress()+" "+incidentWorkRequest.getZipCode();
        String message= incidentWorkRequest.getMessage();
+       String status = incidentWorkRequest.getStatus();
        
+       incidentIDjTextField.setText(String.valueOf(id));
        incidentTypejTextField.setText(type);
-       usernamejTextField.setText(userName);
+       usernamejTextField.setText(fullName);
        areaTextField.setText(area);
        messageTextField.setText(message);
+       statusjTextField.setText(status);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,6 +67,11 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
         usernamejTextField = new javax.swing.JTextField();
         areaTextField = new javax.swing.JTextField();
         messageTextField = new javax.swing.JTextField();
+        createBtn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        incidentIDjTextField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        statusjTextField = new javax.swing.JTextField();
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -70,11 +80,11 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Incident Type:");
+        jLabel2.setText("Incident Id:");
 
-        jLabel3.setText("Area:");
+        jLabel3.setText("Address:");
 
-        jLabel4.setText("UserName:");
+        jLabel4.setText("Full Name:");
 
         jLabel6.setText("Message:");
 
@@ -96,6 +106,21 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
             }
         });
 
+        createBtn.setText("Create Case");
+
+        jLabel5.setText("Incident Type:");
+
+        incidentIDjTextField.setEnabled(false);
+
+        jLabel7.setText("Status:");
+
+        statusjTextField.setEnabled(false);
+        statusjTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusjTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,31 +134,49 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(areaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                                 .addComponent(usernamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(incidentTypejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(38, 38, 38)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(incidentTypejTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(incidentIDjTextField)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(messageTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                                    .addComponent(statusjTextField)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(createBtn)))
                 .addContainerGap(246, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(incidentTypejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                    .addComponent(incidentIDjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(incidentTypejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(usernamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -145,7 +188,13 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(statusjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(createBtn)
+                .addGap(17, 17, 17)
                 .addComponent(backJButton)
                 .addGap(67, 67, 67))
         );
@@ -166,16 +215,25 @@ public class ViewIncidentDetailsJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_incidentTypejTextFieldActionPerformed
 
+    private void statusjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusjTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusjTextFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField areaTextField;
     private javax.swing.JButton backJButton;
+    private javax.swing.JButton createBtn;
+    private javax.swing.JTextField incidentIDjTextField;
     private javax.swing.JTextField incidentTypejTextField;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField messageTextField;
+    private javax.swing.JTextField statusjTextField;
     private javax.swing.JTextField usernamejTextField;
     // End of variables declaration//GEN-END:variables
 }

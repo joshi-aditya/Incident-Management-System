@@ -22,6 +22,7 @@ public class CaseWorkRequest extends WorkRequest {
 
     public CaseWorkRequest() {
         caseID = counter;
+        
     }
 
     public int getCaseID() {

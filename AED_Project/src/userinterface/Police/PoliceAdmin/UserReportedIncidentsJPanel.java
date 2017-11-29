@@ -46,8 +46,9 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     Object[] row = new Object[5];
                     row[0] = incidentWorkRequest;
                     row[1] = incidentWorkRequest.getIncidentType();
-                    row[2] = incidentWorkRequest.getSender().getUserName();
-                    row[3] = incidentWorkRequest.getZipCode();
+                    //row[2] = incidentWorkRequest.getSender().getUserName();
+                    row[2] = incidentWorkRequest.getSender().getFirstName()+" "+incidentWorkRequest.getSender().getLastName();
+                    row[3] = incidentWorkRequest.getAddress()+" "+ incidentWorkRequest.getZipCode();
                     row[4] = incidentWorkRequest.getStatus();
 
                     model.addRow(row);
@@ -77,7 +78,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Incident ID", "Incident Type", "Username", "Area", "Status"
+                "Incident ID", "Incident Type", "Username", "Address", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -90,7 +91,11 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(ReportedIncidentTable);
         if (ReportedIncidentTable.getColumnModel().getColumnCount() > 0) {
+            ReportedIncidentTable.getColumnModel().getColumn(0).setResizable(false);
             ReportedIncidentTable.getColumnModel().getColumn(1).setResizable(false);
+            ReportedIncidentTable.getColumnModel().getColumn(2).setResizable(false);
+            ReportedIncidentTable.getColumnModel().getColumn(3).setResizable(false);
+            ReportedIncidentTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jButton1.setText("Authenticate an incident");
@@ -133,7 +138,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnViewIncident, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
