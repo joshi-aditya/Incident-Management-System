@@ -8,9 +8,11 @@ package userinterface.Police.PoliceAdmin;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import userinterface.Police.PoliceOfficer.PoliceOfficerWorkAreaJPanel;
@@ -24,10 +26,9 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageCasesJPanel
      */
-    
     private JPanel userProcessContainer;
     private Enterprise enterprise;
-    
+
     public ManageCasesJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -35,52 +36,45 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         populateTable();
         populatePoliceTable();
     }
-    
-    public void populateTable(){
-        
+
+    public void populateTable() {
+
         DefaultTableModel dtm = (DefaultTableModel) tblCases.getModel();
         dtm.setRowCount(0);
-        
-        for(WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()){
-            if(req instanceof CaseWorkRequest){
-                
+
+        for (WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()) {
+            if (req instanceof CaseWorkRequest) {
+
                 Object[] row = new Object[5];
                 row[0] = req;
                 row[1] = ((CaseWorkRequest) req).getIncidentType();
                 row[2] = ((CaseWorkRequest) req).getIncidentOcuredDate();
                 row[3] = ((CaseWorkRequest) req).getZipCode();
                 row[4] = req.getStatus();
-                
+
                 dtm.addRow(row);
             }
         }
     }
-    
-    public void populatePoliceTable()
-    {
-        
+
+    public void populatePoliceTable() {
+
         DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
         dtm.setRowCount(0);
-        
-        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
-            
-                for(Employee emp: org.getEmployeeDirectory().getEmployeeList()){
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+
+            for (Employee emp : org.getEmployeeDirectory().getEmployeeList()) {
                 Object[] row = new Object[3];
                 row[0] = emp;
                 row[1] = emp.getId();
                 row[2] = emp.getLocation();
-                
-                
+
                 dtm.addRow(row);
-                    }
-        
-        
+            }
+
+        }
     }
-    }
-    
-    
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,8 +174,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(backJButton)
-                            .addComponent(jLabel1)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jLabel3)
@@ -192,7 +185,10 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                         .addComponent(assignjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -200,9 +196,9 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(49, 49, 49)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(nearestPolicejButton))
@@ -210,7 +206,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(assignjButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(backJButton)
                 .addGap(27, 27, 27))
         );
@@ -225,7 +221,31 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
     private void assignjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignjButtonActionPerformed
         // TODO add your handling code here:
-        
+
+        int officerSelectedRow;
+        int caseSelectedRow;
+
+        //CaseWorkRequest caseWorkRequest = new CaseWorkRequest();
+        caseSelectedRow = tblCases.getSelectedRow();
+        officerSelectedRow = policeOfficerjTable.getSelectedRow();
+
+        if (caseSelectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        CaseWorkRequest c = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
+        Employee e = (Employee) policeOfficerjTable.getValueAt(officerSelectedRow, 0);
+        //caseWorkRequest.setCaseID(c.getCaseID());
+        //caseWorkRequest.setZipCode(c.getZipCode());
+        //caseWorkRequest.setIncidentType(c.getIncidentType());
+        //caseWorkRequest.setIncidentOcuredDate(c.getIncidentOcuredDate());
+        c.setEmployee(e);
+        c.setStatus("Assigned");
+        //caseWorkRequest.setStatus("Assigned to officer"+ e.getName());
+
+        //caseWorkRequest.set
+
     }//GEN-LAST:event_assignjButtonActionPerformed
 
 

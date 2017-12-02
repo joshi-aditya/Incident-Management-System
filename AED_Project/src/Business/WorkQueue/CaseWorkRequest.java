@@ -5,6 +5,7 @@
  */
 package Business.WorkQueue;
 
+import Business.Employee.Employee;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import java.util.Date;
 public class CaseWorkRequest extends WorkRequest {
 //    
     private UserAccount incidentReportedBy;
+    private Employee employee;
     private Date incidentOcuredDate;
     private String suspectName;
     private int caseID; 
@@ -23,6 +25,7 @@ public class CaseWorkRequest extends WorkRequest {
     private String incidentType;
     private String address;
     private String zipCode;
+    private String status;
 
     public CaseWorkRequest() {
         caseID = counter;
@@ -45,6 +48,15 @@ public class CaseWorkRequest extends WorkRequest {
         this.incidentReportedBy = incidentReportedBy;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    
     public Date getIncidentOcuredDate() {
         return incidentOcuredDate;
     }
@@ -92,6 +104,15 @@ public class CaseWorkRequest extends WorkRequest {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     
     @Override
     public String toString() {

@@ -121,7 +121,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                 Object[] row =new Object[5];
                 row[0] = caseRequest;
                 row[1] = caseRequest.getIncidentType();
-                row[2] = caseRequest.getSender().getUserName();
+                row[2] = caseRequest.getIncidentOcuredDate();
                 row[3] = caseRequest.getZipCode();
                 row[4] = caseRequest.getStatus();
                 
