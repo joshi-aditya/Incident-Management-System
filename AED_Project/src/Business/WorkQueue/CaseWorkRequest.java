@@ -16,7 +16,6 @@ import java.util.Date;
 public class CaseWorkRequest extends WorkRequest {
 //    
     private UserAccount incidentReportedBy;
-    private Employee employee;
     private Date incidentOcuredDate;
     private String suspectName;
     private int caseID; 
@@ -47,15 +46,6 @@ public class CaseWorkRequest extends WorkRequest {
     public void setIncidentReportedBy(UserAccount incidentReportedBy) {
         this.incidentReportedBy = incidentReportedBy;
     }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     
     public Date getIncidentOcuredDate() {
         return incidentOcuredDate;

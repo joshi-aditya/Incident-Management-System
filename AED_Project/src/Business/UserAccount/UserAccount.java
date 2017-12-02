@@ -58,8 +58,6 @@ public class UserAccount {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
-    
 
     public Role getRole() {
         return role;
