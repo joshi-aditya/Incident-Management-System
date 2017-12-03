@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.Ambulance;
+package userinterface.Hospital;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
@@ -11,7 +11,7 @@ import Business.Organization.AmbulanceOrganization;
 import Business.Organization.Organization;
 import Business.Organization.PoliceOrganization;
 import Business.Organization.Organization.Type;
-import Business.Role.AmbulanceAdminRole;
+import Business.Role.HospitalAdminRole;
 import Business.Role.Role;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Administrator
  */
-public class AmbulanceManageUserAccountJPanel extends javax.swing.JPanel {
+public class HospitalManageUserAccountJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageUserAccountJPanel
@@ -32,7 +32,7 @@ public class AmbulanceManageUserAccountJPanel extends javax.swing.JPanel {
     private JPanel container;
     private Enterprise enterprise;
 
-    public AmbulanceManageUserAccountJPanel(JPanel container, Enterprise enterprise) {
+    public HospitalManageUserAccountJPanel(JPanel container, Enterprise enterprise) {
         initComponents();
         this.enterprise = enterprise;
         this.container = container;
@@ -63,7 +63,7 @@ public class AmbulanceManageUserAccountJPanel extends javax.swing.JPanel {
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
         if(organization instanceof AmbulanceOrganization){
        // for (Role role : e.getSupportedRole()){
-            roleJComboBox.addItem(new AmbulanceAdminRole());
+            roleJComboBox.addItem(new HospitalAdminRole());
         }
         
         /*

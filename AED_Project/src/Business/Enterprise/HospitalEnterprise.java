@@ -5,7 +5,7 @@
  */
 package Business.Enterprise;
 
-import Business.Role.AmbulanceAdminRole;
+import Business.Role.HospitalAdminRole;
 import Business.Role.PoliceAdminRole;
 import Business.Role.Role;
 import java.util.HashSet;
@@ -14,16 +14,16 @@ import java.util.HashSet;
  *
  * @author Neha Varshney
  */
-public class AmbulanceEnterprise extends Enterprise {
+public class HospitalEnterprise extends Enterprise {
     
-    public AmbulanceEnterprise(String name) {
-        super(name, Enterprise.EnterpriseType.AmbulanceEnterprise);
+    public HospitalEnterprise(String name) {
+        super(name, Enterprise.EnterpriseType.HospitalEnterprise);
     }
 
     @Override
     public HashSet<Role> getSupportedRole() {
         roles= new HashSet<>();
-        roles.add(new AmbulanceAdminRole());
+        roles.add(new HospitalAdminRole());
         return roles;
     }
     

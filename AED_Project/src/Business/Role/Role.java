@@ -24,6 +24,7 @@ public abstract class Role {
         User("User"),
         PoliceAdmin("Police Admin"),
         CourtAdmin("Court Admin"),
+        HospitalAdmin("Hospital Admin"),
         AmbulanceAdmin("Ambulance Admin"),
         FireRescueAdmin("Fire Rescue Admin"),
         GovernmentAdmin("Government Admin"),

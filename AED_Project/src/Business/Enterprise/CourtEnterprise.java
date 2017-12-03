@@ -5,7 +5,7 @@
  */
 package Business.Enterprise;
 
-import Business.Role.AmbulanceAdminRole;
+import Business.Role.HospitalAdminRole;
 import Business.Role.CourtAdminRole;
 import Business.Role.Role;
 import java.util.HashSet;

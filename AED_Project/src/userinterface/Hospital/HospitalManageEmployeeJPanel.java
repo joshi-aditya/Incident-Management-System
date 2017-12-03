@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.Ambulance;
+package userinterface.Hospital;
 
 import Business.Employee.Employee;
 import Business.Organization.Organization;
@@ -17,7 +17,7 @@ import utility.Validator;
  *
  * @author raunak
  */
-public class AmbulanceManageEmployeeJPanel extends javax.swing.JPanel {
+public class HospitalManageEmployeeJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory organizationDir;
     private JPanel userProcessContainer;
@@ -25,7 +25,7 @@ public class AmbulanceManageEmployeeJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public AmbulanceManageEmployeeJPanel(JPanel userProcessContainer,OrganizationDirectory organizationDir) {
+    public HospitalManageEmployeeJPanel(JPanel userProcessContainer,OrganizationDirectory organizationDir) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organizationDir = organizationDir;

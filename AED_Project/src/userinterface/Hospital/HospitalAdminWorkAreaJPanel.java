@@ -4,7 +4,7 @@
  * Created on October 10, 2008, 8:50 AM
  */
 
-package userinterface.Ambulance;
+package userinterface.Hospital;
 
 import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;
@@ -14,12 +14,12 @@ import javax.swing.JPanel;
  *
  * @author Sneha Kawitkar
  */
-public class AmbulanceAdminWorkAreaJPanel extends javax.swing.JPanel {
+public class HospitalAdminWorkAreaJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     Enterprise enterprise;
     /** Creates new form AdminWorkAreaJPanel */
-    public AmbulanceAdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public HospitalAdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
@@ -81,7 +81,7 @@ public class AmbulanceAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
         // TODO add your handling code here:
-        AmbulanceManageUserAccountJPanel muajp = new AmbulanceManageUserAccountJPanel(userProcessContainer, enterprise);
+        HospitalManageUserAccountJPanel muajp = new HospitalManageUserAccountJPanel(userProcessContainer, enterprise);
         userProcessContainer.add("PoliceManageUserAccountJPanel", muajp);
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -90,7 +90,7 @@ public class AmbulanceAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageEmployeeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmployeeJButtonActionPerformed
 
-        AmbulanceManageEmployeeJPanel manageEmployeeJPanel = new AmbulanceManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        HospitalManageEmployeeJPanel manageEmployeeJPanel = new HospitalManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
         userProcessContainer.add("PoliceManageEmployeeJPanel", manageEmployeeJPanel);
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -100,7 +100,7 @@ public class AmbulanceAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
 
-        AmbulanceManageOrganizationJPanel manageOrganizationJPanel = new AmbulanceManageOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        HospitalManageOrganizationJPanel manageOrganizationJPanel = new HospitalManageOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
         userProcessContainer.add("PoliceManageOrganizationJPanel", manageOrganizationJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

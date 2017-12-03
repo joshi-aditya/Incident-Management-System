@@ -8,14 +8,29 @@ package userinterface.Police.PoliceAdmin;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.Role.Role;
+import static Business.Role.Role.RoleType.PoliceOfficerRole;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
 import java.awt.CardLayout;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import userinterface.Police.PoliceOfficer.PoliceOfficerWorkAreaJPanel;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -91,9 +106,9 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         nearestPolicejButton = new javax.swing.JButton();
+        assignjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         policeOfficerjTable = new javax.swing.JTable();
-        assignjButton = new javax.swing.JButton();
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +148,18 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         jLabel3.setText("Nearest Police Officers: ------ to be done ");
 
         nearestPolicejButton.setText("Find Nearest Ofiicers");
+        nearestPolicejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nearestPolicejButtonActionPerformed(evt);
+            }
+        });
+
+        assignjButton.setText("Assign to selected Officer");
+        assignjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignjButtonActionPerformed(evt);
+            }
+        });
 
         policeOfficerjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,38 +184,30 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             policeOfficerjTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        assignjButton.setText("Assign to selected Officer");
-        assignjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignjButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backJButton)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel3)
-                        .addGap(63, 63, 63)
-                        .addComponent(nearestPolicejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addComponent(assignjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(backJButton)
+                                .addComponent(jLabel1)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(67, 67, 67)
+                            .addComponent(jLabel3)
+                            .addGap(63, 63, 63)
+                            .addComponent(nearestPolicejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(201, 201, 201)
+                            .addComponent(assignjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(38, 38, 38)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -202,11 +221,11 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(nearestPolicejButton))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(assignjButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addComponent(backJButton)
                 .addGap(27, 27, 27))
         );
@@ -248,6 +267,111 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_assignjButtonActionPerformed
 
+    private void nearestPolicejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nearestPolicejButtonActionPerformed
+        // TODO add your handling code here:
+        int caseSelectedRow;
+        caseSelectedRow = tblCases.getSelectedRow();
+        CaseWorkRequest c = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
+        ArrayList<Double> distanceArray = new ArrayList<Double>();
+        try {
+            String officerAddress;
+            officerAddress = "";
+            //Get the address of the case
+            String caseAddress = c.getAddress() + ", " + (c.getZipCode());
+            Geocoder geocoder = new Geocoder();
+            GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(caseAddress).setLanguage("en").getGeocoderRequest();
+            GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+            JSONObject json = new JSONObject(geocoderResponse);
+            JSONArray result = json.getJSONArray("results");
+            JSONObject result1 = result.getJSONObject(0);
+            JSONObject geometry = result1.getJSONObject("geometry");
+            JSONObject locat = geometry.getJSONObject("location");
+            double lat1 = locat.getDouble("lat");
+            double lng1 = locat.getDouble("lng");
+
+            //Get the address of nearest police officer
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                for (Employee emp : organization.getEmployeeDirectory().getEmployeeList()) {
+                    officerAddress = emp.getLocation();
+                    Geocoder geocoder1 = new Geocoder();
+                    GeocoderRequest geocoderRequest1 = new GeocoderRequestBuilder().setAddress(officerAddress).setLanguage("en").getGeocoderRequest();
+                    GeocodeResponse geocoderResponse1 = geocoder1.geocode(geocoderRequest1);
+                    JSONObject json1 = new JSONObject(geocoderResponse1);
+                    JSONArray result2 = json1.getJSONArray("results");
+                    JSONObject result3 = result2.getJSONObject(0);
+                    JSONObject geometry1 = result3.getJSONObject("geometry");
+                    JSONObject locat1 = geometry1.getJSONObject("location");
+                    double lat2 = locat1.getDouble("lat");
+                    double lng2 = locat1.getDouble("lng");
+
+                    //find the distance between them
+                    URL u;
+                    InputStream is = null;
+                    DataInputStream dis;
+                    String s;
+                    String s1 = "";
+
+                    try {
+                        String ns;
+                        ns = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + lat1 + "," + lng1 + "&destinations=" + lat2 + "," + lng2 + "&mode=driving&language=en-EN&sensor=false";
+                        u = new URL(ns);
+                        is = u.openStream();
+                        dis = new DataInputStream(new BufferedInputStream(is));
+
+                        while ((s = dis.readLine()) != null) {
+                            //System.out.println(s);  //----------prints out entire JSON
+                            s1 = s1 + s;
+                        }
+
+                        JSONObject json3 = new JSONObject(s1);
+                        JSONArray result5 = json3.getJSONArray("rows");
+                        JSONObject result6 = result5.getJSONObject(0);
+                        JSONArray geometry5 = result6.getJSONArray("elements");
+                        JSONObject geometry6 = geometry5.getJSONObject(0);
+                        JSONObject locat6 = geometry6.getJSONObject("distance");
+                        String distance = locat6.getString("text");
+                        String []sr = distance.split(" ");
+                        double distance1 = Double.parseDouble(sr[0]);
+                        JSONObject locat7 = geometry6.getJSONObject("duration");
+                        String timetoreach = locat7.getString("text");
+                        System.out.println(distance);
+                        System.out.println(timetoreach);
+                        distanceArray.add(distance1);
+                        //double lat = locat.getDouble("lat");
+                        //double lng = locat.getDouble("lng");
+
+                    } catch (MalformedURLException mue) {
+
+                        System.out.println("Ouch - a MalformedURLException happened.");
+                        mue.printStackTrace();
+                        System.exit(1);
+
+                    } catch (IOException ioe) {
+
+                        System.out.println("Oops- an IOException happened.");
+                        ioe.printStackTrace();
+                        System.exit(1);
+
+                    } finally {
+                        try {
+                            is.close();
+                        } catch (IOException ioe) {
+                            // just going to ignore this one
+                        }
+
+                    }
+                    
+                }
+                
+                 Collections.min(distanceArray);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter the correct details");
+        }
+
+
+    }//GEN-LAST:event_nearestPolicejButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignjButton;

@@ -30,6 +30,7 @@ public abstract class Organization {
         CivilCourtOrganization("CivilCourt Organization"), 
         CriminalCourtOrganization("CriminalCourt Organization"), 
         DrugEnforcementOrganization("DrugEnforcement Organization"),
+        HospitalOrganization("Hospital Organization"),
         GovernmentOrganization("Government Organization"),
         User("User"),
         InvestigationOrganization("InvestigationOrganization"),
