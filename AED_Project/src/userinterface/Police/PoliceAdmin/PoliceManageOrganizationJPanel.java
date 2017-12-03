@@ -8,6 +8,7 @@ import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,11 +35,8 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
     
     private void populateCombo(){
         organizationJComboBox.removeAllItems();
-       // for (Type type : Organization.Type.values()){
-         //   if (!type.getValue().equals(Type.Admin.getValue()))
-                organizationJComboBox.addItem(Type.PoliceOrganization);
-               // organizationJComboBox.addItem(Type.Supplier);
-        //}
+       
+        organizationJComboBox.addItem(Type.PoliceOrganization);
     }
 
     private void populateTable(){
@@ -54,6 +52,17 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
+    
+    private boolean checkUniqueName(String name) {
+        
+        for(Organization org : directory.getOrganizationList()){
+            if(org.getName().equals(name)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,12 +72,22 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPasswordField1 = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         organizationJTable = new javax.swing.JTable();
         addJButton = new javax.swing.JButton();
         organizationJComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         backJButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtname = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtaddress = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtZipcode = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+
+        jPasswordField1.setText("jPasswordField1");
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -104,7 +123,7 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
             organizationJTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 60, 480, 92));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 480, 92));
 
         addJButton.setText("Add Organization");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -112,13 +131,13 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
                 addJButtonActionPerformed(evt);
             }
         });
-        add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 310, -1, -1));
+        add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, -1, -1));
 
         organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 225, 81, -1));
+        add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 170, -1));
 
         jLabel1.setText("Organization Type ");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 228, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -126,14 +145,44 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 310, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, -1, -1));
+
+        jLabel2.setText("Organization Name:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
+        add(txtname, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 210, -1));
+
+        jLabel3.setText("Address:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+        add(txtaddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 210, -1));
+
+        jLabel4.setText("Zipcode:");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, -1, -1));
+        add(txtZipcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 210, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Manage Organization");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
-
-        Type type = (Type) organizationJComboBox.getSelectedItem();
-        directory.createOrganization(type);
-        populateTable();
+        if(!txtname.getText().trim().isEmpty() &&
+           !txtaddress.getText().trim().isEmpty() &&
+           !txtZipcode.getText().trim().isEmpty()){
+            
+                if(checkUniqueName(txtname.getText().trim())){
+                    Type type = (Type) organizationJComboBox.getSelectedItem();
+                    String name = txtname.getText().trim();
+                    String address = txtaddress.getText().trim();
+                    String zipcode = txtZipcode.getText().trim();
+                    directory.createOrganization(type, name, address, zipcode);
+                    populateTable();
+                    JOptionPane.showMessageDialog(null, "Organization created!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Organization exists bys this name. Please choose a different name!");
+                }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter all details!");
+        }
     }//GEN-LAST:event_addJButtonActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
@@ -147,8 +196,16 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
     private javax.swing.JButton addJButton;
     private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox organizationJComboBox;
     private javax.swing.JTable organizationJTable;
+    private javax.swing.JTextField txtZipcode;
+    private javax.swing.JTextField txtaddress;
+    private javax.swing.JTextField txtname;
     // End of variables declaration//GEN-END:variables
 }
