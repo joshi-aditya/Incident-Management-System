@@ -210,6 +210,11 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.GovernmentEnterprise) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new GovernmentAdminRole());
                 }
+                    populateTable();
+                    JOptionPane.showMessageDialog(null, "Admin employee created");
+                    nameJTextField.setText("");
+                    usernameJTextField.setText("");
+                    passwordJPasswordField.setText("");
                 }
                //else {
                 //JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);

@@ -48,5 +48,19 @@ public class OrganizationDirectory {
         //add DrugEnforcement
         return organization;
     }
-
+    
+    public Organization createOrganization(Organization.Type type, String name, String address, String zipcode){
+        
+        Organization organization = null;
+        
+        if (type.getValue().equals(Organization.Type.PoliceOrganization.getValue())){
+            PoliceOrganization po = new PoliceOrganization();
+            po.setName(name);
+            po.setAddress(address);
+            po.setZipcode(zipcode);
+            organizationList.add(po);
+            organization = po;
+        }
+        return organization;
+    }
 }
