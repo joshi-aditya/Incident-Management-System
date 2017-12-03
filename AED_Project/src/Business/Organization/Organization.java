@@ -30,9 +30,9 @@ public abstract class Organization {
         CivilCourtOrganization("CivilCourt Organization"), 
         CriminalCourtOrganization("CriminalCourt Organization"), 
         DrugEnforcementOrganization("DrugEnforcement Organization"),
-        HospitalOrganization("Hospital Organization"),
         GovernmentOrganization("Government Organization"),
         User("User"),
+        HospitalOrganization("Hospital Organization"),
         InvestigationOrganization("InvestigationOrganization"),
         FireRescueOrganization("FireRescue Organization");
         private String value;

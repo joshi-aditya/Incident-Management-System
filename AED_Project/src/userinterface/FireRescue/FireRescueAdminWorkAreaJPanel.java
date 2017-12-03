@@ -6,6 +6,7 @@
 
 package userinterface.FireRescue;
 
+import userinterface.Ambulance.*;
 import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;
 import javax.swing.JPanel;

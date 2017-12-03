@@ -7,7 +7,7 @@ package userinterface.Hospital;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
-import Business.Organization.HospitalOrganization;
+import Business.Organization.AmbulanceOrganization;
 import Business.Organization.Organization;
 import Business.Organization.PoliceOrganization;
 import Business.Organization.Organization.Type;
@@ -61,7 +61,7 @@ public class HospitalManageUserAccountJPanel extends javax.swing.JPanel {
     private void populateRoleComboBox(Enterprise e){
         roleJComboBox.removeAllItems();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(organization instanceof HospitalOrganization){
+        if(organization instanceof AmbulanceOrganization){
        // for (Role role : e.getSupportedRole()){
             roleJComboBox.addItem(new HospitalAdminRole());
         }

@@ -21,31 +21,38 @@ public class OrganizationDirectory {
     public ArrayList<Organization> getOrganizationList() {
         return organizationList;
     }
-
-    public Organization createOrganization(Organization.Type type) {
+    
+    public Organization createOrganization(Organization.Type type){
         Organization organization = null;
-        if (type.getValue().equals(Organization.Type.AmbulanceOrganization.getValue())) {
-            organization = new HospitalOrganization();
+        if (type.getValue().equals(Organization.Type.AmbulanceOrganization.getValue())){
+            organization = new AmbulanceOrganization();
             organizationList.add(organization);
-        } else if (type.getValue().equals(Organization.Type.PoliceOrganization.getValue())) {
+        }
+        else if (type.getValue().equals(Organization.Type.PoliceOrganization.getValue())){
             organization = new PoliceOrganization();
             organizationList.add(organization);
-        } else if (type.getValue().equals(Organization.Type.CivilCourtOrganization.getValue())) {
+        }
+       
+        else if (type.getValue().equals(Organization.Type.CivilCourtOrganization.getValue())){
             organization = new CivilCourtOrganization();
             organizationList.add(organization);
-        } else if (type.getValue().equals(Organization.Type.CriminalCourtOrganization.getValue())) {
+        }
+        else if (type.getValue().equals(Organization.Type.CriminalCourtOrganization.getValue())){
             organization = new CriminalCourtOrganization();
             organizationList.add(organization);
-        } else if (type.getValue().equals(Organization.Type.User.getValue())) {
+        }
+        else if (type.getValue().equals(Organization.Type.User.getValue())){
             organization = new UserOrganization();
             organizationList.add(organization);
-        } else if (type.getValue().equals(Organization.Type.GovernmentOrganization.getValue())) {
+        }
+        else if (type.getValue().equals(Organization.Type.GovernmentOrganization.getValue())){
             organization = new GovernmentOrganization();
             organizationList.add(organization);
         }
-
+        
         //add Fire
         //add DrugEnforcement
+        
         return organization;
     }
     
@@ -63,4 +70,5 @@ public class OrganizationDirectory {
         }
         return organization;
     }
+    
 }
