@@ -212,6 +212,10 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 }
 
                     populateTable();
+                    JOptionPane.showMessageDialog(null, "Admin employee created");
+                    nameJTextField.setText("");
+                    usernameJTextField.setText("");
+                    passwordJPasswordField.setText("");
                 }
                //else {
                 //JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);

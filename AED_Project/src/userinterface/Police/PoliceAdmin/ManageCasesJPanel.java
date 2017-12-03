@@ -264,6 +264,8 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             
             user.getWorkQueue().getWorkRequestList().add(newCase);
             
+            JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
+            populateTable();
         }
 
     }//GEN-LAST:event_assignjButtonActionPerformed
