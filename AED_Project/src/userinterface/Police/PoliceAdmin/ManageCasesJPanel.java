@@ -133,6 +133,11 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         jLabel3.setText("Nearest Police Officers: ------ to be done ");
 
         nearestPolicejButton.setText("Find Nearest Ofiicers");
+        nearestPolicejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nearestPolicejButtonActionPerformed(evt);
+            }
+        });
 
         policeOfficerjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -263,6 +268,9 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_assignjButtonActionPerformed
 
+    private void nearestPolicejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nearestPolicejButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nearestPolicejButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignjButton;

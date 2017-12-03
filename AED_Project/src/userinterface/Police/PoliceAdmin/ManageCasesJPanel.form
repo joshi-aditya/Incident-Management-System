@@ -151,6 +151,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Find Nearest Ofiicers"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nearestPolicejButtonActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
