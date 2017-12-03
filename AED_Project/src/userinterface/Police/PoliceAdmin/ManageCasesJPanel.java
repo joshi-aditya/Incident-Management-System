@@ -5,15 +5,33 @@
  */
 package userinterface.Police.PoliceAdmin;
 
+import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.Organization.PoliceOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
 import java.awt.CardLayout;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -32,7 +50,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         populateTable();
-        populatePoliceTable();
+        //populatePoliceTable();
     }
 
     public void populateTable() {
@@ -42,7 +60,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         for (WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()) {
             if (req instanceof CaseWorkRequest) {
-                if(req.getStatus().equals("Open")){
+                if (req.getStatus().equals("Open")) {
 
                     Object[] row = new Object[5];
                     row[0] = req;
@@ -56,7 +74,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             }
         }
     }
-
+    /*
     public void populatePoliceTable() {
 
         DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
@@ -64,7 +82,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
 
-            for (UserAccount ua: org.getUserAccountDirectory().getUserAccountList()) {
+            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
                 Object[] row = new Object[3];
                 row[0] = ua;
                 row[1] = ua.getEmployee().getName();
@@ -75,6 +93,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         }
     }
+    */
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -194,7 +213,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addGap(120, 120, 120))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,16 +253,15 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         if (caseSelectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row from the cases table!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;   
-        } 
-        else if(officerSelectedRow < 0){
+            return;
+        } else if (officerSelectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row from the officers table!", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;   
-        } else{
-            
+            return;
+        } else {
+
             CaseWorkRequest caseWorkReq = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
             UserAccount user = (UserAccount) policeOfficerjTable.getValueAt(officerSelectedRow, 0);
-            
+
             CaseWorkRequest newCase = new CaseWorkRequest();
             newCase.setAddress(caseWorkReq.getAddress());
             newCase.setCaseID(caseWorkReq.getCaseID());
@@ -259,11 +277,11 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             newCase.setStatus("Assigned");
             newCase.setSuspectName(caseWorkReq.getSuspectName());
             newCase.setZipCode(caseWorkReq.getZipCode());
-            
+
             caseWorkReq.setStatus("Assigned");
-            
+
             user.getWorkQueue().getWorkRequestList().add(newCase);
-            
+
             JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
             populateTable();
         }
@@ -272,6 +290,134 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
     private void nearestPolicejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nearestPolicejButtonActionPerformed
         // TODO add your handling code here:
+        int caseSelectedRow;
+        caseSelectedRow = tblCases.getSelectedRow();
+        CaseWorkRequest c = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
+        ArrayList<Double> distanceArray = new ArrayList<Double>();
+        Map<String, Double> distanceMatrixPerStation = new HashMap<String, Double>();
+
+        try {
+            String officerAddress;
+            officerAddress = "";
+            //Get the address of the case
+            String caseAddress = c.getAddress() + ", " + (c.getZipCode());
+            Geocoder geocoder = new Geocoder();
+            GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(caseAddress).setLanguage("en").getGeocoderRequest();
+            GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+            JSONObject json = new JSONObject(geocoderResponse);
+            JSONArray result = json.getJSONArray("results");
+            JSONObject result1 = result.getJSONObject(0);
+            JSONObject geometry = result1.getJSONObject("geometry");
+            JSONObject locat = geometry.getJSONObject("location");
+            double lat1 = locat.getDouble("lat");
+            double lng1 = locat.getDouble("lng");
+
+            //PoliceOrganization po1 = new PoliceOrganization();
+            //Get the address of nearest police officer
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof PoliceOrganization) {
+                    //for (Employee emp : organization.getEmployeeDirectory().getEmployeeList()) {
+                    officerAddress = String.valueOf(((PoliceOrganization) organization).getAddress()) + ", " + String.valueOf(((PoliceOrganization) organization).getZipcode());
+                    Geocoder geocoder1 = new Geocoder();
+                    GeocoderRequest geocoderRequest1 = new GeocoderRequestBuilder().setAddress(officerAddress).setLanguage("en").getGeocoderRequest();
+                    GeocodeResponse geocoderResponse1 = geocoder1.geocode(geocoderRequest1);
+                    JSONObject json1 = new JSONObject(geocoderResponse1);
+                    JSONArray result2 = json1.getJSONArray("results");
+                    JSONObject result3 = result2.getJSONObject(0);
+                    JSONObject geometry1 = result3.getJSONObject("geometry");
+                    JSONObject locat1 = geometry1.getJSONObject("location");
+                    double lat2 = locat1.getDouble("lat");
+                    double lng2 = locat1.getDouble("lng");
+
+                    //find the distance between them
+                    URL u;
+                    InputStream is = null;
+                    DataInputStream dis;
+                    String s;
+                    String s1 = "";
+
+                    try {
+                        String ns;
+                        ns = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + lat2 + "," + lng2 + "&destinations=" + lat1 + "," + lng1 + "&mode=driving&language=en-EN&sensor=false";
+                        u = new URL(ns);
+                        is = u.openStream();
+                        dis = new DataInputStream(new BufferedInputStream(is));
+
+                        while ((s = dis.readLine()) != null) {
+                            //System.out.println(s);  //----------prints out entire JSON
+                            s1 = s1 + s;
+                        }
+
+                        JSONObject json3 = new JSONObject(s1);
+                        JSONArray result5 = json3.getJSONArray("rows");
+                        JSONObject result6 = result5.getJSONObject(0);
+                        JSONArray geometry5 = result6.getJSONArray("elements");
+                        JSONObject geometry6 = geometry5.getJSONObject(0);
+                        JSONObject locat6 = geometry6.getJSONObject("distance");
+                        String distance = locat6.getString("text");
+                        String[] sr = distance.split(" ");
+                        double distance1 = Double.parseDouble(sr[0]);
+                        JSONObject locat7 = geometry6.getJSONObject("duration");
+                        String timetoreach = locat7.getString("text");
+                        System.out.println(distance);
+                        System.out.println(timetoreach);
+                        //distanceArray.add(distance1);
+                        distanceMatrixPerStation.put(((PoliceOrganization) organization).getName(), distance1);
+
+                    } catch (MalformedURLException mue) {
+
+                        System.out.println("Ouch - a MalformedURLException happened.");
+                        //mue.printStackTrace();
+                        //System.exit(1);
+
+                    } catch (IOException ioe) {
+
+                        System.out.println("Oops- an IOException happened.");
+                        //ioe.printStackTrace();
+                        //System.exit(1);
+
+                    } finally {
+                        try {
+                            is.close();
+                        } catch (IOException ioe) {
+                            // just going to ignore this one
+                        }
+                    }
+                }
+            }
+
+            for (Double d : distanceMatrixPerStation.values()) {
+                distanceArray.add(d);
+            }
+            Double minDistance = Collections.min(distanceArray);
+            String neareastOrgName = null;
+            for (String s : distanceMatrixPerStation.keySet()) {
+                if (distanceMatrixPerStation.get(s).equals(minDistance)) {
+                    neareastOrgName = s;
+                    break;
+                }
+            }
+
+            DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
+            dtm.setRowCount(0);
+            for (Organization o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o instanceof PoliceOrganization) {
+                    if (((PoliceOrganization) o).getName().equals(neareastOrgName)) {
+                        for (UserAccount ua : o.getUserAccountDirectory().getUserAccountList()) {
+                            Object[] row = new Object[3];
+                            row[0] = ua;
+                            row[1] = ua.getEmployee().getName();
+                            row[2] = ua.getEmployee().getLocation();
+
+                            dtm.addRow(row);
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter the correct details");
+        }
     }//GEN-LAST:event_nearestPolicejButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
