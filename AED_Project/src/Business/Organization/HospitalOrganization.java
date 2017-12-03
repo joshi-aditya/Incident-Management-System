@@ -5,25 +5,24 @@
  */
 package Business.Organization;
 
-import Business.Role.AmbulanceAdminRole;
-import Business.Role.GovernmentAdminRole;
+import Business.Role.HospitalAdminRole;
 import Business.Role.Role;
 import java.util.HashSet;
 
 /**
  *
- * @author Neha Varshney
+ * @author Sneha
  */
-public class AmbulanceOrganization extends Organization {
+public class HospitalOrganization extends Organization {
 
-    public AmbulanceOrganization() {
-        super(Organization.Type.AmbulanceOrganization.getValue());
+    public HospitalOrganization() {
+        super(Organization.Type.HospitalOrganization.getValue());
     }
 
     @Override
     public HashSet<Role> getSupportedRole() {
         roles = new HashSet<>();
-        roles.add(new AmbulanceAdminRole());
+        roles.add(new HospitalAdminRole());
         return roles;
     }
 

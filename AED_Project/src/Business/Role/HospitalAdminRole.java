@@ -11,21 +11,21 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import userinterface.Ambulance.AmbulanceAdminWorkAreaJPanel;
+import userinterface.Hospital.HospitalAdminWorkAreaJPanel;
 
 /**
  *
  * @author Sneha
  */
-public class AmbulanceAdminRole extends Role{
+public class HospitalAdminRole extends Role{
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
-        return new AmbulanceAdminWorkAreaJPanel(userProcessContainer, enterprise);
+        return new HospitalAdminWorkAreaJPanel(userProcessContainer, enterprise);
     }
 
      @Override
     public String toString(){
-        return RoleType.AmbulanceAdmin.getValue();
+        return RoleType.HospitalAdmin.getValue();
     }
     
     
