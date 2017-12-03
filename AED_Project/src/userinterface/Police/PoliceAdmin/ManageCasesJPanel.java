@@ -59,15 +59,17 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         for (WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()) {
             if (req instanceof CaseWorkRequest) {
+                if(req.getStatus().equals("Open")){
 
-                Object[] row = new Object[5];
-                row[0] = req;
-                row[1] = ((CaseWorkRequest) req).getIncidentType();
-                row[2] = ((CaseWorkRequest) req).getIncidentOcuredDate();
-                row[3] = ((CaseWorkRequest) req).getZipCode();
-                row[4] = req.getStatus();
+                    Object[] row = new Object[5];
+                    row[0] = req;
+                    row[1] = ((CaseWorkRequest) req).getIncidentType();
+                    row[2] = ((CaseWorkRequest) req).getIncidentOcuredDate();
+                    row[3] = ((CaseWorkRequest) req).getZipCode();
+                    row[4] = req.getStatus();
 
-                dtm.addRow(row);
+                    dtm.addRow(row);
+                }
             }
         }
     }
@@ -79,11 +81,11 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
 
-            for (Employee emp : org.getEmployeeDirectory().getEmployeeList()) {
+            for (UserAccount ua: org.getUserAccountDirectory().getUserAccountList()) {
                 Object[] row = new Object[3];
-                row[0] = emp;
-                row[1] = emp.getId();
-                row[2] = emp.getLocation();
+                row[0] = ua;
+                row[1] = ua.getEmployee().getName();
+                row[2] = ua.getEmployee().getLocation();
 
                 dtm.addRow(row);
             }
@@ -166,7 +168,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Officer Name", "Officer Id", "Zip Code"
+                "Officer Username", "Officer Name", "Zip Code"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -243,27 +245,42 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         int officerSelectedRow;
         int caseSelectedRow;
-
-        //CaseWorkRequest caseWorkRequest = new CaseWorkRequest();
         caseSelectedRow = tblCases.getSelectedRow();
         officerSelectedRow = policeOfficerjTable.getSelectedRow();
 
         if (caseSelectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(null, "Please select a row from the cases table!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;   
+        } 
+        else if(officerSelectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select a row from the officers table!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;   
+        } else{
+            
+            CaseWorkRequest caseWorkReq = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
+            UserAccount user = (UserAccount) policeOfficerjTable.getValueAt(officerSelectedRow, 0);
+            
+            CaseWorkRequest newCase = new CaseWorkRequest();
+            newCase.setAddress(caseWorkReq.getAddress());
+            newCase.setCaseID(caseWorkReq.getCaseID());
+            newCase.setIncidentOcuredDate(caseWorkReq.getIncidentOcuredDate());
+            newCase.setIncidentReportedBy(caseWorkReq.getIncidentReportedBy());
+            newCase.setIncidentType(caseWorkReq.getIncidentType());
+            newCase.setInitialObservation(caseWorkReq.getInitialObservation());
+            newCase.setMessage(caseWorkReq.getMessage());
+            newCase.setReceiver(caseWorkReq.getReceiver());
+            newCase.setRequestDate(caseWorkReq.getRequestDate());
+            newCase.setResolveDate(caseWorkReq.getResolveDate());
+            newCase.setSender(caseWorkReq.getSender());
+            newCase.setStatus("Assigned");
+            newCase.setSuspectName(caseWorkReq.getSuspectName());
+            newCase.setZipCode(caseWorkReq.getZipCode());
+            
+            caseWorkReq.setStatus("Assigned");
+            
+            user.getWorkQueue().getWorkRequestList().add(newCase);
+            
         }
-
-        CaseWorkRequest c = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
-        Employee e = (Employee) policeOfficerjTable.getValueAt(officerSelectedRow, 0);
-        //caseWorkRequest.setCaseID(c.getCaseID());
-        //caseWorkRequest.setZipCode(c.getZipCode());
-        //caseWorkRequest.setIncidentType(c.getIncidentType());
-        //caseWorkRequest.setIncidentOcuredDate(c.getIncidentOcuredDate());
-        c.setEmployee(e);
-        c.setStatus("Assigned");
-        //caseWorkRequest.setStatus("Assigned to officer"+ e.getName());
-
-        //caseWorkRequest.set
 
     }//GEN-LAST:event_assignjButtonActionPerformed
 

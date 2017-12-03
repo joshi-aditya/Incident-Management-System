@@ -7,8 +7,8 @@ package userinterface.Police.PoliceOfficer;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
-import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -24,11 +24,15 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form PoliceOfficerWorkAreaJPanel
      */
     JPanel userProcessContainer;
+    UserAccount userAccount;
+    Organization organization;
     Enterprise enterprise;
 
-    public PoliceOfficerWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public PoliceOfficerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
+        this.userAccount = account;
+        this.organization = organization;
         this.enterprise = enterprise;
         populateTable();
     }
@@ -113,7 +117,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) ReportedIncidentTable.getModel();
         dtm.setRowCount(0);
         
-        for(WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()){
+        for(WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()){
             
             if( req instanceof CaseWorkRequest){
                 

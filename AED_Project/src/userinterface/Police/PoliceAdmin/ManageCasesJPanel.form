@@ -173,8 +173,8 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="0">
+                <Column editable="false" title="Officer Username" type="java.lang.Object"/>
                 <Column editable="false" title="Officer Name" type="java.lang.Object"/>
-                <Column editable="false" title="Officer Id" type="java.lang.Object"/>
                 <Column editable="false" title="Zip Code" type="java.lang.Object"/>
               </Table>
             </Property>
