@@ -192,12 +192,14 @@ public class PoliceManageEmployeeJPanel extends javax.swing.JPanel {
 
                 organization.getEmployeeDirectory().createEmployee(name,location);
                 populateTable(organization.getName());
+                JOptionPane.showMessageDialog(null, "Employee added");
+                nameJTextField.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (Exception e){
-            
+            System.out.println(e);
         }
     }//GEN-LAST:event_addJButtonActionPerformed
 
@@ -209,9 +211,13 @@ public class PoliceManageEmployeeJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
-        String name =  organizationJComboBox.getSelectedItem().toString();
-        if (name != null) {
-            populateTable(name);
+        try{
+            String name = (String) organizationJComboBox.getSelectedItem();
+            if (name != null) {
+                populateTable(name);
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
     }//GEN-LAST:event_organizationJComboBoxActionPerformed
 

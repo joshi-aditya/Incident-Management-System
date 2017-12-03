@@ -177,6 +177,9 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
                     directory.createOrganization(type, name, address, zipcode);
                     populateTable();
                     JOptionPane.showMessageDialog(null, "Organization created!");
+                    txtname.setText("");
+                    txtaddress.setText("");
+                    txtZipcode.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "Organization exists bys this name. Please choose a different name!");
                 }
