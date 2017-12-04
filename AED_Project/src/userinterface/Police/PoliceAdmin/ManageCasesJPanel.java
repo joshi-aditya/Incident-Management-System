@@ -108,7 +108,6 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCases = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         nearestPolicejButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         policeOfficerjTable = new javax.swing.JTable();
@@ -148,8 +147,6 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Manage Cases");
-
-        jLabel3.setText("Nearest Police Officers: ------ to be done ");
 
         nearestPolicejButton.setText("Find Nearest Ofiicers");
         nearestPolicejButton.addActionListener(new java.awt.event.ActionListener() {
@@ -200,11 +197,6 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                             .addComponent(backJButton)
                             .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel3)
-                        .addGap(63, 63, 63)
-                        .addComponent(nearestPolicejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(assignjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -212,7 +204,9 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nearestPolicejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(120, 120, 120))
         );
         layout.setVerticalGroup(
@@ -222,11 +216,9 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(49, 49, 49)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(nearestPolicejButton))
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
+                .addComponent(nearestPolicejButton)
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(assignjButton)
@@ -424,7 +416,6 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
     private javax.swing.JButton assignjButton;
     private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton nearestPolicejButton;
