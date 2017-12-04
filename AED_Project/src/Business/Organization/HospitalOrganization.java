@@ -5,7 +5,9 @@
  */
 package Business.Organization;
 
+import Business.Role.DoctorRole;
 import Business.Role.HospitalAdminRole;
+import Business.Role.LabAssistantRole;
 import Business.Role.Role;
 import java.util.HashSet;
 
@@ -23,6 +25,8 @@ public class HospitalOrganization extends Organization {
     public HashSet<Role> getSupportedRole() {
         roles = new HashSet<>();
         roles.add(new HospitalAdminRole());
+        roles.add(new DoctorRole());
+        roles.add(new LabAssistantRole());
         return roles;
     }
 

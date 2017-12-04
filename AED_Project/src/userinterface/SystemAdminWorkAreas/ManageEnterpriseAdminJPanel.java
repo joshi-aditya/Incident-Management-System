@@ -8,10 +8,11 @@ import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import Business.Role.AmbulanceAdminRole;
+import Business.Role.AmbulanceStaffRole;
 import Business.Role.CourtAdminRole;
 import Business.Role.FireRescueAdminRole;
 import Business.Role.GovernmentAdminRole;
+import Business.Role.HospitalAdminRole;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -200,8 +201,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.PoliceEnterprise) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new PoliceAdminRole());
                 }    
-                else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.AmbulanceEnterprise) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new AmbulanceAdminRole());
+                else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.HospitalEnterprise) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
                 } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.FireRescueEnterprise) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new FireRescueAdminRole());
                 } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.CourtEnterprise) {
