@@ -22,10 +22,12 @@ public abstract class Role {
    
         SystemAdmin("SystemAdmin"),
         User("User"),
+        Doctor("Doctor"),
+        LabAssistant("Lab Assistant"),
         PoliceAdmin("Police Admin"),
         CourtAdmin("Court Admin"),
         HospitalAdmin("Hospital Admin"),
-        AmbulanceAdmin("Ambulance Admin"),
+        AmbulanceStaff("Ambulance Staff"),
         FireRescueAdmin("Fire Rescue Admin"),
         GovernmentAdmin("Government Admin"),
         PoliceOfficerRole("Police Officer");

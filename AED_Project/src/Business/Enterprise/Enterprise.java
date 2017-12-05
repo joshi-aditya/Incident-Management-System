@@ -26,7 +26,7 @@ public abstract class Enterprise extends Organization {
     }
     
     public enum EnterpriseType{
-        AmbulanceEnterprise("Ambulance Enterprise"),
+        
         PoliceEnterprise("Police Enterprise"),
         HospitalEnterprise("Hospital Enterprise"),
         FireRescueEnterprise("Fire Rescue Enterprise"),

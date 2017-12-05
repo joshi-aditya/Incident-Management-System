@@ -81,6 +81,8 @@ public class HospitalManageEmployeeJPanel extends javax.swing.JPanel {
         nameJTextField = new javax.swing.JTextField();
         organizationEmpJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -160,6 +162,12 @@ public class HospitalManageEmployeeJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Organization");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 189, -1, -1));
+
+        jLabel4.setText("select organization to be displayed below");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 330, -1));
+
+        jLabel5.setText("Create employee of :");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 250, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
@@ -200,6 +208,8 @@ public class HospitalManageEmployeeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameJTextField;
     private javax.swing.JComboBox organizationEmpJComboBox;

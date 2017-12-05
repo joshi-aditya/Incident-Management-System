@@ -28,6 +28,12 @@ public class OrganizationDirectory {
             organization = new AmbulanceOrganization();
             organizationList.add(organization);
         }
+        
+        else if (type.getValue().equals(Organization.Type.HospitalOrganization.getValue())){
+            organization = new HospitalOrganization();
+            organizationList.add(organization);
+        }
+        
         else if (type.getValue().equals(Organization.Type.PoliceOrganization.getValue())){
             organization = new PoliceOrganization();
             organizationList.add(organization);

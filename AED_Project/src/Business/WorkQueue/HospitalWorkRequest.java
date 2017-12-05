@@ -9,10 +9,11 @@ package Business.WorkQueue;
  *
  * @author Sneha
  */
-public class HospitalWorkRequest extends WorkRequest{
-    
+public class HospitalWorkRequest extends WorkRequest {
+
     private String testResult;
     private int caseId;
+    private String status;
 
     public int getCaseId() {
         return caseId;
@@ -22,12 +23,16 @@ public class HospitalWorkRequest extends WorkRequest{
         this.caseId = caseId;
     }
 
-    
     public String getTestResult() {
         return testResult;
     }
 
     public void setTestResult(String testResult) {
         this.testResult = testResult;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(caseId);
     }
 }

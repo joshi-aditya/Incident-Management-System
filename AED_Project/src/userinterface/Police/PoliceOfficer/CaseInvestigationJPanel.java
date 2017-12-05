@@ -182,7 +182,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
             return;
         }
         HospitalWorkRequest hospitalRequest = new HospitalWorkRequest();
-        hospitalRequest.setMessage(message);
+        hospitalRequest.setMessage(hospitalMessageTextField.getText());
         hospitalRequest.setCaseId(request.getCaseID());
         hospitalRequest.setSender(userAccount);
         hospitalRequest.setStatus("Sent");
@@ -199,8 +199,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
             userAccount.getWorkQueue().getWorkRequestList().add(hospitalRequest);
         }
         
-        JOptionPane.showMessageDialog(null, "Request for medical test sent");
-        
+        JOptionPane.showMessageDialog(null, "Request for medical test sent"); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

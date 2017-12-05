@@ -5,6 +5,15 @@
  */
 package userinterface.Hospital;
 
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
+import Business.Organization.OrganizationDirectory;
+import Business.WorkQueue.CaseWorkRequest;
+import Business.WorkQueue.HospitalWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sneha
@@ -14,8 +23,38 @@ public class HospitalManageTestsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form HospitalManageTestsJPanel
      */
-    public HospitalManageTestsJPanel() {
+    JPanel userProcessContainer;
+    Enterprise enterprise;
+
+    HospitalManageTestsJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        populateTable();
+    }
+
+    public void populateTable() {
+
+        DefaultTableModel dtm = (DefaultTableModel) workRequestJTable.getModel();
+        dtm.setRowCount(0);
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (WorkRequest req : org.getWorkQueue().getWorkRequestList()) {
+                if (req instanceof HospitalWorkRequest) {
+                   
+
+                        Object[] row = new Object[2];
+                        row[0] = req;
+                        row[1] = req.getMessage();
+                        row[2] = req.getSender();
+
+                        dtm.addRow(row);
+                    
+                }
+
+            }
+
+        }
     }
 
     /**

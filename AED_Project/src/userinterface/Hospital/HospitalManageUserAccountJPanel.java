@@ -8,10 +8,15 @@ import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.AmbulanceOrganization;
+import Business.Organization.HospitalOrganization;
 import Business.Organization.Organization;
 import Business.Organization.PoliceOrganization;
 import Business.Organization.Organization.Type;
+import static Business.Organization.Organization.Type.HospitalOrganization;
+import Business.Role.AmbulanceStaffRole;
+import Business.Role.DoctorRole;
 import Business.Role.HospitalAdminRole;
+import Business.Role.LabAssistantRole;
 import Business.Role.Role;
 import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
@@ -63,7 +68,14 @@ public class HospitalManageUserAccountJPanel extends javax.swing.JPanel {
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
         if(organization instanceof AmbulanceOrganization){
        // for (Role role : e.getSupportedRole()){
+            roleJComboBox.addItem(new AmbulanceStaffRole());
+        }
+        
+        else if(organization instanceof HospitalOrganization){
+            
             roleJComboBox.addItem(new HospitalAdminRole());
+            roleJComboBox.addItem(new DoctorRole());
+            roleJComboBox.addItem(new LabAssistantRole());
         }
         
         /*

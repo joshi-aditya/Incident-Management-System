@@ -8,24 +8,26 @@ package Business.Role;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Organization.AmbulanceOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import userinterface.Ambulance.AmbulanceAdminWorkAreaJPanel;
+import userinterface.Ambulance.AmbulanceStaffWorkAreaJPanel;
+
 
 /**
  *
  * @author Sneha
  */
-public class AmbulanceAdminRole extends Role{
+public class AmbulanceStaffRole extends Role{
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, Network network, EcoSystem business) {
-        return new AmbulanceAdminWorkAreaJPanel(userProcessContainer, enterprise);
+        return new AmbulanceStaffWorkAreaJPanel(userProcessContainer,  account, organization,  enterprise,  business);
     }
 
      @Override
     public String toString(){
-        return RoleType.AmbulanceAdmin.getValue();
+        return RoleType.AmbulanceStaff.getValue();
     }
     
     
