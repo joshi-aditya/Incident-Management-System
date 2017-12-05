@@ -5,15 +5,19 @@
  */
 package Business.WorkQueue;
 
+import java.util.Date;
+
 /**
  *
  * @author Neha Varshney
  */
-public class AmbulanceWorkRequest {
+public class AmbulanceWorkRequest  extends WorkRequest{
     
     String incidentType;
     String address;
+    private Date incidentOcuredDate;
     String zipCode;
+    String message;
     int ambulanceCaseId;
     private static int counter =0;
     double latitude;
@@ -24,6 +28,33 @@ public class AmbulanceWorkRequest {
     public AmbulanceWorkRequest() {
        counter ++;
        ambulanceCaseId = counter; 
+       incidentOcuredDate = new Date();
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    
+    
+    public String getIncidentType() {
+        return incidentType;
+    }
+
+    public void setIncidentType(String incidentType) {
+        this.incidentType = incidentType;
+    }
+
+    public Date getIncidentOcuredDate() {
+        return incidentOcuredDate;
+    }
+
+    public void setIncidentOcuredDate(Date incidentOcuredDate) {
+        this.incidentOcuredDate = incidentOcuredDate;
     }
     
     
