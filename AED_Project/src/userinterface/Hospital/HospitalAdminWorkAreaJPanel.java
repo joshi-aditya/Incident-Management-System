@@ -119,7 +119,7 @@ public class HospitalAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        HospitalManageTestsJPanel managetestsJPanel = new HospitalManageTestsJPanel(userProcessContainer, enterprise);
+        HospitalViewTestsJPanel managetestsJPanel = new HospitalViewTestsJPanel(userProcessContainer, enterprise);
         userProcessContainer.add("HospitalManageTestsJPanel", managetestsJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

@@ -18,15 +18,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Sneha
  */
-public class HospitalManageTestsJPanel extends javax.swing.JPanel {
+public class HospitalViewTestsJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form HospitalManageTestsJPanel
+     * Creates new form HospitalViewTestsJPanel
      */
     JPanel userProcessContainer;
     Enterprise enterprise;
 
-    HospitalManageTestsJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    HospitalViewTestsJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
@@ -45,8 +45,8 @@ public class HospitalManageTestsJPanel extends javax.swing.JPanel {
 
                         Object[] row = new Object[2];
                         row[0] = req;
-                        row[1] = req.getMessage();
-                        row[2] = req.getSender();
+                        row[1] = ((HospitalWorkRequest) req).getMessage();
+                        //row[2] = req.getSender();
 
                         dtm.addRow(row);
                     

@@ -6,6 +6,9 @@
 package userinterface.Police.PoliceOfficer;
 
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Network.Network;
+import Business.Organization.AmbulanceOrganization;
 import Business.Organization.HospitalOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -19,22 +22,20 @@ import javax.swing.JPanel;
  *
  * @author Sneha
  */
-
 public class CaseInvestigationJPanel extends javax.swing.JPanel {
 
     JPanel userProcessContainer;
     CaseWorkRequest request;
-    Enterprise enterprise;
+    Network network;
     UserAccount userAccount;
 
     /**
      * Creates new form CaseInvestigationJPanel
      */
-
-    CaseInvestigationJPanel(JPanel userProcessContainer, CaseWorkRequest request, UserAccount userAccount, Enterprise enterprise) {
-        initComponents();       
+    CaseInvestigationJPanel(JPanel userProcessContainer, CaseWorkRequest request, UserAccount userAccount, Network network) {
+        initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.enterprise = enterprise;
+        this.network = network;
         this.request = request;
         this.userAccount = userAccount;
         caseidTextField.setText(String.valueOf(request.getCaseID()));
@@ -54,7 +55,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        SourceAddressTextField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -91,7 +92,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel5.setText("Enter medical tests to be carried out at Hospital");
+        jLabel5.setText("Enter medical tests to be carried out at Hospital :");
 
         jLabel6.setText("Case ID :");
 
@@ -111,22 +112,20 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                .addComponent(hospitalMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                    .addComponent(caseidTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(hospitalMessageTextField)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(caseidTextField)
+                                    .addComponent(SourceAddressTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(67, 112, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +152,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(SourceAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -177,7 +176,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         String message = hospitalMessageTextField.getText();
-        if(message.equals("") || message.isEmpty()){
+        if (message.equals("") || message.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter message for the hospital to send.");
             return;
         }
@@ -186,24 +185,26 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
         hospitalRequest.setCaseId(request.getCaseID());
         hospitalRequest.setSender(userAccount);
         hospitalRequest.setStatus("Sent");
-        
-        Organization org = null;
-        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
-            if (organization instanceof HospitalOrganization){
-                org = organization;
-                break;
+
+        for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+            if (ent instanceof HospitalEnterprise) {
+                for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
+                    if (organization instanceof HospitalOrganization) {
+
+                        organization.getWorkQueue().getWorkRequestList().add(hospitalRequest);
+                        userAccount.getWorkQueue().getWorkRequestList().add(hospitalRequest);
+                        break;
+                    }
+                }
             }
         }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(hospitalRequest);
-            userAccount.getWorkQueue().getWorkRequestList().add(hospitalRequest);
-        }
-        
-        JOptionPane.showMessageDialog(null, "Request for medical test sent"); 
+
+        JOptionPane.showMessageDialog(null, "Request for medical test sent");
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField SourceAddressTextField;
     private javax.swing.JTextField caseidTextField;
     private javax.swing.JTextField hospitalMessageTextField;
     private javax.swing.JButton jButton1;
@@ -217,6 +218,5 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

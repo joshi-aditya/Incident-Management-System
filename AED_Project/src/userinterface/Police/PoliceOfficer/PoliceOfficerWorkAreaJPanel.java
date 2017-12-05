@@ -6,6 +6,7 @@
 package userinterface.Police.PoliceOfficer;
 
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
@@ -28,13 +29,14 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
     UserAccount userAccount;
     Organization organization;
     Enterprise enterprise;
+    Network network;
 
-    public PoliceOfficerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise) {
+    public PoliceOfficerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organization organization, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.organization = organization;
-        this.enterprise = enterprise;
+        this.network = network;
         lblName.setText(userAccount.getEmployee().getName());
         lblRole.setText(userAccount.getRole().toString());
         populateTable();
@@ -122,7 +124,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = ReportedIncidentTable.getSelectedRow();
         if (selectedRow >= 0) {
             CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
-            CaseInvestigationJPanel panel = new CaseInvestigationJPanel(userProcessContainer, request,userAccount, enterprise);
+            CaseInvestigationJPanel panel = new CaseInvestigationJPanel(userProcessContainer, request,userAccount, network);
             userProcessContainer.add("CaseInvestigationJPanel", panel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
