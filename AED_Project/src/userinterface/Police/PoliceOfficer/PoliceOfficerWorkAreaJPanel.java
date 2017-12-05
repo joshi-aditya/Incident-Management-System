@@ -11,6 +11,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -118,36 +119,44 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            CaseInvestigationJPanel panel = new CaseInvestigationJPanel(userProcessContainer, request,userAccount, enterprise);
+            userProcessContainer.add("CaseInvestigationJPanel", panel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an incident from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    public void populateTable(){
-        
+    public void populateTable() {
+
         DefaultTableModel dtm = (DefaultTableModel) ReportedIncidentTable.getModel();
         dtm.setRowCount(0);
-        
-        for(WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()){
-            
-            if( req instanceof CaseWorkRequest){
-                
-                CaseWorkRequest caseRequest = (CaseWorkRequest)req;
-                Object[] row =new Object[5];
+
+        for (WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()) {
+
+            if (req instanceof CaseWorkRequest) {
+
+                CaseWorkRequest caseRequest = (CaseWorkRequest) req;
+                Object[] row = new Object[5];
                 row[0] = caseRequest;
                 row[1] = caseRequest.getIncidentType();
                 row[2] = caseRequest.getIncidentOcuredDate();
                 row[3] = caseRequest.getZipCode();
                 row[4] = caseRequest.getStatus();
-                
+
                 dtm.addRow(row);
-                
+
             }
-            
+
         }
-        
+
     }
-    
-    
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
     private javax.swing.JScrollPane jScrollPane1;
