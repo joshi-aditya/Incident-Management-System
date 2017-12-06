@@ -13,7 +13,6 @@ public class HospitalWorkRequest extends WorkRequest {
 
     private String testResult;
     private int caseId;
-    private String status;
 
     public int getCaseId() {
         return caseId;
