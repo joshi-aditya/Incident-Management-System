@@ -25,11 +25,32 @@ public class CaseWorkRequest extends WorkRequest {
     private String address;
     private String zipCode;
     private String status;
+    private String testResult;
+    private Date testResultDate;
 
     public CaseWorkRequest() {
         caseID = counter;
         counter++;
     }
+
+    public String getTestResult() {
+        return testResult;
+    }
+
+    public void setTestResult(String testResult) {
+        this.testResult = testResult;
+    }
+
+    public Date getTestResultDate() {
+        return testResultDate;
+    }
+
+    public void setTestResultDate(Date testResultDate) {
+        this.testResultDate = testResultDate;
+    }
+    
+    
+    
 
     public int getCaseID() {
         return caseID;

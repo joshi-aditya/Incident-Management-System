@@ -10,8 +10,10 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.HospitalWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -43,7 +45,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         this.network = network;
         this.ecoSystem = ecoSystem;
         populateAllRequestsTable();
-        
+        testResultjTextArea.setEnabled(true);
     }
     
     public void populateAllRequestsTable() {
@@ -105,7 +107,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) myWorkRequestJTable.getModel();
         dtm.setRowCount(0);
         
-        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+        //for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()) {
                 if (req instanceof HospitalWorkRequest) {
                     
@@ -122,7 +124,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
                 
                 }
 
-            }
+            //}
             
         }
 
@@ -147,7 +149,10 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         myWorkRequestJTable = new javax.swing.JTable();
-        myCasesjButton = new javax.swing.JButton();
+        submitTestjButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        testResultjTextArea = new javax.swing.JTextArea();
+        submitOfficerjButton = new javax.swing.JButton();
 
         allWorkRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -225,10 +230,21 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
             myWorkRequestJTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        myCasesjButton.setText("Show My cases");
-        myCasesjButton.addActionListener(new java.awt.event.ActionListener() {
+        submitTestjButton.setText("Submit  Test Result");
+        submitTestjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myCasesjButtonActionPerformed(evt);
+                submitTestjButtonActionPerformed(evt);
+            }
+        });
+
+        testResultjTextArea.setColumns(20);
+        testResultjTextArea.setRows(5);
+        jScrollPane1.setViewportView(testResultjTextArea);
+
+        submitOfficerjButton.setText("Submit Result to Officer");
+        submitOfficerjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitOfficerjButtonActionPerformed(evt);
             }
         });
 
@@ -239,17 +255,22 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(328, 328, 328)
+                        .addComponent(assignRequestjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(submitTestjButton)
+                                .addGap(108, 108, 108)
+                                .addComponent(jScrollPane1))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(328, 328, 328)
-                        .addComponent(assignRequestjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(myCasesjButton)))
-                .addContainerGap(241, Short.MAX_VALUE))
+                        .addGap(331, 331, 331)
+                        .addComponent(submitOfficerjButton)))
+                .addContainerGap(357, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,14 +278,21 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assignRequestjButton)
-                    .addComponent(myCasesjButton))
+                .addComponent(assignRequestjButton)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(submitTestjButton)))
+                .addGap(18, 18, 18)
+                .addComponent(submitOfficerjButton)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -272,22 +300,112 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         assignToMe();
         populateAllRequestsTable();
+         populateMyRequestsTable();
        
     }//GEN-LAST:event_assignRequestjButtonActionPerformed
 
-    private void myCasesjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCasesjButtonActionPerformed
+    private void submitTestjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitTestjButtonActionPerformed
         // TODO add your handling code here:
-         populateMyRequestsTable();
-    }//GEN-LAST:event_myCasesjButtonActionPerformed
+        int selectedRow;
+        
+         selectedRow = myWorkRequestJTable.getSelectedRow();
+         
+         if (selectedRow >= 0) {
+             
+             if(!testResultjTextArea.getText().trim().isEmpty()){
+             HospitalWorkRequest hospitalWorkRequest= (HospitalWorkRequest) myWorkRequestJTable.getValueAt(selectedRow, 0);
+             hospitalWorkRequest.setTestResult(testResultjTextArea.getText());
+             hospitalWorkRequest.setStatus("Completed");
+             hospitalWorkRequest.setResolveDate(new Date());
+             //userAccount.getWorkQueue().getWorkRequestList().add(hospitalWorkRequest
+             populateMyRequestsTable();
+             
+             JOptionPane.showMessageDialog(null, "Test Completed Successfully!");
+             testResultjTextArea.setEnabled(false);
+             
+             }
+             
+             else
+                 JOptionPane.showMessageDialog(null, "Please Enter Test Result!");
+                 return;
+           
+        }
+         
+         else
+         {
+            JOptionPane.showMessageDialog(null, "Please select a Test update results!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         }
+      
+        
+    }//GEN-LAST:event_submitTestjButtonActionPerformed
+
+    private void submitOfficerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitOfficerjButtonActionPerformed
+        // TODO add your handling code here:
+        
+         int selectedRow;
+         UserAccount police;
+        
+         selectedRow = myWorkRequestJTable.getSelectedRow();
+         
+         if (selectedRow >= 0) {
+             
+             if(!testResultjTextArea.getText().trim().isEmpty()){
+             HospitalWorkRequest hospitalWorkRequest= (HospitalWorkRequest) myWorkRequestJTable.getValueAt(selectedRow, 0);
+             hospitalWorkRequest.setTestResult(testResultjTextArea.getText());
+             police= hospitalWorkRequest.getReceiver();
+             
+             for (WorkRequest req : police.getWorkQueue().getWorkRequestList()) {
+                 
+                 if (req instanceof CaseWorkRequest) {
+                     
+                     ((CaseWorkRequest) req).setTestResult(testResultjTextArea.getText());
+                     ((CaseWorkRequest) req).setTestResultDate(new Date());
+                     
+                     ((CaseWorkRequest) req).setStatus("Results Received");
+                     
+                     
+                 }
+                 
+                 
+             }
+             
+             
+             hospitalWorkRequest.setStatus("Sent to officer");
+             //userAccount.getWorkQueue().getWorkRequestList().add(hospitalWorkRequest
+             populateMyRequestsTable();
+             
+             JOptionPane.showMessageDialog(null, "Test Completed Successfully!");
+             testResultjTextArea.setEnabled(false);
+             
+             }
+             
+             else
+                 JOptionPane.showMessageDialog(null, "Please Enter Test Result First!");
+                 return;
+           
+        }
+         
+         else
+         {
+            JOptionPane.showMessageDialog(null, "Please select a Test update results!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+         }
+        
+        
+    }//GEN-LAST:event_submitOfficerjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable allWorkRequestJTable;
     private javax.swing.JButton assignRequestjButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JButton myCasesjButton;
     private javax.swing.JTable myWorkRequestJTable;
+    private javax.swing.JButton submitOfficerjButton;
+    private javax.swing.JButton submitTestjButton;
+    private javax.swing.JTextArea testResultjTextArea;
     // End of variables declaration//GEN-END:variables
 }

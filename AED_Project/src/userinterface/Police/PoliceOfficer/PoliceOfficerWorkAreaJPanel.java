@@ -56,6 +56,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         jToggleButton1 = new javax.swing.JToggleButton();
         lblName = new javax.swing.JLabel();
         lblRole = new javax.swing.JLabel();
+        viewTestResultjButton = new javax.swing.JButton();
 
         ReportedIncidentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,6 +87,13 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
         lblRole.setText("jLabel2");
 
+        viewTestResultjButton.setText("View Test Result");
+        viewTestResultjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewTestResultjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,7 +108,9 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jToggleButton1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(viewTestResultjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jToggleButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 114, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -115,7 +125,9 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton1)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(viewTestResultjButton)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,6 +144,31 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please select an incident from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void viewTestResultjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTestResultjButtonActionPerformed
+        // TODO add your handling code here:
+        
+         int selectedRow = ReportedIncidentTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            if(!request.getStatus().equalsIgnoreCase("Results Received")){
+                 JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
+                 return;
+            }
+            
+            else {
+                
+                ViewSelectedRequestJPanel requestPanel= new ViewSelectedRequestJPanel(userProcessContainer, request,userAccount, network);
+                userProcessContainer.add("ViewSelectedRequestJPanel", requestPanel);
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.next(userProcessContainer);
+            }
+           
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a case from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_viewTestResultjButtonActionPerformed
 
     public void populateTable() {
 
@@ -165,5 +202,6 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblRole;
+    private javax.swing.JButton viewTestResultjButton;
     // End of variables declaration//GEN-END:variables
 }
