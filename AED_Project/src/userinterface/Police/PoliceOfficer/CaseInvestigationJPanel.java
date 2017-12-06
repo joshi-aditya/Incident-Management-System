@@ -188,7 +188,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
         hospitalRequest.setMessage(hospitalMessageTextField.getText());
         hospitalRequest.setCaseId(request.getCaseID());
         hospitalRequest.setSender(userAccount);
-        hospitalRequest.setStatus("Sent");
+        hospitalRequest.setStatus("Not Assigned");
 
         for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
             if (ent instanceof HospitalEnterprise) {
