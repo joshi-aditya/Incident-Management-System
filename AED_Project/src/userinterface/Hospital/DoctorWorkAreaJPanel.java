@@ -86,6 +86,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
              HospitalWorkRequest hospitalWorkRequest= (HospitalWorkRequest) allWorkRequestJTable.getValueAt(selectedRow, 0);
              hospitalWorkRequest.setReceiver(userAccount);
              hospitalWorkRequest.setStatus("Assigned");
+             userAccount.getWorkQueue().getWorkRequestList().add(hospitalWorkRequest);
              
              JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
            
@@ -104,6 +105,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) myWorkRequestJTable.getModel();
         dtm.setRowCount(0);
         
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()) {
                 if (req instanceof HospitalWorkRequest) {
                     
@@ -121,6 +123,8 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
                 }
 
             }
+            
+        }
 
                 
         
@@ -143,6 +147,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         myWorkRequestJTable = new javax.swing.JTable();
+        myCasesjButton = new javax.swing.JButton();
 
         allWorkRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -220,6 +225,13 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
             myWorkRequestJTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        myCasesjButton.setText("Show My cases");
+        myCasesjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myCasesjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,7 +246,9 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(328, 328, 328)
-                        .addComponent(assignRequestjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(assignRequestjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(myCasesjButton)))
                 .addContainerGap(241, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -243,7 +257,9 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(assignRequestjButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assignRequestjButton)
+                    .addComponent(myCasesjButton))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -255,8 +271,14 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
     private void assignRequestjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignRequestjButtonActionPerformed
         // TODO add your handling code here:
         assignToMe();
-        populateMyRequestsTable();
+        populateAllRequestsTable();
+       
     }//GEN-LAST:event_assignRequestjButtonActionPerformed
+
+    private void myCasesjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCasesjButtonActionPerformed
+        // TODO add your handling code here:
+         populateMyRequestsTable();
+    }//GEN-LAST:event_myCasesjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -265,6 +287,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton myCasesjButton;
     private javax.swing.JTable myWorkRequestJTable;
     // End of variables declaration//GEN-END:variables
 }
