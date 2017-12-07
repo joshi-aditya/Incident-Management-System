@@ -12,6 +12,8 @@ import java.util.Random;
 public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
     
     private String gunType;
+    private String motive;
+    private boolean isGunLegal = false;
     private int CaseID;
     
     public GunViolenceCaseWorkRequest(){
@@ -29,6 +31,22 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
 
     public void setGunType(String gunType) {
         this.gunType = gunType;
+    }
+
+    public String getMotive() {
+        return motive;
+    }
+
+    public void setMotive(String motive) {
+        this.motive = motive;
+    }
+
+    public boolean isIsGunLegal() {
+        return isGunLegal;
+    }
+
+    public void setIsGunLegal(boolean isGunLegal) {
+        this.isGunLegal = isGunLegal;
     }
     
     @Override
