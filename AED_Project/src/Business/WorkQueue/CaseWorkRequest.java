@@ -18,47 +18,11 @@ public class CaseWorkRequest extends WorkRequest {
     private UserAccount incidentReportedBy;
     private Date incidentOcuredDate;
     private String suspectName;
-    private int caseID; 
-    private static int counter = 1;
     private String initialObservation;
     private String incidentType;
     private String address;
     private String zipCode;
-    private String status;
-    private String testResult;
-    private Date testResultDate;
-
-    public CaseWorkRequest() {
-        caseID = counter;
-        counter++;
-    }
-
-    public String getTestResult() {
-        return testResult;
-    }
-
-    public void setTestResult(String testResult) {
-        this.testResult = testResult;
-    }
-
-    public Date getTestResultDate() {
-        return testResultDate;
-    }
-
-    public void setTestResultDate(Date testResultDate) {
-        this.testResultDate = testResultDate;
-    }
-    
-    
-    
-
-    public int getCaseID() {
-        return caseID;
-    }
-
-    public void setCaseID(int caseID) {
-        this.caseID = caseID;
-    }
+    //private String status;
     
     public UserAccount getIncidentReportedBy() {
         return incidentReportedBy;
@@ -116,18 +80,12 @@ public class CaseWorkRequest extends WorkRequest {
         this.zipCode = zipCode;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    
-    @Override
-    public String toString() {
-        return String.valueOf(caseID);
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 
 }

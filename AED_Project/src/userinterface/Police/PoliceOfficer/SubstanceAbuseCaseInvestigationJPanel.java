@@ -8,13 +8,11 @@ package userinterface.Police.PoliceOfficer;
 import Business.Enterprise.Enterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Network.Network;
-import Business.Organization.AmbulanceOrganization;
 import Business.Organization.HospitalOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.HospitalWorkRequest;
-import Business.WorkQueue.WorkRequest;
+import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,17 +21,17 @@ import javax.swing.JPanel;
  *
  * @author Sneha
  */
-public class CaseInvestigationJPanel extends javax.swing.JPanel {
+public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
 
     JPanel userProcessContainer;
-    CaseWorkRequest request;
+    SubstanceAbuseCaseWorkRequest request;
     Network network;
     UserAccount userAccount;
 
     /**
      * Creates new form CaseInvestigationJPanel
      */
-    CaseInvestigationJPanel(JPanel userProcessContainer, CaseWorkRequest request, UserAccount userAccount, Network network) {
+    SubstanceAbuseCaseInvestigationJPanel(JPanel userProcessContainer, SubstanceAbuseCaseWorkRequest request, UserAccount userAccount, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.network = network;
@@ -98,26 +96,27 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(hospitalMessageTextField)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                            .addComponent(caseidTextField)
-                            .addComponent(SourceAddressTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(443, 733, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(325, 325, 325)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(hospitalMessageTextField)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(caseidTextField)
+                                    .addComponent(SourceAddressTextField, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(325, 325, 325)
+                        .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -165,7 +164,7 @@ public class CaseInvestigationJPanel extends javax.swing.JPanel {
         }
         HospitalWorkRequest hospitalRequest = new HospitalWorkRequest();
         hospitalRequest.setMessage(hospitalMessageTextField.getText());
-        hospitalRequest.setCaseId(request.getCaseID());
+        //hospitalRequest.setCaseId(request.getCaseID());
         hospitalRequest.setSender(userAccount);
         hospitalRequest.setStatus("Not Assigned");
 
