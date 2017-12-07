@@ -54,6 +54,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         btnBroadcastMsg = new javax.swing.JButton();
         btnUserReportedIncidents = new javax.swing.JButton();
         manageCaseBtn = new javax.swing.JButton();
+        btnMasterCaseCatalogue = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -115,6 +116,14 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(manageCaseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 230, -1));
+
+        btnMasterCaseCatalogue.setText("Master Case Catalogue");
+        btnMasterCaseCatalogue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasterCaseCatalogueActionPerformed(evt);
+            }
+        });
+        add(btnMasterCaseCatalogue, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 230, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
@@ -167,10 +176,19 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageCaseBtnActionPerformed
+
+    private void btnMasterCaseCatalogueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasterCaseCatalogueActionPerformed
+        // TODO add your handling code here:
+        CaseCatalogueJPanel caseCatalogueJPanel = new CaseCatalogueJPanel(userProcessContainer, enterprise);
+        userProcessContainer.add("CaseCatalogueJPanel", caseCatalogueJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnMasterCaseCatalogueActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBroadcastMsg;
+    private javax.swing.JButton btnMasterCaseCatalogue;
     private javax.swing.JButton btnUserReportedIncidents;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
