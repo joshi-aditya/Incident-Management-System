@@ -6,8 +6,9 @@
 package userinterface.Police.PoliceAdmin;
 
 import Business.Enterprise.Enterprise;
-import Business.WorkQueue.CaseWorkRequest;
+import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -192,16 +193,36 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
            !txtObservations.getText().trim().isEmpty() &&
            !txtZipcode.getText().trim().isEmpty()){
             
-                CaseWorkRequest caseWorkRequest = new CaseWorkRequest();
-                caseWorkRequest.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
-                caseWorkRequest.setIncidentReportedBy(incidentWorkRequest.getSender());
-                caseWorkRequest.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
-                caseWorkRequest.setInitialObservation(txtObservations.getText().trim());
-                caseWorkRequest.setAddress(txtAddress.getText().trim());
-                caseWorkRequest.setZipCode(txtZipcode.getText().trim());
-                caseWorkRequest.setStatus("Open");
+                if(incidentWorkRequest.getIncidentType().getValue().equals(
+                        IncidentWorkRequest.IncidentType.Gun_Violence.getValue())){
+                    
+                    GunViolenceCaseWorkRequest req = new GunViolenceCaseWorkRequest();
+                    req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
+                    req.setIncidentReportedBy(incidentWorkRequest.getSender());
+                    req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
+                    req.setInitialObservation(txtObservations.getText().trim());
+                    req.setAddress(txtAddress.getText().trim());
+                    req.setZipCode(txtZipcode.getText().trim());
+                    req.setStatus("Open");
                 
-                enterprise.getWorkQueue().getWorkRequestList().add(caseWorkRequest);
+                    enterprise.getWorkQueue().getWorkRequestList().add(req);
+                }
+                
+                if(incidentWorkRequest.getIncidentType().getValue().equals(
+                        IncidentWorkRequest.IncidentType.Substance_Abuse.getValue())){
+                    
+                    SubstanceAbuseCaseWorkRequest req = new SubstanceAbuseCaseWorkRequest();
+                    req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
+                    req.setIncidentReportedBy(incidentWorkRequest.getSender());
+                    req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
+                    req.setInitialObservation(txtObservations.getText().trim());
+                    req.setAddress(txtAddress.getText().trim());
+                    req.setZipCode(txtZipcode.getText().trim());
+                    req.setStatus("Open");
+                
+                    enterprise.getWorkQueue().getWorkRequestList().add(req);
+                }
+                
                 incidentWorkRequest.setCaseCreated(true);
                 
                 JOptionPane.showMessageDialog(null, "Case created!");

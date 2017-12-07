@@ -359,8 +359,8 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
                  
                  if (req instanceof CaseWorkRequest) {
                      
-                     ((CaseWorkRequest) req).setTestResult(testResultjTextArea.getText());
-                     ((CaseWorkRequest) req).setTestResultDate(new Date());
+                     //((CaseWorkRequest) req).setTestResult(testResultjTextArea.getText());
+                     //((CaseWorkRequest) req).setTestResultDate(new Date());
                      
                      ((CaseWorkRequest) req).setStatus("Results Received");
                      

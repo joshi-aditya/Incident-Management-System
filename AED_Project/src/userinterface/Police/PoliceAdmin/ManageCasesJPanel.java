@@ -5,12 +5,14 @@
  */
 package userinterface.Police.PoliceAdmin;
 
-import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Organization.PoliceOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
+import Business.WorkQueue.GunViolenceCaseWorkRequest;
+import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
@@ -59,7 +61,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
 
         for (WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()) {
-            if (req instanceof CaseWorkRequest) {
+            if ((req instanceof GunViolenceCaseWorkRequest) || (req instanceof SubstanceAbuseCaseWorkRequest )) {
                 if (req.getStatus().equals("Open")) {
 
                     Object[] row = new Object[5];
@@ -253,26 +255,20 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
             CaseWorkRequest caseWorkReq = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
             UserAccount user = (UserAccount) policeOfficerjTable.getValueAt(officerSelectedRow, 0);
-
-            CaseWorkRequest newCase = new CaseWorkRequest();
-            newCase.setAddress(caseWorkReq.getAddress());
-            newCase.setCaseID(caseWorkReq.getCaseID());
-            newCase.setIncidentOcuredDate(caseWorkReq.getIncidentOcuredDate());
-            newCase.setIncidentReportedBy(caseWorkReq.getIncidentReportedBy());
-            newCase.setIncidentType(caseWorkReq.getIncidentType());
-            newCase.setInitialObservation(caseWorkReq.getInitialObservation());
-            newCase.setMessage(caseWorkReq.getMessage());
-            newCase.setReceiver(caseWorkReq.getReceiver());
-            newCase.setRequestDate(caseWorkReq.getRequestDate());
-            newCase.setResolveDate(caseWorkReq.getResolveDate());
-            newCase.setSender(caseWorkReq.getSender());
-            newCase.setStatus("Assigned");
-            newCase.setSuspectName(caseWorkReq.getSuspectName());
-            newCase.setZipCode(caseWorkReq.getZipCode());
-
-            caseWorkReq.setStatus("Assigned");
-
-            user.getWorkQueue().getWorkRequestList().add(newCase);
+            
+            if(caseWorkReq.getIncidentType().equals(IncidentWorkRequest.IncidentType.Substance_Abuse.getValue())){
+                
+                SubstanceAbuseCaseWorkRequest sb = (SubstanceAbuseCaseWorkRequest) caseWorkReq;
+                sb.setStatus("Assigned");
+                user.getWorkQueue().getWorkRequestList().add(sb);
+            }
+            
+            if(caseWorkReq.getIncidentType().equals(IncidentWorkRequest.IncidentType.Gun_Violence.getValue())){
+                
+                GunViolenceCaseWorkRequest gv = (GunViolenceCaseWorkRequest) caseWorkReq;
+                gv.setStatus("Assigned");
+                user.getWorkQueue().getWorkRequestList().add(gv);
+            }
 
             JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
             populateTable();
@@ -282,13 +278,13 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
     private void nearestPolicejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nearestPolicejButtonActionPerformed
         // TODO add your handling code here:
-        int caseSelectedRow;
-        caseSelectedRow = tblCases.getSelectedRow();
-        CaseWorkRequest c = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
-        ArrayList<Double> distanceArray = new ArrayList<Double>();
-        Map<String, Double> distanceMatrixPerStation = new HashMap<String, Double>();
-
         try {
+            int caseSelectedRow;
+            caseSelectedRow = tblCases.getSelectedRow();
+            CaseWorkRequest c = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
+            ArrayList<Double> distanceArray = new ArrayList<Double>();
+            Map<String, Double> distanceMatrixPerStation = new HashMap<String, Double>();
+
             String officerAddress;
             officerAddress = "";
             //Get the address of the case
@@ -408,7 +404,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please enter the correct details");
+            
         }
     }//GEN-LAST:event_nearestPolicejButtonActionPerformed
 
