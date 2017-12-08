@@ -14,16 +14,12 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
     private String gunType;
     private String motive;
     private boolean isGunLegal = false;
-    private int CaseID;
+   // private int CaseID;
     
     public GunViolenceCaseWorkRequest(){
-        Random random = new Random();
-        CaseID = random.nextInt(99999999);
+        super();
     }
 
-    public int getCaseID() {
-        return CaseID;
-    }
 
     public String getGunType() {
         return gunType;
@@ -51,7 +47,7 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
     
     @Override
     public String toString() {
-        return String.valueOf(CaseID);
+        return String.valueOf(super.getCaseID());
     } 
     
 }

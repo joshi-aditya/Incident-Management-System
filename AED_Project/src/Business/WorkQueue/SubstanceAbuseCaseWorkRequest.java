@@ -16,11 +16,12 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
     
     private String testResult;
     private Date testResultDate;
-    private int CaseID;
+   // private int CaseID;
     
     public SubstanceAbuseCaseWorkRequest(){
-        Random random = new Random();
-        CaseID = random.nextInt(99999999);
+        super();
+        //Random random = new Random();
+        //CaseID = random.nextInt(99999999);
     }
 
     public String getTestResult() {
@@ -39,12 +40,12 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
         this.testResultDate = testResultDate;
     }
 
-    public int getCaseID() {
-        return CaseID;
-    }
+    //public int getCaseID() {
+      //  return CaseID;
+    //}
     
     @Override
     public String toString() {
-        return String.valueOf(CaseID);
+        return String.valueOf(super.getCaseID());
     } 
 }

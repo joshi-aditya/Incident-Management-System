@@ -164,7 +164,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
     private void viewTestResultjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTestResultjButtonActionPerformed
         // TODO add your handling code here:
         
-         int selectedRow = ReportedIncidentTable.getSelectedRow();
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
         if (selectedRow >= 0) {
             CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
             if(!request.getStatus().equalsIgnoreCase("Results Received")){

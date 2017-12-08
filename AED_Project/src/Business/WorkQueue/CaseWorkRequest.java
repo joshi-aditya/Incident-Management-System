@@ -8,6 +8,7 @@ package Business.WorkQueue;
 import Business.Employee.Employee;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -22,8 +23,17 @@ public class CaseWorkRequest extends WorkRequest {
     private String incidentType;
     private String address;
     private String zipCode;
+    private int CaseID;
     //private String status;
+
+    public CaseWorkRequest() {
+        Random random = new Random();
+        CaseID = random.nextInt(99999999);
+    }
     
+    public int getCaseID() {
+        return CaseID;
+    }
     public UserAccount getIncidentReportedBy() {
         return incidentReportedBy;
     }

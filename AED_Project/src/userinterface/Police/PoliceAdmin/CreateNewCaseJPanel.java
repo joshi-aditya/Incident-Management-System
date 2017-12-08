@@ -6,6 +6,7 @@
 package userinterface.Police.PoliceAdmin;
 
 import Business.Enterprise.Enterprise;
+import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
@@ -189,6 +190,7 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        
         if(!txtAddress.getText().trim().isEmpty() &&
            !txtObservations.getText().trim().isEmpty() &&
            !txtZipcode.getText().trim().isEmpty()){
