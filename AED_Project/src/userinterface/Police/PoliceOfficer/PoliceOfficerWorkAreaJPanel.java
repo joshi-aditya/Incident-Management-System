@@ -10,6 +10,9 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
+import Business.WorkQueue.GunViolenceCaseWorkRequest;
+import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -136,10 +139,23 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = ReportedIncidentTable.getSelectedRow();
         if (selectedRow >= 0) {
             CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
-            CaseInvestigationJPanel panel = new CaseInvestigationJPanel(userProcessContainer, request,userAccount, network);
-            userProcessContainer.add("CaseInvestigationJPanel", panel);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            layout.next(userProcessContainer);
+            
+            if(request.getIncidentType().equals(IncidentWorkRequest.IncidentType.Substance_Abuse.getValue())){
+                SubstanceAbuseCaseWorkRequest sb = (SubstanceAbuseCaseWorkRequest) request;
+                SubstanceAbuseCaseInvestigationJPanel panel = new SubstanceAbuseCaseInvestigationJPanel(userProcessContainer, sb,userAccount, network);
+                userProcessContainer.add("SubstanceAbuseCaseInvestigationJPanel", panel);
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.next(userProcessContainer); 
+            }
+            
+            if(request.getIncidentType().equals(IncidentWorkRequest.IncidentType.Gun_Violence.getValue())){
+                GunViolenceCaseWorkRequest gv = (GunViolenceCaseWorkRequest) request;
+                GunViolenceCaseInvestigationJPanel panel = new GunViolenceCaseInvestigationJPanel(userProcessContainer, gv,userAccount, network);
+                userProcessContainer.add("GunViolenceCaseInvestigationJPanel", panel);
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.next(userProcessContainer); 
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Please select an incident from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
@@ -148,21 +164,22 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
     private void viewTestResultjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTestResultjButtonActionPerformed
         // TODO add your handling code here:
         
-         int selectedRow = ReportedIncidentTable.getSelectedRow();
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
         if (selectedRow >= 0) {
             CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            /*
             if(!request.getStatus().equalsIgnoreCase("Results Received")){
                  JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
                  return;
             }
-            
-            else {
+            */
+          //  else {
                 
                 ViewSelectedRequestJPanel requestPanel= new ViewSelectedRequestJPanel(userProcessContainer, request,userAccount, network);
                 userProcessContainer.add("ViewSelectedRequestJPanel", requestPanel);
                 CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                 layout.next(userProcessContainer);
-            }
+           // }
            
         } else {
             JOptionPane.showMessageDialog(this, "Please select a case from the table!", "Warning", JOptionPane.WARNING_MESSAGE);

@@ -8,6 +8,7 @@ package Business.WorkQueue;
 import Business.Employee.Employee;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -18,48 +19,21 @@ public class CaseWorkRequest extends WorkRequest {
     private UserAccount incidentReportedBy;
     private Date incidentOcuredDate;
     private String suspectName;
-    private int caseID; 
-    private static int counter = 1;
     private String initialObservation;
     private String incidentType;
     private String address;
     private String zipCode;
-    private String status;
-    private String testResult;
-    private Date testResultDate;
+    private int CaseID;
+    //private String status;
 
     public CaseWorkRequest() {
-        caseID = counter;
-        counter++;
-    }
-
-    public String getTestResult() {
-        return testResult;
-    }
-
-    public void setTestResult(String testResult) {
-        this.testResult = testResult;
-    }
-
-    public Date getTestResultDate() {
-        return testResultDate;
-    }
-
-    public void setTestResultDate(Date testResultDate) {
-        this.testResultDate = testResultDate;
+        Random random = new Random();
+        CaseID = random.nextInt(99999999);
     }
     
-    
-    
-
     public int getCaseID() {
-        return caseID;
+        return CaseID;
     }
-
-    public void setCaseID(int caseID) {
-        this.caseID = caseID;
-    }
-    
     public UserAccount getIncidentReportedBy() {
         return incidentReportedBy;
     }
@@ -116,18 +90,12 @@ public class CaseWorkRequest extends WorkRequest {
         this.zipCode = zipCode;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    
-    @Override
-    public String toString() {
-        return String.valueOf(caseID);
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 
 }

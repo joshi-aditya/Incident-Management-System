@@ -45,20 +45,20 @@ public class ViewSelectedRequestJPanel extends javax.swing.JPanel {
 
             if (req instanceof CaseWorkRequest) {
                 
-                if(Integer.toString(((CaseWorkRequest) req).getCaseID()).equals(request.getCaseID())){
+                //if(Integer.toString(((CaseWorkRequest) req).getCaseID()).equals(request.getCaseID())){
 
                 CaseWorkRequest caseRequest = (CaseWorkRequest) req;
                 Object[] row = new Object[6];
                 row[0] = caseRequest;
                 row[1] = caseRequest.getIncidentType();
                 row[2] = caseRequest.getIncidentOcuredDate();
-                row[3] = caseRequest.getTestResultDate();
-                row[4] = caseRequest.getTestResult();
+                //row[3] = caseRequest.getTestResultDate();
+                //row[4] = caseRequest.getTestResult();
                 row[5] = caseRequest.getStatus();
 
                 dtm.addRow(row);
 
-            }
+            //}
             }
 
         }

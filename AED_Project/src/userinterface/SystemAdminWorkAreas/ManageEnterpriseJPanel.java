@@ -157,21 +157,33 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
 
-        if(!nameJTextField.getText().equals("")){
-        Network network = (Network) networkJComboBox.getSelectedItem();
-        Enterprise.EnterpriseType type = (Enterprise.EnterpriseType) enterpriseTypeJComboBox.getSelectedItem();
+        if(!nameJTextField.getText().trim().isEmpty()){
+            Network network = (Network) networkJComboBox.getSelectedItem();
+            Enterprise.EnterpriseType type = (Enterprise.EnterpriseType) enterpriseTypeJComboBox.getSelectedItem();
 
-        if (network == null || type == null) {
-            JOptionPane.showMessageDialog(null, "Invalid Input!");
-            return;
-        }
+            if (network == null || type == null) {
+                JOptionPane.showMessageDialog(null, "Invalid Input!");
+                return;
+            }
 
-        String name = nameJTextField.getText();
-        
-        Enterprise enterprise = network.getEnterpriseDirectory().createAndAddEnterprise(name, type);
+            boolean enterpriseExixts = false;
+            for(Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()){
+                if(ent.getEnterpriseType().getValue().equals(type.getValue())){
+                    enterpriseExixts = true;
+                }
+            }
 
-        populateTable();
-         }else{
+            if(enterpriseExixts == false){
+
+                String name = nameJTextField.getText();
+                Enterprise enterprise = network.getEnterpriseDirectory().createAndAddEnterprise(name, type);
+                populateTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Enterprise for this type already exists!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            nameJTextField.setText("");
+        }else{
              JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
         }
 
