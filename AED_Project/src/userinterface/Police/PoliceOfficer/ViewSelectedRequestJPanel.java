@@ -8,6 +8,7 @@ package userinterface.Police.PoliceOfficer;
 import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
+import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -22,11 +23,11 @@ public class ViewSelectedRequestJPanel extends javax.swing.JPanel {
      * Creates new form ViewSelectedRequestJPanel
      */
    JPanel userProcessContainer;
-    CaseWorkRequest request;
+    SubstanceAbuseCaseWorkRequest request;
     Network network;
     UserAccount userAccount;
 
-    ViewSelectedRequestJPanel(JPanel userProcessContainer, CaseWorkRequest request, UserAccount userAccount, Network network) {
+    ViewSelectedRequestJPanel(JPanel userProcessContainer, SubstanceAbuseCaseWorkRequest request, UserAccount userAccount, Network network) {
        initComponents();
         this.userProcessContainer = userProcessContainer;
         this.network = network;
@@ -43,18 +44,18 @@ public class ViewSelectedRequestJPanel extends javax.swing.JPanel {
 
         for (WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()) {
 
-            if (req instanceof CaseWorkRequest) {
+            if (req instanceof SubstanceAbuseCaseWorkRequest) {
                 
                 //if(Integer.toString(((CaseWorkRequest) req).getCaseID()).equals(request.getCaseID())){
 
-                CaseWorkRequest caseRequest = (CaseWorkRequest) req;
+                SubstanceAbuseCaseWorkRequest substanceCaseRequest = (SubstanceAbuseCaseWorkRequest) req;
                 Object[] row = new Object[6];
-                row[0] = caseRequest;
-                row[1] = caseRequest.getIncidentType();
-                row[2] = caseRequest.getIncidentOcuredDate();
-                //row[3] = caseRequest.getTestResultDate();
-                //row[4] = caseRequest.getTestResult();
-                row[5] = caseRequest.getStatus();
+                row[0] = substanceCaseRequest;
+                row[1] = substanceCaseRequest.getIncidentType();
+                row[2] = substanceCaseRequest.getIncidentOcuredDate();
+                row[3] = substanceCaseRequest.getTestResultDate();
+                row[4] = substanceCaseRequest.getTestResult();
+                row[5] = substanceCaseRequest.getStatus();
 
                 dtm.addRow(row);
 

@@ -164,31 +164,42 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
     private void viewTestResultjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTestResultjButtonActionPerformed
         // TODO add your handling code here:
         
-        int selectedRow = ReportedIncidentTable.getSelectedRow();
-        if (selectedRow >= 0) {
-            CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
-            /*
-            if(!request.getStatus().equalsIgnoreCase("Results Received")){
-                 JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
-                 return;
-            }
-            */
-          //  else {
-         //   if(!request.getStatus().equalsIgnoreCase("Results Received")){
-           //      JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
-             //    return;
-            //}
-            
-            //else {
+         int viewSelectedRow = ReportedIncidentTable.getSelectedRow();
+        //CaseWorkRequest req= (CaseWorkRequest)ReportedIncidentTable.getValueAt(viewSelectedRow, 0);
+        //int id =req.getCaseID();
+        if (viewSelectedRow >= 0) {
+            SubstanceAbuseCaseWorkRequest request = (SubstanceAbuseCaseWorkRequest) ReportedIncidentTable.getValueAt(viewSelectedRow, 0);
+            int caseId= request.getCaseID();
+            for (WorkRequest request1 : userAccount.getWorkQueue().getWorkRequestList()) {
+                if (request1 instanceof SubstanceAbuseCaseWorkRequest) {
 
+                    if (((SubstanceAbuseCaseWorkRequest) request1).getCaseID()== caseId &&request1.getStatus().equalsIgnoreCase("Completed")) {
+
+                        ViewSelectedRequestJPanel requestPanel = new ViewSelectedRequestJPanel(userProcessContainer, (SubstanceAbuseCaseWorkRequest) request1, userAccount, network);
+                        userProcessContainer.add("ViewSelectedRequestJPanel", requestPanel);
+                        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                        layout.next(userProcessContainer);
+
+                    }
+                } 
+                 
+                else if(request1 instanceof GunViolenceCaseWorkRequest){
+                    
+                    //View Gun Violence J Panel
+                // Not made this panel as i am not sure if the work is in progress already
                 
-                ViewSelectedRequestJPanel requestPanel= new ViewSelectedRequestJPanel(userProcessContainer, request,userAccount, network);
-                userProcessContainer.add("ViewSelectedRequestJPanel", requestPanel);
-                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-                layout.next(userProcessContainer);
-           // }
-            //}
-           
+                
+            }
+                
+                
+                
+                else {
+
+                    JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Please select a case from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
@@ -202,15 +213,15 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
         for (WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()) {
 
-            if (req instanceof CaseWorkRequest) {
+            if (req instanceof SubstanceAbuseCaseWorkRequest) {
 
-                CaseWorkRequest caseRequest = (CaseWorkRequest) req;
+                SubstanceAbuseCaseWorkRequest substanceCaseRequest = (SubstanceAbuseCaseWorkRequest) req;
                 Object[] row = new Object[5];
-                row[0] = caseRequest;
-                row[1] = caseRequest.getIncidentType();
-                row[2] = caseRequest.getIncidentOcuredDate();
-                row[3] = caseRequest.getZipCode();
-                row[4] = caseRequest.getStatus();
+                row[0] = substanceCaseRequest;
+                row[1] = substanceCaseRequest.getIncidentType();
+                row[2] = substanceCaseRequest.getIncidentOcuredDate();
+                row[3] = substanceCaseRequest.getZipCode();
+                row[4] = substanceCaseRequest.getStatus();
 
                 dtm.addRow(row);
 

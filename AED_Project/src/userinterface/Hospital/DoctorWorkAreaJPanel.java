@@ -11,6 +11,7 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
+import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.HospitalWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.util.Date;
@@ -104,7 +105,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
      
      public void populateMyRequestsTable(){
          
-        DefaultTableModel dtm = (DefaultTableModel) myWorkRequestJTable.getModel();
+       DefaultTableModel dtm = (DefaultTableModel) myWorkRequestJTable.getModel();
         dtm.setRowCount(0);
         
         //for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
@@ -317,7 +318,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
              hospitalWorkRequest.setTestResult(testResultjTextArea.getText());
              hospitalWorkRequest.setStatus("Completed");
              hospitalWorkRequest.setResolveDate(new Date());
-             //userAccount.getWorkQueue().getWorkRequestList().add(hospitalWorkRequest
+             userAccount.getWorkQueue().getWorkRequestList().add(hospitalWorkRequest);
              populateMyRequestsTable();
              
              JOptionPane.showMessageDialog(null, "Test Completed Successfully!");
@@ -337,13 +338,13 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
             return;
          }
       
+      
         
     }//GEN-LAST:event_submitTestjButtonActionPerformed
 
     private void submitOfficerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitOfficerjButtonActionPerformed
-        // TODO add your handling code here:
-        
-         int selectedRow;
+       
+       int selectedRow;
          UserAccount police;
         
          selectedRow = myWorkRequestJTable.getSelectedRow();
@@ -352,30 +353,41 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
              
              if(!testResultjTextArea.getText().trim().isEmpty()){
              HospitalWorkRequest hospitalWorkRequest= (HospitalWorkRequest) myWorkRequestJTable.getValueAt(selectedRow, 0);
-             hospitalWorkRequest.setTestResult(testResultjTextArea.getText());
-             police= hospitalWorkRequest.getReceiver();
+             //hospitalWorkRequest.setTestResult(testResultjTextArea.getText());
+             police= hospitalWorkRequest.getSender();
+             int caseId= hospitalWorkRequest.getCaseId();
              
-             for (WorkRequest req : police.getWorkQueue().getWorkRequestList()) {
+             
+             
+              for (WorkRequest req : police.getWorkQueue().getWorkRequestList()) {
                  
-                 if (req instanceof CaseWorkRequest) {
+                 if (req instanceof SubstanceAbuseCaseWorkRequest) {
                      
-                     //((CaseWorkRequest) req).setTestResult(testResultjTextArea.getText());
-                     //((CaseWorkRequest) req).setTestResultDate(new Date());
+                     if( ((SubstanceAbuseCaseWorkRequest) req).getCaseID() == caseId){
                      
-                     ((CaseWorkRequest) req).setStatus("Results Received");
+                     ((SubstanceAbuseCaseWorkRequest) req).setTestResult(testResultjTextArea.getText());
+                     ((SubstanceAbuseCaseWorkRequest) req).setTestResultDate(new Date());
+                     
+                     ((SubstanceAbuseCaseWorkRequest) req).setStatus("Completed");
+                     police.getWorkQueue().getWorkRequestList().add(req);
                      
                      
                  }
-                 
-                 
-             }
+                 }
+              }
+              
+       
              
+                         
+             
+             
+            
              
              hospitalWorkRequest.setStatus("Sent to officer");
              //userAccount.getWorkQueue().getWorkRequestList().add(hospitalWorkRequest
              populateMyRequestsTable();
              
-             JOptionPane.showMessageDialog(null, "Test Completed Successfully!");
+             JOptionPane.showMessageDialog(null, "Test Result Sent Successfully!");
              testResultjTextArea.setEnabled(false);
              
              }
@@ -391,6 +403,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a Test update results!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
          }
+        
         
         
     }//GEN-LAST:event_submitOfficerjButtonActionPerformed
