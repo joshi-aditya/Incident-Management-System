@@ -5,7 +5,6 @@
  */
 package Business.WorkQueue;
 
-import java.util.Random;
 import java.util.Date;
 
 /**
@@ -14,38 +13,27 @@ import java.util.Date;
  */
 public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
     
-    private String testResult;
-    private Date testResultDate;
-   // private int CaseID;
+    private String suspectAddress;
+    private String drugsType;
     
     public SubstanceAbuseCaseWorkRequest(){
         super();
-        //Random random = new Random();
-        //CaseID = random.nextInt(99999999);
     }
 
-    public String getTestResult() {
-        return testResult;
+    public String getSuspectAddress() {
+        return suspectAddress;
     }
 
-    public void setTestResult(String testResult) {
-        this.testResult = testResult;
+    public void setSuspectAddress(String suspectAddress) {
+        this.suspectAddress = suspectAddress;
     }
 
-    public Date getTestResultDate() {
-        return testResultDate;
+    public String getDrugsType() {
+        return drugsType;
     }
 
-    public void setTestResultDate(Date testResultDate) {
-        this.testResultDate = testResultDate;
+    public void setDrugsType(String drugsType) {
+        this.drugsType = drugsType;
     }
-
-    //public int getCaseID() {
-      //  return CaseID;
-    //}
     
-    @Override
-    public String toString() {
-        return String.valueOf(super.getCaseID());
-    } 
 }

@@ -5,6 +5,8 @@
  */
 package Business.WorkQueue;
 
+import java.util.Random;
+
 /**
  *
  * @author Sneha
@@ -13,6 +15,13 @@ public class HospitalWorkRequest extends WorkRequest {
 
     private String testResult;
     private int caseId;
+    private int requestId;
+    private String testsRequested;
+    
+    public HospitalWorkRequest(){
+        Random random = new Random();
+        requestId = random.nextInt(99999999);
+    }
 
     public int getCaseId() {
         return caseId;
@@ -30,8 +39,20 @@ public class HospitalWorkRequest extends WorkRequest {
         this.testResult = testResult;
     }
 
+    public int getRequestId() {
+        return requestId;
+    }
+    
+    public String getTestsRequested() {
+        return testsRequested;
+    }
+
+    public void setTestsRequested(String testsRequested) {
+        this.testsRequested = testsRequested;
+    }
+
     @Override
     public String toString() {
-        return String.valueOf(caseId);
+        return testsRequested;
     }
 }

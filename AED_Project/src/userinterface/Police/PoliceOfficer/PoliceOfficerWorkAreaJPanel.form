@@ -27,10 +27,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="554" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="viewTestResultjButton" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jToggleButton1" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnStartInv" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="114" max="32767" attributes="0"/>
                   </Group>
@@ -50,10 +47,8 @@
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="217" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="viewTestResultjButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="78" max="32767" attributes="0"/>
+              <Component id="btnStartInv" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="121" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -113,12 +108,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+    <Component class="javax.swing.JToggleButton" name="btnStartInv">
       <Properties>
         <Property name="text" type="java.lang.String" value="Start case investigation"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStartInvActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblName">
@@ -130,14 +125,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel2"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="viewTestResultjButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="View Test Result"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewTestResultjButtonActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

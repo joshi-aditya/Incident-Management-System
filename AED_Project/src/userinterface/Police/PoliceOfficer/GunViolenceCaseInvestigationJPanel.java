@@ -9,6 +9,7 @@ import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -146,6 +147,8 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
             request.setIsGunLegal(true);
         if(btnNo.isSelected())
             request.setIsGunLegal(false);
+        
+        JOptionPane.showMessageDialog(null, "Details Saved!!");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

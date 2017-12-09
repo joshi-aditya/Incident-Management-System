@@ -13,9 +13,11 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.HospitalWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -39,6 +41,38 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         caseidTextField.setText(String.valueOf(request.getCaseID()));
         caseidTextField.setEditable(false);
+        populateMedTable();
+        populateData();
+    }
+    
+    public void populateData(){
+        txtDrugsType.setText(request.getDrugsType());
+        txtSuspectAddress.setText(request.getSuspectAddress());
+        txtSuspectName.setText(request.getSuspectName());
+    }
+    
+    public void populateMedTable(){
+        
+        DefaultTableModel dtm = (DefaultTableModel) tblMedReq.getModel();
+        dtm.setRowCount(0);
+
+        for (WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()) {
+
+            if (req instanceof HospitalWorkRequest) {
+                
+                if(((HospitalWorkRequest) req).getCaseId() == request.getCaseID()){
+                    
+                    HospitalWorkRequest medReq = (HospitalWorkRequest) req;
+                    Object[] row = new Object[4];
+                    row[0] = medReq;
+                    row[1] = medReq.getRequestDate();
+                    row[2] = medReq.getTestResult();
+                    row[3] = medReq.getResolveDate();
+
+                    dtm.addRow(row);
+                }
+            }
+        }
     }
 
     /**
@@ -50,22 +84,33 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        SourceAddressTextField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        txtSuspectName = new javax.swing.JTextField();
+        txtSuspectAddress = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        hospitalMessageTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         caseidTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMedReq = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtTestRequest = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtTestResponse = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        btnCreateNewMedReq = new javax.swing.JButton();
+        btnViewDetails = new javax.swing.JButton();
+        btnSubmitMedReq = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtDrugsType = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
 
-        jButton1.setText("<<Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("<<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -73,20 +118,80 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Enter the source address of the probable suspect : ");
 
-        jButton2.setText("Request for a medical test");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Investigation Questionnaire");
-
-        jLabel5.setText("Enter medical tests to be carried out at Hospital :");
 
         jLabel6.setText("Case ID :");
 
         caseidTextField.setBackground(new java.awt.Color(204, 204, 204));
+
+        tblMedReq.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tests Requested", "Request Date", "Response", "Response Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblMedReq);
+        if (tblMedReq.getColumnModel().getColumnCount() > 0) {
+            tblMedReq.getColumnModel().getColumn(0).setResizable(false);
+            tblMedReq.getColumnModel().getColumn(1).setResizable(false);
+            tblMedReq.getColumnModel().getColumn(2).setResizable(false);
+            tblMedReq.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jLabel3.setText("Tests to be requested:");
+
+        txtTestRequest.setColumns(20);
+        txtTestRequest.setRows(5);
+        txtTestRequest.setEnabled(false);
+        jScrollPane2.setViewportView(txtTestRequest);
+
+        txtTestResponse.setColumns(20);
+        txtTestResponse.setRows(5);
+        txtTestResponse.setEnabled(false);
+        jScrollPane3.setViewportView(txtTestResponse);
+
+        jLabel7.setText("Response received:");
+
+        btnCreateNewMedReq.setText("Create New Request");
+        btnCreateNewMedReq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateNewMedReqActionPerformed(evt);
+            }
+        });
+
+        btnViewDetails.setText("View Details");
+        btnViewDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDetailsActionPerformed(evt);
+            }
+        });
+
+        btnSubmitMedReq.setText("Submit");
+        btnSubmitMedReq.setEnabled(false);
+        btnSubmitMedReq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitMedReqActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("What type of drugs or substances are consumed?:");
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -94,30 +199,50 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jButton1)
+                .addComponent(btnBack)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(hospitalMessageTextField)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(txtSuspectName, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                                     .addComponent(caseidTextField)
-                                    .addComponent(SourceAddressTextField, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(325, 325, 325)
-                        .addComponent(jButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtSuspectAddress, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnSave)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDrugsType)))
+                        .addGap(300, 300, 300)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(34, 34, 34)
+                                        .addComponent(btnSubmitMedReq, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnCreateNewMedReq, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,77 +250,147 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(caseidTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(SourceAddressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(hospitalMessageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(caseidTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtSuspectName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtSuspectAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtDrugsType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCreateNewMedReq)
+                    .addComponent(btnViewDetails))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSave))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSubmitMedReq)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCreateNewMedReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewMedReqActionPerformed
         // TODO add your handling code here:
-        String message = hospitalMessageTextField.getText();
-        if (message.equals("") || message.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please enter message for the hospital to send.");
-            return;
+        txtTestRequest.setText("");
+        txtTestResponse.setText("");
+        txtTestRequest.setEnabled(true);
+        btnSubmitMedReq.setEnabled(true);
+    }//GEN-LAST:event_btnCreateNewMedReqActionPerformed
+
+    private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
+        // TODO add your handling code here:
+        btnSubmitMedReq.setEnabled(false);
+        int selectedRow = tblMedReq.getSelectedRow();
+        if (selectedRow >= 0) {
+            
+            HospitalWorkRequest req = (HospitalWorkRequest) tblMedReq.getValueAt(selectedRow, 0);
+            txtTestRequest.setText("");
+            txtTestResponse.setText("");
+            txtTestRequest.setEnabled(false);
+            txtTestRequest.setText(req.getTestsRequested());
+            txtTestResponse.setText(req.getTestResult());
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        HospitalWorkRequest hospitalRequest = new HospitalWorkRequest();
-        hospitalRequest.setMessage(hospitalMessageTextField.getText());
-        //hospitalRequest.setCaseId(request.getCaseID());
-        hospitalRequest.setSender(userAccount);
-        hospitalRequest.setStatus("Not Assigned");
+    }//GEN-LAST:event_btnViewDetailsActionPerformed
 
-        for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
-            if (ent instanceof HospitalEnterprise) {
-                for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
-                    if (organization instanceof HospitalOrganization) {
+    private void btnSubmitMedReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitMedReqActionPerformed
+        // TODO add your handling code here:
+        if(!txtTestRequest.getText().trim().isEmpty()){
+            
+            HospitalWorkRequest hospitalRequest = new HospitalWorkRequest();
+            hospitalRequest.setTestsRequested(txtTestRequest.getText().trim());
+            hospitalRequest.setCaseId(request.getCaseID());
+            hospitalRequest.setSender(userAccount);
+            hospitalRequest.setStatus("Not Assigned");
+            
+            for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (ent instanceof HospitalEnterprise) {
+                    for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
+                        if (organization instanceof HospitalOrganization) {
 
-                        organization.getWorkQueue().getWorkRequestList().add(hospitalRequest);
-                        userAccount.getWorkQueue().getWorkRequestList().add(hospitalRequest);
-                        break;
+                            organization.getWorkQueue().getWorkRequestList().add(hospitalRequest);
+                            userAccount.getWorkQueue().getWorkRequestList().add(hospitalRequest);
+                            break;
+                        }
                     }
                 }
             }
+            txtTestRequest.setText("");
+            txtTestRequest.setEnabled(false);
+            btnSubmitMedReq.setEnabled(false);
+            populateMedTable();
+            JOptionPane.showMessageDialog(null, "Test Requested!");
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter the details!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
+    }//GEN-LAST:event_btnSubmitMedReqActionPerformed
 
-        JOptionPane.showMessageDialog(null, "Request for medical test sent");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        request.setDrugsType(txtDrugsType.getText().trim());
+        request.setSuspectAddress(txtSuspectAddress.getText().trim());
+        request.setSuspectName(txtSuspectName.getText().trim());
+        
+        JOptionPane.showMessageDialog(null, "Details Saved!!");
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField SourceAddressTextField;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCreateNewMedReq;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSubmitMedReq;
+    private javax.swing.JButton btnViewDetails;
     private javax.swing.JTextField caseidTextField;
-    private javax.swing.JTextField hospitalMessageTextField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblMedReq;
+    private javax.swing.JTextField txtDrugsType;
+    private javax.swing.JTextField txtSuspectAddress;
+    private javax.swing.JTextField txtSuspectName;
+    private javax.swing.JTextArea txtTestRequest;
+    private javax.swing.JTextArea txtTestResponse;
     // End of variables declaration//GEN-END:variables
 }

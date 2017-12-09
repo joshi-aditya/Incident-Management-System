@@ -5,7 +5,6 @@
  */
 package Business.WorkQueue;
 
-import Business.Employee.Employee;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
 import java.util.Random;
@@ -90,12 +89,8 @@ public class CaseWorkRequest extends WorkRequest {
         this.zipCode = zipCode;
     }
 
-//    public String getStatus() {
-//        return status;
-//    }
-//
-//    public void setStatus(String status) {
-//        this.status = status;
-//    }
-
+    @Override
+    public String toString() {
+        return String.valueOf(CaseID);
+    }
 }
