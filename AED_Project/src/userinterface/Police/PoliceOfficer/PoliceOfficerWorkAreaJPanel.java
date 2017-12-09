@@ -174,12 +174,20 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
             }
             */
           //  else {
+         //   if(!request.getStatus().equalsIgnoreCase("Results Received")){
+           //      JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
+             //    return;
+            //}
+            
+            //else {
+
                 
                 ViewSelectedRequestJPanel requestPanel= new ViewSelectedRequestJPanel(userProcessContainer, request,userAccount, network);
                 userProcessContainer.add("ViewSelectedRequestJPanel", requestPanel);
                 CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                 layout.next(userProcessContainer);
            // }
+            //}
            
         } else {
             JOptionPane.showMessageDialog(this, "Please select a case from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
