@@ -14,7 +14,16 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
     private String gunType;
     private String motive;
     private boolean isGunLegal = false;
+    private int incidentID;
    // private int CaseID;
+
+    public int getIncidentID() {
+        return incidentID;
+    }
+
+    public void setIncidentID(int incidentID) {
+        this.incidentID = incidentID;
+    }
     
     public GunViolenceCaseWorkRequest(){
         super();

@@ -13,7 +13,9 @@ import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  *
@@ -24,7 +26,9 @@ public class EcoSystem extends Organization{
     private static EcoSystem business;
     private ArrayList<Network> networkList;
     private ArrayList locationList;
-
+    Map<Integer,ArrayList<String>> TimingMap;
+    private ArrayList<String>  infoString;
+    
     public ArrayList getLocationList() { 
         return locationList;
     }
@@ -45,6 +49,14 @@ public class EcoSystem extends Organization{
         networkList = new ArrayList<>();
     }
 
+    public Map<Integer, ArrayList<String>> getTimingMap() {
+        return TimingMap;
+    }
+
+    public void setTimingMap(Map<Integer, ArrayList<String>> TimingMap) {
+        this.TimingMap = TimingMap;
+    }
+    
     public ArrayList<Network> getNetworkList() {
         return networkList;
     }
@@ -66,6 +78,14 @@ public class EcoSystem extends Organization{
         //roles.add(new DistributorAdminRole());
         //roles.add(new CDCAdminRole());
         return roles;
+    }
+
+    public ArrayList<String> getInfoString() {
+        return infoString;
+    }
+
+    public void setInfoString(ArrayList<String> infoString) {
+        this.infoString = infoString;
     }
 
     public static boolean checkIfUsernameIsUnique(String username) {
@@ -93,5 +113,4 @@ public class EcoSystem extends Organization{
       //  }
         return true;
     }
-    
 }

@@ -5,6 +5,7 @@
  */
 package userinterface.Police.PoliceAdmin;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Organization.PoliceOrganization;
@@ -46,11 +47,13 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private Enterprise enterprise;
+    private EcoSystem ecoSystem;
 
-    public ManageCasesJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public ManageCasesJPanel(JPanel userProcessContainer, Enterprise enterprise, EcoSystem ecoSystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.ecoSystem = ecoSystem;
         populateTable();
         //populatePoliceTable();
     }
@@ -61,7 +64,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
 
         for (WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()) {
-            if ((req instanceof GunViolenceCaseWorkRequest) || (req instanceof SubstanceAbuseCaseWorkRequest )) {
+            if ((req instanceof GunViolenceCaseWorkRequest) || (req instanceof SubstanceAbuseCaseWorkRequest)) {
                 if (req.getStatus().equals("Open")) {
 
                     Object[] row = new Object[5];
@@ -76,6 +79,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             }
         }
     }
+
     /*
     public void populatePoliceTable() {
 
@@ -95,8 +99,7 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
         }
     }
-    */
-
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,26 +202,22 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                             .addComponent(backJButton)
                             .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addComponent(assignjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(assignjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nearestPolicejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(120, 120, 120))
+                .addGap(124, 124, 124))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addGap(51, 51, 51)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(29, 29, 29)
                 .addComponent(nearestPolicejButton)
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,19 +254,32 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
             CaseWorkRequest caseWorkReq = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
             UserAccount user = (UserAccount) policeOfficerjTable.getValueAt(officerSelectedRow, 0);
-            
-            if(caseWorkReq.getIncidentType().equals(IncidentWorkRequest.IncidentType.Substance_Abuse.getValue())){
-                
+            if (caseWorkReq.getIncidentType().equals(IncidentWorkRequest.IncidentType.Substance_Abuse.getValue())) {
+
                 SubstanceAbuseCaseWorkRequest sb = (SubstanceAbuseCaseWorkRequest) caseWorkReq;
                 sb.setStatus("Assigned");
                 user.getWorkQueue().getWorkRequestList().add(sb);
+                user.getEmployee().setStatus("Assigned");
+                ArrayList<String> temp = ecoSystem.getInfoString();
+                temp.add(user.getEmployee().getName());
+                ecoSystem.setInfoString(temp);
+                ecoSystem.getTimingMap().put(sb.getIncidentID(), ecoSystem.getInfoString());
+                //ecoSystem.getTimingMap().put(sb.getincidentId(),ecosystem.getinfostring());
             }
-            
-            if(caseWorkReq.getIncidentType().equals(IncidentWorkRequest.IncidentType.Gun_Violence.getValue())){
-                
+
+            if (caseWorkReq.getIncidentType().equals(IncidentWorkRequest.IncidentType.Gun_Violence.getValue())) {
+
                 GunViolenceCaseWorkRequest gv = (GunViolenceCaseWorkRequest) caseWorkReq;
                 gv.setStatus("Assigned");
+                //gv.getincidentid();
                 user.getWorkQueue().getWorkRequestList().add(gv);
+                user.getEmployee().setStatus("Assigned");
+                //ecoSystem.getInfoString().add(user.getFirstName()+" "+user.getLastName());
+                //ecoSystem.getTimingMap().put(sb.getincidentId(),ecosystem.getinfostring());
+                ArrayList<String> temp = ecoSystem.getInfoString();
+                temp.add(user.getEmployee().getName());
+                ecoSystem.setInfoString(temp);
+                ecoSystem.getTimingMap().put(gv.getIncidentID(), ecoSystem.getInfoString());
             }
 
             JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
@@ -284,7 +296,8 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
             CaseWorkRequest c = (CaseWorkRequest) tblCases.getValueAt(caseSelectedRow, 0);
             ArrayList<Double> distanceArray = new ArrayList<Double>();
             Map<String, Double> distanceMatrixPerStation = new HashMap<String, Double>();
-
+            double minDistance = 100000;
+            String nearestPoliceStationOrganization = null;
             String officerAddress;
             officerAddress = "";
             //Get the address of the case
@@ -347,10 +360,22 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                         double distance1 = Double.parseDouble(sr[0]);
                         JSONObject locat7 = geometry6.getJSONObject("duration");
                         String timetoreach = locat7.getString("text");
-                        System.out.println(distance);
+                        System.out.println(distance1);
                         System.out.println(timetoreach);
                         //distanceArray.add(distance1);
-                        distanceMatrixPerStation.put(((PoliceOrganization) organization).getName(), distance1);
+                        if (distance1 < minDistance) {
+                            minDistance = distance1;
+                            nearestPoliceStationOrganization = ((PoliceOrganization) organization).getName();
+                            ArrayList<String> tempList = ecoSystem.getInfoString();
+                            if (ecoSystem.getInfoString().size() < 2) {
+                                tempList.add(timetoreach);
+                                ecoSystem.setInfoString(tempList);
+                            } else {
+                                tempList.set(1, timetoreach);
+                                ecoSystem.setInfoString(tempList);
+                            }
+                        }
+                        //distanceMatrixPerStation.put(((PoliceOrganization) organization).getName(), distance1);
 
                     } catch (MalformedURLException mue) {
 
@@ -374,37 +399,40 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 }
             }
 
-            for (Double d : distanceMatrixPerStation.values()) {
+            /* for (Double d : distanceMatrixPerStation.values()) {
                 distanceArray.add(d);
             }
             Double minDistance = Collections.min(distanceArray);
+            Double minTime = 
+            ecoSystem.getInfoString().add(minDistance.toString());
             String neareastOrgName = null;
             for (String s : distanceMatrixPerStation.keySet()) {
                 if (distanceMatrixPerStation.get(s).equals(minDistance)) {
                     neareastOrgName = s;
                     break;
                 }
-            }
-
+            }*/
             DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
             dtm.setRowCount(0);
             for (Organization o : enterprise.getOrganizationDirectory().getOrganizationList()) {
                 if (o instanceof PoliceOrganization) {
-                    if (((PoliceOrganization) o).getName().equals(neareastOrgName)) {
+                    if (((PoliceOrganization) o).getName().equals(nearestPoliceStationOrganization)) {
                         for (UserAccount ua : o.getUserAccountDirectory().getUserAccountList()) {
-                            Object[] row = new Object[3];
-                            row[0] = ua;
-                            row[1] = ua.getEmployee().getName();
-                            row[2] = ua.getEmployee().getLocation();
+                            if (!ua.getEmployee().getStatus().equalsIgnoreCase("Assigned")) {
+                                Object[] row = new Object[3];
+                                row[0] = ua;
+                                row[1] = ua.getEmployee().getName();
+                                row[2] = ua.getEmployee().getLocation();
 
-                            dtm.addRow(row);
+                                dtm.addRow(row);
+                            }
                         }
                     }
                 }
             }
 
         } catch (Exception e) {
-            
+
         }
     }//GEN-LAST:event_nearestPolicejButtonActionPerformed
 

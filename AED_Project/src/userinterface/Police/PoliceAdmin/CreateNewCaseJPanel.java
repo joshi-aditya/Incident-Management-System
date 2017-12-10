@@ -205,6 +205,7 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                     req.setInitialObservation(txtObservations.getText().trim());
                     req.setAddress(txtAddress.getText().trim());
                     req.setZipCode(txtZipcode.getText().trim());
+                    req.setIncidentID(incidentWorkRequest.getIncidentId());
                     req.setStatus("Open");
                 
                     enterprise.getWorkQueue().getWorkRequestList().add(req);
@@ -220,6 +221,7 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                     req.setInitialObservation(txtObservations.getText().trim());
                     req.setAddress(txtAddress.getText().trim());
                     req.setZipCode(txtZipcode.getText().trim());
+                    req.setIncidentID(incidentWorkRequest.getIncidentId());
                     req.setStatus("Open");
                 
                     enterprise.getWorkQueue().getWorkRequestList().add(req);

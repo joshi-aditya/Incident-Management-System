@@ -16,6 +16,7 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
     
     private String testResult;
     private Date testResultDate;
+    private int incidentID;
    // private int CaseID;
     
     public SubstanceAbuseCaseWorkRequest(){
@@ -23,6 +24,15 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
         //Random random = new Random();
         //CaseID = random.nextInt(99999999);
     }
+
+    public int getIncidentID() {
+        return incidentID;
+    }
+
+    public void setIncidentID(int incidentID) {
+        this.incidentID = incidentID;
+    }
+
 
     public String getTestResult() {
         return testResult;

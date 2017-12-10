@@ -5,40 +5,44 @@
  */
 package Business.WorkQueue;
 
+import java.util.Random;
+
 /**
  *
  * @author joshiaditya
  */
-public class IncidentWorkRequest extends WorkRequest{
-    
+public class IncidentWorkRequest extends WorkRequest {
+
     IncidentType incidentType;
     String address;
     String zipCode;
     int incidentId;
-    private static int counter =0;
+    private static int counter = 0;
     double latitude;
     double longitude;
     String status;
     boolean caseCreated = false;
 
     public IncidentWorkRequest() {
-        counter ++;
-        incidentId = counter;
+        Random random = new Random();
+        incidentId = random.nextInt(99999999);
     }
-    
-    public enum IncidentType{
-        
+    public int getCaseID() {
+        return incidentId;
+    }
+    public enum IncidentType {
+
         Gun_Violence("Gun Violence"),
         Substance_Abuse("Substance Abuse"),
         Accident("Accident"),
         Fire_Incident("Fire Incident");
-        
+
         private String value;
-        
-        private IncidentType(String value){
+
+        private IncidentType(String value) {
             this.value = value;
         }
-        
+
         public String getValue() {
             return value;
         }
@@ -47,7 +51,7 @@ public class IncidentWorkRequest extends WorkRequest{
         public String toString() {
             return value;
         }
-        
+
     }
 
     public String getStatus() {
@@ -57,7 +61,7 @@ public class IncidentWorkRequest extends WorkRequest{
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     public IncidentType getIncidentType() {
         return incidentType;
     }
@@ -121,7 +125,7 @@ public class IncidentWorkRequest extends WorkRequest{
     public void setCaseCreated(boolean caseCreated) {
         this.caseCreated = caseCreated;
     }
-    
+
     @Override
     public String toString() {
         return String.valueOf(incidentId);

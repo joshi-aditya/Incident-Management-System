@@ -8,6 +8,9 @@ package Business;
 import Business.Employee.Employee;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -25,8 +28,10 @@ public class ConfigureASystem {
         
         //UserAccount ua1 = system.getUserAccountDirectory().createUserAccount("uadmin", "uadmin",new UserAdminRole1());
         
-        
-        
+        Map<Integer, ArrayList<String>>TimingMap = new HashMap<Integer, ArrayList<String>>();
+        system.setTimingMap(TimingMap);
+        ArrayList<String >infoString = new ArrayList<>();
+        system.setInfoString(infoString);
         return system;
     }
 }

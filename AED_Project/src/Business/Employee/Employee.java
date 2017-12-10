@@ -15,12 +15,21 @@ public class Employee {
     private int id;
     private static int count = 1;
     private String location;
+    private String Status;
     
     public Employee() {
         id = count;
         count++;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
+    
     public String getName() {
         return name;
     }

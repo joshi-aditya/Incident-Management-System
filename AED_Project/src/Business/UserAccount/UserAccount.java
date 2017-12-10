@@ -8,6 +8,7 @@ package Business.UserAccount;
 import Business.Employee.Employee;
 import Business.Role.Role;
 import Business.WorkQueue.WorkQueue;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,9 +23,20 @@ public class UserAccount {
     private Employee employee;
     private Role role;
     private WorkQueue workQueue;
+    private ArrayList<Integer> IncidentList;
+
+    public ArrayList<Integer> getIncidentList() {
+        return IncidentList;
+    }
+
+    public void setIncidentList(ArrayList<Integer> IncidentList) {
+        this.IncidentList = IncidentList;
+    }
 
     public UserAccount() {
         workQueue = new WorkQueue();
+        IncidentList = new ArrayList<>();
+        this.setIncidentList(IncidentList);
     }
     
     public String getUserName() {

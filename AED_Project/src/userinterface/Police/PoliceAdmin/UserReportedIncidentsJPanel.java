@@ -5,6 +5,7 @@
  */
 package userinterface.Police.PoliceAdmin;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.WorkQueue.IncidentWorkRequest;
@@ -26,11 +27,13 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private Enterprise enterprise;
+    private EcoSystem ecoSystem;
 
-    public UserReportedIncidentsJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public UserReportedIncidentsJPanel(JPanel userProcessContainer, Enterprise enterprise, EcoSystem ecoSystem) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.ecoSystem = ecoSystem;
         populateTable();
     }
 
@@ -151,7 +154,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnViewIncident, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -197,6 +200,9 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         if (selectedRow >= 0) {
             IncidentWorkRequest request = (IncidentWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
             request.setStatus("Authenticated");
+            ecoSystem.getTimingMap().put(request.getIncidentId(), new ArrayList<>());
+            ecoSystem.getInfoString().clear();
+            ecoSystem.getInfoString().add(request.getIncidentType().getValue());
             populateTable();
 
         } else {

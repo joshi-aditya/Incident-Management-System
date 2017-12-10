@@ -155,7 +155,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnUserReportedIncidentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserReportedIncidentsActionPerformed
         // TODO add your handling code here:
-        UserReportedIncidentsJPanel panel = new UserReportedIncidentsJPanel(userProcessContainer, enterprise);
+        UserReportedIncidentsJPanel panel = new UserReportedIncidentsJPanel(userProcessContainer, enterprise, ecoSystem);
         userProcessContainer.add("UserReportedIncidentsJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -171,7 +171,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageCaseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCaseBtnActionPerformed
         // TODO add your handling code here:
-        ManageCasesJPanel manageCasesJPanel = new ManageCasesJPanel(userProcessContainer, enterprise);
+        ManageCasesJPanel manageCasesJPanel = new ManageCasesJPanel(userProcessContainer, enterprise,ecoSystem);
         userProcessContainer.add("ManageCasesJPanel", manageCasesJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

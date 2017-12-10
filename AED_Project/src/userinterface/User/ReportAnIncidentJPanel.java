@@ -7,12 +7,14 @@ package userinterface.User;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.GovernmentEnterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Enterprise.PoliceEnterprise;
 import Business.Network.Network;
 import Business.Organization.AmbulanceOrganization;
 import Business.Organization.Organization;
 import Business.Organization.PoliceOrganization;
+import Business.Organization.UserOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.AmbulanceWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
@@ -27,6 +29,7 @@ import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -54,10 +57,10 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         this.network = network;
         populateIncidentType();
     }
-    
-    public void populateIncidentType(){
+
+    public void populateIncidentType() {
         IncidentreportComboBox.removeAllItems();
-        for(IncidentType type: IncidentWorkRequest.IncidentType.values()){
+        for (IncidentType type : IncidentWorkRequest.IncidentType.values()) {
             IncidentreportComboBox.addItem(type.getValue());
         }
     }
@@ -205,97 +208,111 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
 
     private void btnReportIncidentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportIncidentActionPerformed
         // TODO add your handling code here:
-        try{
-            if(!addressjTextField.getText().trim().isEmpty() && !zipCodejTextField.getText().trim().isEmpty()){
+        try {
+            if (!addressjTextField.getText().trim().isEmpty() && !zipCodejTextField.getText().trim().isEmpty()) {
                 String address = addressjTextField.getText();
                 String zipCode = zipCodejTextField.getText();
                 String message = msgTextArea.getText();
 
                 IncidentWorkRequest incidentWorkRequest = new IncidentWorkRequest();
-                
-                for(IncidentType type: IncidentWorkRequest.IncidentType.values()){
-                    if(IncidentreportComboBox.getSelectedItem().toString().equals(type.getValue())){
+
+                for (IncidentType type : IncidentWorkRequest.IncidentType.values()) {
+                    if (IncidentreportComboBox.getSelectedItem().toString().equals(type.getValue())) {
                         incidentWorkRequest.setIncidentType(type);
                     }
                 }
-                
+
                 incidentWorkRequest.setAddress(address);
                 incidentWorkRequest.setZipCode(zipCode);
                 incidentWorkRequest.setMessage(message);
                 incidentWorkRequest.setSender(userAccount);
                 incidentWorkRequest.setStatus("Authentication Required");
-                
-                String addressString = (address+", "+zipCode);
+
+                String addressString = (address + ", " + zipCode);
 
                 Geocoder geocoder = new Geocoder();
                 GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(addressString).setLanguage("en").getGeocoderRequest();
                 GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-                
-                JSONObject json = new JSONObject(geocoderResponse);                
+
+                JSONObject json = new JSONObject(geocoderResponse);
                 JSONArray result = json.getJSONArray("results");
                 JSONObject result1 = result.getJSONObject(0);
                 JSONObject geometry = result1.getJSONObject("geometry");
                 JSONObject locat = geometry.getJSONObject("location");
                 double lat = locat.getDouble("lat");
                 double lng = locat.getDouble("lng");
-                
+
                 incidentWorkRequest.setLatitude(lat);
                 incidentWorkRequest.setLongitude(lng);
-                
-                for(Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()){
-                    if(ent instanceof PoliceEnterprise){
-                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
-                            if (organization instanceof PoliceOrganization){
+
+                for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                    if ((ent instanceof PoliceEnterprise)) {
+                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
+                            if ((organization instanceof PoliceOrganization)) {
 
                                 organization.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
                                 break;
                             }
                         }
-                    }  
+                    }
                 }
-                
+
+                for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                    if (ent instanceof GovernmentEnterprise) {
+                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
+                            if (organization instanceof UserOrganization) {
+
+                                organization.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 JOptionPane.showMessageDialog(null, "Incident Reported");
+                ArrayList<Integer> tempList = userAccount.getIncidentList();
+                tempList.add(incidentWorkRequest.getIncidentId());
+                userAccount.setIncidentList(tempList);
                 addressjTextField.setText("");
                 zipCodejTextField.setText("");
                 msgTextArea.setText("");
-                
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Please enter all the details");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter the correct details");
         }
     }//GEN-LAST:event_btnReportIncidentActionPerformed
 
     public String getLocation(String ipAddress) {
 
-	File file = new File("GeoLiteCity.dat");
-	return getLocation(ipAddress, file);
+        File file = new File("GeoLiteCity.dat");
+        return getLocation(ipAddress, file);
 
     }
-    
+
     public String getLocation(String ipAddress, File file) {
 
-	//ServerLocation serverLocation = null;
+        //ServerLocation serverLocation = null;
         String s = "";
-	try {
+        try {
 
-	//serverLocation = new ServerLocation();
+            //serverLocation = new ServerLocation();
+            LookupService lookup = new LookupService(file, LookupService.GEOIP_MEMORY_CACHE);
+            Location locationServices = lookup.getLocation(ipAddress);
 
-	LookupService lookup = new LookupService(file,LookupService.GEOIP_MEMORY_CACHE);
-	Location locationServices = lookup.getLocation(ipAddress);
+            s = s + locationServices.region + String.valueOf(locationServices.latitude)
+                    + String.valueOf(locationServices.longitude) + locationServices.postalCode;
 
-	s = s + locationServices.region + String.valueOf(locationServices.latitude)
-                + String.valueOf(locationServices.longitude) + locationServices.postalCode;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
 
-	} catch (Exception e) {
-		System.err.println(e.getMessage());
-	}
+        return s;
 
-	return s;
+    }
 
-  }
-    
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
@@ -305,62 +322,60 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
 
     private void requestAmbulancejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestAmbulancejButtonActionPerformed
         // TODO add your handling code here:
-        try{
-            if(!addressjTextField.getText().trim().isEmpty() && !zipCodejTextField.getText().trim().isEmpty()){
+        try {
+            if (!addressjTextField.getText().trim().isEmpty() && !zipCodejTextField.getText().trim().isEmpty()) {
                 String address = addressjTextField.getText();
                 String zipCode = zipCodejTextField.getText();
                 String message = msgTextArea.getText();
-                String type= IncidentreportComboBox.getSelectedItem().toString();
+                String type = IncidentreportComboBox.getSelectedItem().toString();
 
-                
-                AmbulanceWorkRequest ambulance= new AmbulanceWorkRequest();
-               
-                
+                AmbulanceWorkRequest ambulance = new AmbulanceWorkRequest();
+
                 ambulance.setAddress(address);
                 ambulance.setZipCode(zipCode);
                 ambulance.setMessage(message);
                 ambulance.setSender(userAccount);
                 ambulance.setStatus("Ambulance Requested");
                 ambulance.setIncidentType(type);
-                
-                String addressString = (address+", "+zipCode);
+
+                String addressString = (address + ", " + zipCode);
 
                 Geocoder geocoder = new Geocoder();
                 GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(addressString).setLanguage("en").getGeocoderRequest();
                 GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-                
-                JSONObject json = new JSONObject(geocoderResponse);                
+
+                JSONObject json = new JSONObject(geocoderResponse);
                 JSONArray result = json.getJSONArray("results");
                 JSONObject result1 = result.getJSONObject(0);
                 JSONObject geometry = result1.getJSONObject("geometry");
                 JSONObject locat = geometry.getJSONObject("location");
                 double lat = locat.getDouble("lat");
                 double lng = locat.getDouble("lng");
-                
+
                 ambulance.setLatitude(lat);
                 ambulance.setLongitude(lng);
-                
-                for(Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()){
-                    if(ent instanceof HospitalEnterprise){
-                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()){
-                            if (organization instanceof AmbulanceOrganization){
+
+                for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                    if (ent instanceof HospitalEnterprise) {
+                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
+                            if (organization instanceof AmbulanceOrganization) {
 
                                 organization.getWorkQueue().getWorkRequestList().add(ambulance);
                                 break;
                             }
                         }
-                    }  
+                    }
                 }
-                
+
                 JOptionPane.showMessageDialog(null, "Request for ambulance has been raised");
-                
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Please enter all the details");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter the correct details");
         }
-        
+
     }//GEN-LAST:event_requestAmbulancejButtonActionPerformed
 
 
