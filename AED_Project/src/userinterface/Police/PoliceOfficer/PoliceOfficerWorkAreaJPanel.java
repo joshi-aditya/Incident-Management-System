@@ -12,6 +12,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -56,10 +57,10 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         ReportedIncidentTable = new javax.swing.JTable();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        btnStartInv = new javax.swing.JToggleButton();
         lblName = new javax.swing.JLabel();
         lblRole = new javax.swing.JLabel();
-        viewTestResultjButton = new javax.swing.JButton();
+        btnCloseCase = new javax.swing.JButton();
 
         ReportedIncidentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,10 +80,10 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(ReportedIncidentTable);
 
-        jToggleButton1.setText("Start case investigation");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnStartInv.setText("Go to case file");
+        btnStartInv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                btnStartInvActionPerformed(evt);
             }
         });
 
@@ -90,10 +91,10 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
         lblRole.setText("jLabel2");
 
-        viewTestResultjButton.setText("View Test Result");
-        viewTestResultjButton.addActionListener(new java.awt.event.ActionListener() {
+        btnCloseCase.setText("Close case");
+        btnCloseCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewTestResultjButtonActionPerformed(evt);
+                btnCloseCaseActionPerformed(evt);
             }
         });
 
@@ -112,8 +113,8 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(viewTestResultjButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jToggleButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btnCloseCase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnStartInv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
                         .addGap(0, 114, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -127,14 +128,14 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jToggleButton1)
+                .addComponent(btnStartInv)
                 .addGap(18, 18, 18)
-                .addComponent(viewTestResultjButton)
+                .addComponent(btnCloseCase)
                 .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void btnStartInvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartInvActionPerformed
         // TODO add your handling code here:
         int selectedRow = ReportedIncidentTable.getSelectedRow();
         if (selectedRow >= 0) {
@@ -156,44 +157,29 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                 layout.next(userProcessContainer); 
             }
             
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select an incident from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
-    private void viewTestResultjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTestResultjButtonActionPerformed
-        // TODO add your handling code here:
-        
-        int selectedRow = ReportedIncidentTable.getSelectedRow();
-        if (selectedRow >= 0) {
-            CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
-            /*
-            if(!request.getStatus().equalsIgnoreCase("Results Received")){
-                 JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
-                 return;
-            }
-            */
-          //  else {
-         //   if(!request.getStatus().equalsIgnoreCase("Results Received")){
-           //      JOptionPane.showMessageDialog(this, "The Test Result is still Pending!", "Warning", JOptionPane.WARNING_MESSAGE);
-             //    return;
-            //}
-            
-            //else {
-
-                
-                ViewSelectedRequestJPanel requestPanel= new ViewSelectedRequestJPanel(userProcessContainer, request,userAccount, network);
-                userProcessContainer.add("ViewSelectedRequestJPanel", requestPanel);
+            if(request.getIncidentType().equals(IncidentWorkRequest.IncidentType.Robbery.getValue())){
+                RobberyCaseWorkRequest rob = (RobberyCaseWorkRequest) request;
+                RobberyCaseInvestigationJPanel panel = new RobberyCaseInvestigationJPanel(userProcessContainer, rob,userAccount, network);
+                userProcessContainer.add("RobberyCaseInvestigationJPanel", panel);
                 CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-                layout.next(userProcessContainer);
-           // }
-            //}
-           
+                layout.next(userProcessContainer); 
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Please select a case from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        
-    }//GEN-LAST:event_viewTestResultjButtonActionPerformed
+    }//GEN-LAST:event_btnStartInvActionPerformed
+
+    private void btnCloseCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseCaseActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            request.setStatus("Closed");
+            populateTable();
+            JOptionPane.showMessageDialog(null, "Case status updated to Closed!");
+        }
+    }//GEN-LAST:event_btnCloseCaseActionPerformed
 
     public void populateTable() {
 
@@ -203,17 +189,17 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         for (WorkRequest req : userAccount.getWorkQueue().getWorkRequestList()) {
 
             if (req instanceof CaseWorkRequest) {
-
-                CaseWorkRequest caseRequest = (CaseWorkRequest) req;
-                Object[] row = new Object[5];
-                row[0] = caseRequest;
-                row[1] = caseRequest.getIncidentType();
-                row[2] = caseRequest.getIncidentOcuredDate();
-                row[3] = caseRequest.getZipCode();
-                row[4] = caseRequest.getStatus();
-
-                dtm.addRow(row);
-
+ 
+                 CaseWorkRequest caseRequest = (CaseWorkRequest) req;
+                 Object[] row = new Object[5];
+                 row[0] = caseRequest;
+                 row[1] = caseRequest.getIncidentType();
+                 row[2] = caseRequest.getIncidentOcuredDate();
+                 row[3] = caseRequest.getZipCode();
+                 row[4] = caseRequest.getStatus();
+                 
+                 dtm.addRow(row);
+                 
             }
 
         }
@@ -223,10 +209,10 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
+    private javax.swing.JButton btnCloseCase;
+    private javax.swing.JToggleButton btnStartInv;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblRole;
-    private javax.swing.JButton viewTestResultjButton;
     // End of variables declaration//GEN-END:variables
 }

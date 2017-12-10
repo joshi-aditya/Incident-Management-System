@@ -6,9 +6,9 @@
 package userinterface.Police.PoliceAdmin;
 
 import Business.Enterprise.Enterprise;
-import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -222,6 +222,22 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                     req.setAddress(txtAddress.getText().trim());
                     req.setZipCode(txtZipcode.getText().trim());
                     req.setIncidentID(incidentWorkRequest.getIncidentId());
+                    req.setStatus("Open");
+                
+                    enterprise.getWorkQueue().getWorkRequestList().add(req);
+                }
+                
+                if(incidentWorkRequest.getIncidentType().getValue().equals(
+                        IncidentWorkRequest.IncidentType.Robbery.getValue())){
+                    
+                    RobberyCaseWorkRequest req = new RobberyCaseWorkRequest();
+                    
+                    req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
+                    req.setIncidentReportedBy(incidentWorkRequest.getSender());
+                    req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
+                    req.setInitialObservation(txtObservations.getText().trim());
+                    req.setAddress(txtAddress.getText().trim());
+                    req.setZipCode(txtZipcode.getText().trim());
                     req.setStatus("Open");
                 
                     enterprise.getWorkQueue().getWorkRequestList().add(req);

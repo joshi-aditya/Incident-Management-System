@@ -9,6 +9,7 @@ import Business.Network.Network;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -30,6 +31,34 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
         this.network = network;
         this.request = request;
         this.userAccount = userAccount;
+        txtCaseID.setText(String.valueOf(request.getCaseID()));
+        populateData();
+    }
+    
+    public void populateData(){
+        
+        txtAddress.setText(request.getSuspectAddress());
+        txtGangName.setText(request.getGangName());
+        txtGunType.setText(request.getGunType());
+        txtMotive.setText(request.getMotive());
+        txtOfficerComments.setText(request.getOfficerComments());
+        txtSuspectName.setText(request.getSuspectName());
+        
+        if(request.isAssociatedWithGang() == true)
+            btnGangYes.setSelected(true);
+        if(request.isAssociatedWithGang() == false)
+            btnGangNo.setSelected(true);
+        
+        if(request.isGunViolenceHistory()== true)
+            btnHistoryYes.setSelected(true);
+        if(request.isGunViolenceHistory()== false)
+            btnHistoryNo.setSelected(true);
+        
+        if(request.isIsGunLegal()== true)
+            btnYes.setSelected(true);
+        if(request.isIsGunLegal()== false)
+            btnNo.setSelected(true);
+        
     }
 
     /**
@@ -41,7 +70,9 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        legallyPurchased = new javax.swing.ButtonGroup();
+        gunViolenceHistory = new javax.swing.ButtonGroup();
+        gangAssociation = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         txtGunType = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -52,15 +83,35 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
         txtMotive = new javax.swing.JTextArea();
         btnSave = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnHistoryYes = new javax.swing.JRadioButton();
+        btnHistoryNo = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtCaseID = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtSuspectName = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtAddress = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtOfficerComments = new javax.swing.JTextArea();
+        txtGangName = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        btnGangYes = new javax.swing.JRadioButton();
+        btnGangNo = new javax.swing.JRadioButton();
 
         jLabel1.setText("Gun Type:");
 
         jLabel2.setText("Is gun used in incident purchased legally?");
 
-        buttonGroup1.add(btnYes);
+        legallyPurchased.add(btnYes);
         btnYes.setText("Yes");
 
-        buttonGroup1.add(btnNo);
+        legallyPurchased.add(btnNo);
         btnNo.setText("No");
 
         jLabel3.setText("What was the motive behind gun violence?");
@@ -83,40 +134,127 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setText("Does suspect has history of gun violence cases?");
+
+        gunViolenceHistory.add(btnHistoryYes);
+        btnHistoryYes.setText("Yes");
+
+        gunViolenceHistory.add(btnHistoryNo);
+        btnHistoryNo.setText("No");
+
+        jLabel5.setText("Case ID:");
+
+        txtCaseID.setEnabled(false);
+
+        jLabel6.setText("Name of Suspect");
+
+        jLabel7.setText("Address of suspect:");
+
+        jLabel8.setText("Suspect's Date of birth:");
+
+        jLabel15.setText("Is suspect associated with any group/gang?");
+
+        jLabel16.setText("Name of Group associated if any:");
+
+        jLabel17.setText("Observations/comments of Investaging Officer:");
+
+        txtOfficerComments.setColumns(20);
+        txtOfficerComments.setRows(5);
+        jScrollPane5.setViewportView(txtOfficerComments);
+
+        jLabel9.setText("Investigation Questionnaire");
+
+        gangAssociation.add(btnGangYes);
+        btnGangYes.setText("Yes");
+
+        gangAssociation.add(btnGangNo);
+        btnGangNo.setText("No");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnYes)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnNo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtGunType, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnSave)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBack)))
-                .addContainerGap(231, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnBack)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(176, 176, 176)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel5)))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtSuspectName)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(btnYes)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnNo))
+                                        .addComponent(txtCaseID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(29, 29, 29)
+                                            .addComponent(jLabel3))
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jLabel4))
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel17))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnSave)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(txtGunType)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnHistoryYes)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnHistoryNo))
+                                    .addComponent(txtAddress)
+                                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtGangName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnGangYes)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnGangNo)))))
+                    .addComponent(jLabel9))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel9)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtCaseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtSuspectName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtGunType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -129,23 +267,66 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(120, 120, 120)
-                .addComponent(btnSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addComponent(btnBack)
-                .addGap(67, 67, 67))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHistoryYes)
+                    .addComponent(btnHistoryNo)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(btnGangYes)
+                    .addComponent(btnGangNo))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(txtGangName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSave)
+                        .addContainerGap(92, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack)
+                        .addGap(40, 40, 40))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        request.setGunType(txtGunType.getText());
-        request.setMotive(txtMotive.getText());
-        
-        if(btnYes.isSelected())
-            request.setIsGunLegal(true);
-        if(btnNo.isSelected())
-            request.setIsGunLegal(false);
+        if(request.getStatus().equals("Closed")){
+            
+            JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            
+            request.setSuspectName(txtSuspectName.getText().trim());
+            request.setSuspectAddress(txtAddress.getText().trim());
+            request.setGangName(txtGangName.getText());
+            request.setOfficerComments(txtOfficerComments.getText().trim());
+            request.setGunType(txtGunType.getText());
+            request.setMotive(txtMotive.getText());
+
+            if(btnYes.isSelected())
+                request.setIsGunLegal(true);
+            if(btnNo.isSelected())
+                request.setIsGunLegal(false);
+            
+            if(btnHistoryYes.isSelected())
+                request.setGunViolenceHistory(true);
+            if(btnHistoryNo.isSelected())
+                request.setGunViolenceHistory(false);
+            
+            if(btnGangYes.isSelected())
+                request.setAssociatedWithGang(true);
+            if(btnGangNo.isSelected())
+                request.setAssociatedWithGang(false);
+
+            JOptionPane.showMessageDialog(null, "Details Saved!!");
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -158,15 +339,37 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JRadioButton btnGangNo;
+    private javax.swing.JRadioButton btnGangYes;
+    private javax.swing.JRadioButton btnHistoryNo;
+    private javax.swing.JRadioButton btnHistoryYes;
     private javax.swing.JRadioButton btnNo;
     private javax.swing.JButton btnSave;
     private javax.swing.JRadioButton btnYes;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup gangAssociation;
+    private javax.swing.ButtonGroup gunViolenceHistory;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane5;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.ButtonGroup legallyPurchased;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtCaseID;
+    private javax.swing.JTextField txtGangName;
     private javax.swing.JTextField txtGunType;
     private javax.swing.JTextArea txtMotive;
+    private javax.swing.JTextArea txtOfficerComments;
+    private javax.swing.JTextField txtSuspectName;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,8 +7,6 @@ package userinterface.Hospital;
 
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
-import Business.Organization.OrganizationDirectory;
-import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.HospitalWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import javax.swing.JPanel;

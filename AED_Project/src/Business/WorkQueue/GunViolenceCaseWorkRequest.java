@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Business.WorkQueue;
-import java.util.Random;
 /**
  *
  * @author joshiaditya
@@ -23,12 +22,16 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
 
     public void setIncidentID(int incidentID) {
         this.incidentID = incidentID;
-    }
+    }   
+    private String suspectAddress;
+    private boolean gunViolenceHistory;
+    private boolean associatedWithGang;
+    private String officerComments;
+    private String gangName;
     
     public GunViolenceCaseWorkRequest(){
         super();
     }
-
 
     public String getGunType() {
         return gunType;
@@ -52,6 +55,46 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
 
     public void setIsGunLegal(boolean isGunLegal) {
         this.isGunLegal = isGunLegal;
+    }
+
+    public String getSuspectAddress() {
+        return suspectAddress;
+    }
+
+    public void setSuspectAddress(String suspectAddress) {
+        this.suspectAddress = suspectAddress;
+    }
+
+    public boolean isGunViolenceHistory() {
+        return gunViolenceHistory;
+    }
+
+    public void setGunViolenceHistory(boolean gunViolenceHistory) {
+        this.gunViolenceHistory = gunViolenceHistory;
+    }
+
+    public boolean isAssociatedWithGang() {
+        return associatedWithGang;
+    }
+
+    public void setAssociatedWithGang(boolean associatedWithGang) {
+        this.associatedWithGang = associatedWithGang;
+    }
+
+    public String getOfficerComments() {
+        return officerComments;
+    }
+
+    public void setOfficerComments(String officerComments) {
+        this.officerComments = officerComments;
+    }
+
+    public String getGangName() {
+        return gangName;
+    }
+
+    public void setGangName(String gangName) {
+        this.gangName = gangName;
     }
     
     @Override
