@@ -30,8 +30,7 @@ public class IncidentWorkRequest extends WorkRequest{
         
         Gun_Violence("Gun Violence"),
         Substance_Abuse("Substance Abuse"),
-        Accident("Accident"),
-        Fire_Incident("Fire Incident");
+        Robbery("Robbery");
         
         private String value;
         

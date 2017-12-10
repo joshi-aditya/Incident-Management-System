@@ -12,6 +12,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -59,6 +60,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         btnStartInv = new javax.swing.JToggleButton();
         lblName = new javax.swing.JLabel();
         lblRole = new javax.swing.JLabel();
+        btnCloseCase = new javax.swing.JButton();
 
         ReportedIncidentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,7 +80,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(ReportedIncidentTable);
 
-        btnStartInv.setText("Start case investigation");
+        btnStartInv.setText("Go to case file");
         btnStartInv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStartInvActionPerformed(evt);
@@ -88,6 +90,13 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
         lblName.setText("jLabel1");
 
         lblRole.setText("jLabel2");
+
+        btnCloseCase.setText("Close case");
+        btnCloseCase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseCaseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,7 +112,9 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnStartInv))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnCloseCase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnStartInv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
                         .addGap(0, 114, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -118,7 +129,9 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnStartInv)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCloseCase)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -144,10 +157,29 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
                 layout.next(userProcessContainer); 
             }
             
+            if(request.getIncidentType().equals(IncidentWorkRequest.IncidentType.Robbery.getValue())){
+                RobberyCaseWorkRequest rob = (RobberyCaseWorkRequest) request;
+                RobberyCaseInvestigationJPanel panel = new RobberyCaseInvestigationJPanel(userProcessContainer, rob,userAccount, network);
+                userProcessContainer.add("RobberyCaseInvestigationJPanel", panel);
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.next(userProcessContainer); 
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Please select a case from the table!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnStartInvActionPerformed
+
+    private void btnCloseCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseCaseActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = ReportedIncidentTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            CaseWorkRequest request = (CaseWorkRequest) ReportedIncidentTable.getValueAt(selectedRow, 0);
+            request.setStatus("Closed");
+            populateTable();
+            JOptionPane.showMessageDialog(null, "Case status updated to Closed!");
+        }
+    }//GEN-LAST:event_btnCloseCaseActionPerformed
 
     public void populateTable() {
 
@@ -177,6 +209,7 @@ public class PoliceOfficerWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ReportedIncidentTable;
+    private javax.swing.JButton btnCloseCase;
     private javax.swing.JToggleButton btnStartInv;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblName;
