@@ -259,7 +259,6 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 SubstanceAbuseCaseWorkRequest sb = (SubstanceAbuseCaseWorkRequest) caseWorkReq;
                 sb.setStatus("Assigned");
                 user.getWorkQueue().getWorkRequestList().add(sb);
-                user.getEmployee().setStatus("Assigned");
                 ArrayList<String> temp = ecoSystem.getInfoString();
                 temp.add(user.getEmployee().getName());
                 ecoSystem.setInfoString(temp);
@@ -418,14 +417,12 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 if (o instanceof PoliceOrganization) {
                     if (((PoliceOrganization) o).getName().equals(nearestPoliceStationOrganization)) {
                         for (UserAccount ua : o.getUserAccountDirectory().getUserAccountList()) {
-                            if (!ua.getEmployee().getStatus().equalsIgnoreCase("Assigned")) {
                                 Object[] row = new Object[3];
                                 row[0] = ua;
                                 row[1] = ua.getEmployee().getName();
                                 row[2] = ua.getEmployee().getLocation();
 
                                 dtm.addRow(row);
-                            }
                         }
                     }
                 }
