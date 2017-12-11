@@ -24,26 +24,7 @@ public class OrganizationDirectory {
     
     public Organization createOrganization(Organization.Type type){
         Organization organization = null;
-        if (type.getValue().equals(Organization.Type.AmbulanceOrganization.getValue())){
-            organization = new AmbulanceOrganization();
-            organizationList.add(organization);
-        }
-        
-        else if (type.getValue().equals(Organization.Type.HospitalOrganization.getValue())){
-            organization = new HospitalOrganization();
-            organizationList.add(organization);
-        }
-        
-        else if (type.getValue().equals(Organization.Type.PoliceOrganization.getValue())){
-            organization = new PoliceOrganization();
-            organizationList.add(organization);
-        }
-       
-        else if (type.getValue().equals(Organization.Type.CivilCourtOrganization.getValue())){
-            organization = new CivilCourtOrganization();
-            organizationList.add(organization);
-        }
-        else if (type.getValue().equals(Organization.Type.CriminalCourtOrganization.getValue())){
+        if (type.getValue().equals(Organization.Type.CriminalCourtOrganization.getValue())){
             organization = new CriminalCourtOrganization();
             organizationList.add(organization);
         }
@@ -74,6 +55,25 @@ public class OrganizationDirectory {
             organizationList.add(po);
             organization = po;
         }
+        
+        else if (type.getValue().equals(Organization.Type.HospitalOrganization.getValue())){
+            HospitalOrganization ho = new HospitalOrganization();
+            ho.setName(name);
+            ho.setAddress(address);
+            ho.setZipcode(zipcode);
+            organizationList.add(ho);
+            organization = ho;
+        } 
+        
+        else if (type.getValue().equals(Organization.Type.AmbulanceOrganization.getValue())){
+            AmbulanceOrganization ao = new AmbulanceOrganization();
+            ao.setName(name);
+            ao.setAddress(address);
+            ao.setZipcode(zipcode);
+            organizationList.add(ao);
+            organization = ao;
+        }
+        
         return organization;
     }
     

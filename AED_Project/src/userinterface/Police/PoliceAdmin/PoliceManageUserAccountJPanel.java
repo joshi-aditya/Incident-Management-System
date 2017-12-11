@@ -214,6 +214,8 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
                     organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
 
                     popData();
+                    nameJTextField.setText("");
+                    passwordJTextField.setText("");
                     JOptionPane.showMessageDialog(null,"User created successfully");
                 } else {
                     JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE); 
