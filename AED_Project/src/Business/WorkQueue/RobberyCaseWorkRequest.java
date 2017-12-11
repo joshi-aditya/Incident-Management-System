@@ -13,6 +13,7 @@ public class RobberyCaseWorkRequest extends CaseWorkRequest{
     
     private String valueRobbed;
     private boolean isSuspectArmed = false;
+    private int incidentID;
     
     public RobberyCaseWorkRequest(){
         super();
@@ -32,5 +33,13 @@ public class RobberyCaseWorkRequest extends CaseWorkRequest{
 
     public void setIsSuspectArmed(boolean isSuspectArmed) {
         this.isSuspectArmed = isSuspectArmed;
+    }
+
+    public int getIncidentID() {
+        return incidentID;
+    }
+
+    public void setIncidentID(int incidentID) {
+        this.incidentID = incidentID;
     }
 }

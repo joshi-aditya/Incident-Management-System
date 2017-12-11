@@ -13,6 +13,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
+import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import com.google.code.geocoder.Geocoder;
@@ -27,7 +28,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -55,7 +55,6 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.ecoSystem = ecoSystem;
         populateTable();
-        //populatePoliceTable();
     }
 
     public void populateTable() {
@@ -64,7 +63,10 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
 
         for (WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()) {
-            if ((req instanceof GunViolenceCaseWorkRequest) || (req instanceof SubstanceAbuseCaseWorkRequest)) {
+            if ((req instanceof GunViolenceCaseWorkRequest) || 
+                (req instanceof SubstanceAbuseCaseWorkRequest) ||
+                (req instanceof RobberyCaseWorkRequest)) {
+                
                 if (req.getStatus().equals("Open")) {
 
                     Object[] row = new Object[5];
@@ -80,26 +82,6 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
         }
     }
 
-    /*
-    public void populatePoliceTable() {
-
-        DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
-        dtm.setRowCount(0);
-
-        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-
-            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
-                Object[] row = new Object[3];
-                row[0] = ua;
-                row[1] = ua.getEmployee().getName();
-                row[2] = ua.getEmployee().getLocation();
-
-                dtm.addRow(row);
-            }
-
-        }
-    }
-     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -274,12 +256,23 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 //gv.getincidentid();
                 user.getWorkQueue().getWorkRequestList().add(gv);
                 user.getEmployee().setStatus("Assigned");
-                //ecoSystem.getInfoString().add(user.getFirstName()+" "+user.getLastName());
-                //ecoSystem.getTimingMap().put(sb.getincidentId(),ecosystem.getinfostring());
                 ArrayList<String> temp = ecoSystem.getInfoString();
                 temp.add(user.getEmployee().getName());
                 ecoSystem.setInfoString(temp);
                 ecoSystem.getTimingMap().put(gv.getIncidentID(), ecoSystem.getInfoString());
+            }
+            
+            if (caseWorkReq.getIncidentType().equals(IncidentWorkRequest.IncidentType.Robbery.getValue())) {
+
+                RobberyCaseWorkRequest rb = (RobberyCaseWorkRequest) caseWorkReq;
+                rb.setStatus("Assigned");
+                //gv.getincidentid();
+                user.getWorkQueue().getWorkRequestList().add(rb);
+                user.getEmployee().setStatus("Assigned");
+                ArrayList<String> temp = ecoSystem.getInfoString();
+                temp.add(user.getEmployee().getName());
+                ecoSystem.setInfoString(temp);
+                ecoSystem.getTimingMap().put(rb.getIncidentID(), ecoSystem.getInfoString());
             }
 
             JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
@@ -399,33 +392,20 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                 }
             }
 
-            /* for (Double d : distanceMatrixPerStation.values()) {
-                distanceArray.add(d);
-            }
-            Double minDistance = Collections.min(distanceArray);
-            Double minTime = 
-            ecoSystem.getInfoString().add(minDistance.toString());
-            String neareastOrgName = null;
-            for (String s : distanceMatrixPerStation.keySet()) {
-                if (distanceMatrixPerStation.get(s).equals(minDistance)) {
-                    neareastOrgName = s;
-                    break;
-                }
-            }*/
             DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
             dtm.setRowCount(0);
             for (Organization o : enterprise.getOrganizationDirectory().getOrganizationList()) {
                 if (o instanceof PoliceOrganization) {
                     if (((PoliceOrganization) o).getName().equals(nearestPoliceStationOrganization)) {
                         for (UserAccount ua : o.getUserAccountDirectory().getUserAccountList()) {
-                            if (!ua.getEmployee().getStatus().equalsIgnoreCase("Assigned")) {
-                                Object[] row = new Object[3];
-                                row[0] = ua;
-                                row[1] = ua.getEmployee().getName();
-                                row[2] = ua.getEmployee().getLocation();
+                            
+                            Object[] row = new Object[3];
+                            row[0] = ua;
+                            row[1] = ua.getEmployee().getName();
+                            row[2] = ua.getEmployee().getLocation();
 
-                                dtm.addRow(row);
-                            }
+                            dtm.addRow(row);
+                            
                         }
                     }
                 }
