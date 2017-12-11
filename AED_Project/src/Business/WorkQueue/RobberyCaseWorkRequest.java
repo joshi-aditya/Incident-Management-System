@@ -12,8 +12,13 @@ package Business.WorkQueue;
 public class RobberyCaseWorkRequest extends CaseWorkRequest{
     
     private String valueRobbed;
-    private boolean isSuspectArmed = false;
+    private boolean isSuspectArmed;
+    private boolean suspectNotArmed;
     private int incidentID;
+    private boolean associatedWithGang;
+    private boolean notAssociatedWithGang;
+    private String officerComments;
+    private String gangName;
     
     public RobberyCaseWorkRequest(){
         super();
@@ -35,6 +40,14 @@ public class RobberyCaseWorkRequest extends CaseWorkRequest{
         this.isSuspectArmed = isSuspectArmed;
     }
 
+    public boolean isSuspectNotArmed() {
+        return suspectNotArmed;
+    }
+
+    public void setSuspectNotArmed(boolean suspectNotArmed) {
+        this.suspectNotArmed = suspectNotArmed;
+    }
+
     public int getIncidentID() {
         return incidentID;
     }
@@ -42,4 +55,41 @@ public class RobberyCaseWorkRequest extends CaseWorkRequest{
     public void setIncidentID(int incidentID) {
         this.incidentID = incidentID;
     }
+
+    public boolean isAssociatedWithGang() {
+        return associatedWithGang;
+    }
+
+    public void setAssociatedWithGang(boolean associatedWithGang) {
+        this.associatedWithGang = associatedWithGang;
+    }
+
+    public boolean isNotAssociatedWithGang() {
+        return notAssociatedWithGang;
+    }
+
+    public void setNotAssociatedWithGang(boolean notAssociatedWithGang) {
+        this.notAssociatedWithGang = notAssociatedWithGang;
+    }
+
+    public String getOfficerComments() {
+        return officerComments;
+    }
+
+    public void setOfficerComments(String officerComments) {
+        this.officerComments = officerComments;
+    }
+
+    public String getGangName() {
+        return gangName;
+    }
+
+    public void setGangName(String gangName) {
+        this.gangName = gangName;
+    }
+    
+    @Override
+    public String toString() {
+        return String.valueOf(super.getCaseID());
+    } 
 }

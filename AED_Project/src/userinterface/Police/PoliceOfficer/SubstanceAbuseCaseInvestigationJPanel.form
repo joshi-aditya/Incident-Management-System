@@ -60,7 +60,6 @@
                           <Component id="caseidTextField" min="-2" pref="98" max="-2" attributes="0"/>
                           <Component id="txtSuspectName" max="32767" attributes="0"/>
                           <Component id="txtSuspectAddress" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtDrugsType" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnYesHistory" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -86,6 +85,7 @@
                               <Component id="btnGangNo" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtGangName" alignment="0" pref="200" max="32767" attributes="0"/>
+                          <Component id="cmbDrugsType" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -158,9 +158,8 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="320" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -181,7 +180,7 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtDrugsType" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cmbDrugsType" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -243,9 +242,9 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnSave" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="42" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace pref="42" max="32767" attributes="0"/>
                       <Component id="btnBack" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -414,8 +413,6 @@
         <Property name="text" type="java.lang.String" value="What type of drugs or substances are consumed?:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDrugsType">
-    </Component>
     <Component class="javax.swing.JButton" name="btnSave">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
@@ -570,6 +567,21 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Incident date:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbDrugsType">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

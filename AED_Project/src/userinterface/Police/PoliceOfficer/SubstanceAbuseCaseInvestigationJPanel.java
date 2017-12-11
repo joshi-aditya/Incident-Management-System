@@ -42,15 +42,31 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         caseidTextField.setText(String.valueOf(request.getCaseID()));
         caseidTextField.setEditable(false);
+        populateComboBox();
         populateMedTable();
         populateData();
+    }
+    
+    public void populateComboBox(){
+        cmbDrugsType.removeAllItems();
+        cmbDrugsType.addItem("");
+        cmbDrugsType.addItem("MARIJUANA");
+        cmbDrugsType.addItem("HASHISH");
+        cmbDrugsType.addItem("HEROIN");
+        cmbDrugsType.addItem("OPIUM");
+        cmbDrugsType.addItem("COCAINE");
+        cmbDrugsType.addItem("AMPHETAMINE");
+        cmbDrugsType.addItem("KETAMINE");
+        cmbDrugsType.addItem("LSD");
+        cmbDrugsType.addItem("METHAMPHETAMINE");
+        
     }
     
     public void populateData(){
         
         txtDrugSellerAddress.setText(request.getDrugSellerAddress());
         txtDrugSource.setText(request.getDrugSellerName());
-        txtDrugsType.setText(request.getDrugsType());
+        cmbDrugsType.setSelectedItem(request.getDrugsType());
         txtGangName.setText(request.getGangName());
         txtOfficerComments.setText(request.getOfficerComments());
         txtSuspectAddress.setText(request.getSuspectAddress());
@@ -135,7 +151,6 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         btnViewDetails = new javax.swing.JButton();
         btnSubmitMedReq = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        txtDrugsType = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         btnYesHistory = new javax.swing.JRadioButton();
@@ -163,6 +178,7 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         txtGangName = new javax.swing.JTextField();
         txtIncidentDate = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
+        cmbDrugsType = new javax.swing.JComboBox<>();
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -302,6 +318,8 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
 
         jLabel18.setText("Incident date:");
 
+        cmbDrugsType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -337,7 +355,6 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                             .addComponent(caseidTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSuspectName)
                             .addComponent(txtSuspectAddress)
-                            .addComponent(txtDrugsType)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnYesHistory)
                                 .addGap(18, 18, 18)
@@ -358,7 +375,8 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                                 .addComponent(btnGangYes)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnGangNo))
-                            .addComponent(txtGangName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
+                            .addComponent(txtGangName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(cmbDrugsType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -412,9 +430,8 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(320, 320, 320)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
@@ -432,7 +449,7 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel5)
-                                            .addComponent(txtDrugsType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(cmbDrugsType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -479,8 +496,8 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel17))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSave)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)))
+                                .addComponent(btnSave)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addComponent(btnBack)))
                 .addContainerGap())
         );
@@ -561,49 +578,53 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if(request.getStatus().equals("Closed")){
+        try{
+            if(request.getStatus().equals("Closed")){
             
-            JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            request.setDrugsType(txtDrugsType.getText().trim());
-            request.setSuspectAddress(txtSuspectAddress.getText().trim());
-            request.setSuspectName(txtSuspectName.getText().trim());
-            request.setDrugSellerName(txtDrugSource.getText().trim());
-            request.setOfficerComments(txtOfficerComments.getText().trim());
-            request.setDrugSellerAddress(txtDrugSellerAddress.getText().trim());
-            
-            if(btnDrugManfYes.isSelected())
-                request.setSuspectMakingDrugs(true);
-            if(btnDrugsManfNo.isSelected())
-                request.setNotMakingDrugs(true);
-            
-            if(btnYesHistory.isSelected())
-                request.setHasSubsAbuseHistory(true);
-            if(btnNoHistory.isSelected())
-                request.setNoSubsAbuseHistory(true);
-            
-            if(btnSellDrugsYes.isSelected())
-                request.setSuspectSellingDrugs(true);
-            if(btnSellDrugsNo.isSelected())
-                request.setNotSellingDrugs(true);
-            
-            if(btnGangYes.isSelected())
-                request.setAssociatedWithGang(true);
-            if(btnGangNo.isSelected())
-                request.setNotAssociatedWithGang(true);
-            
-            Date date = dob.getDate();
-            if(date != null && date.before(new Date())){
-
-                request.setSuspectDateOfBirth(date);
-                JOptionPane.showMessageDialog(null, "Details Saved!!");
-            }else if( date != null){
-                dob.setDate(null);
-                JOptionPane.showMessageDialog(null, "Invalid date input! All data except date saved!");
+                JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Details Saved!!");
+                request.setDrugsType(cmbDrugsType.getSelectedItem().toString());
+                request.setSuspectAddress(txtSuspectAddress.getText().trim());
+                request.setSuspectName(txtSuspectName.getText().trim());
+                request.setDrugSellerName(txtDrugSource.getText().trim());
+                request.setOfficerComments(txtOfficerComments.getText().trim());
+                request.setDrugSellerAddress(txtDrugSellerAddress.getText().trim());
+
+                if(btnDrugManfYes.isSelected())
+                    request.setSuspectMakingDrugs(true);
+                if(btnDrugsManfNo.isSelected())
+                    request.setNotMakingDrugs(true);
+
+                if(btnYesHistory.isSelected())
+                    request.setHasSubsAbuseHistory(true);
+                if(btnNoHistory.isSelected())
+                    request.setNoSubsAbuseHistory(true);
+
+                if(btnSellDrugsYes.isSelected())
+                    request.setSuspectSellingDrugs(true);
+                if(btnSellDrugsNo.isSelected())
+                    request.setNotSellingDrugs(true);
+
+                if(btnGangYes.isSelected())
+                    request.setAssociatedWithGang(true);
+                if(btnGangNo.isSelected())
+                    request.setNotAssociatedWithGang(true);
+
+                Date date = dob.getDate();
+                if(date != null && date.before(new Date())){
+
+                    request.setSuspectDateOfBirth(date);
+                    JOptionPane.showMessageDialog(null, "Details Saved!!");
+                }else if( date != null){
+                    dob.setDate(null);
+                    JOptionPane.showMessageDialog(null, "Invalid date input! All data except date saved!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Details Saved!!");
+                }
             }
-        }   
+        } catch(Exception e) {
+            System.out.println(e);
+        } 
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
@@ -623,6 +644,7 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnViewDetails;
     private javax.swing.JRadioButton btnYesHistory;
     private javax.swing.JTextField caseidTextField;
+    private javax.swing.JComboBox<String> cmbDrugsType;
     private org.jdesktop.swingx.JXDatePicker dob;
     private javax.swing.ButtonGroup gangAssociation;
     private javax.swing.ButtonGroup historyBtnGroup;
@@ -652,7 +674,6 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblMedReq;
     private javax.swing.JTextField txtDrugSellerAddress;
     private javax.swing.JTextField txtDrugSource;
-    private javax.swing.JTextField txtDrugsType;
     private javax.swing.JTextField txtGangName;
     private javax.swing.JTextField txtIncidentDate;
     private javax.swing.JTextArea txtOfficerComments;

@@ -46,20 +46,29 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
         }
     }
     
-    public void populateEmployeeComboBox(Organization organization){
+    public void populateEmployeeComboBox(String name){
         employeeJComboBox.removeAllItems();
         
-        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
-            employeeJComboBox.addItem(employee);
+        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if(org.getName().equals(name)){
+                for (Employee employee : org.getEmployeeDirectory().getEmployeeList()){
+                    employeeJComboBox.addItem(employee);
+                }
+            }
         }
+        
     }
     
-    private void populateRoleComboBox(Enterprise e){
+    private void populateRoleComboBox(String name){
         roleJComboBox.removeAllItems();
-        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(organization instanceof PoliceOrganization){
-       
-            roleJComboBox.addItem(new PoliceOfficerRole());
+        
+        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if(org.getName().equals(name)){
+                if(org instanceof PoliceOrganization){
+                    
+                    roleJComboBox.addItem(new PoliceOfficerRole());
+                }
+            }
         }
     }
 
@@ -185,23 +194,35 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
-        String userName = nameJTextField.getText();
-        String password = passwordJTextField.getText();
-        if(!((userName.equals("") || (password.equals(""))))){
-            if(EcoSystem.checkIfUsernameIsUnique(userName)){
-                Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-                Employee employee = (Employee) employeeJComboBox.getSelectedItem();
-                Role role = (Role) roleJComboBox.getSelectedItem();
-                organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-                       
-                popData();
-                JOptionPane.showMessageDialog(null,"User created successfully");
+        
+        try{
+            String userName = nameJTextField.getText();
+            String password = passwordJTextField.getText();
+            if(!((userName.equals("") || (password.equals(""))))){
+                if(EcoSystem.checkIfUsernameIsUnique(userName)){
+
+                    Organization organization = null;
+                    String name = (String) organizationJComboBox.getSelectedItem();
+                    for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+                        if(org.getName().equals(name)){
+                            organization = org;
+                        }
+                    }
+
+                    Employee employee = (Employee) employeeJComboBox.getSelectedItem();
+                    Role role = (Role) roleJComboBox.getSelectedItem();
+                    organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+
+                    popData();
+                    JOptionPane.showMessageDialog(null,"User created successfully");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE); 
+                }
+            } else {
+                 JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-            else{
-                JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE); 
-            }
-        }else{
-             JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            System.out.println("e");
         }
         
     }//GEN-LAST:event_createUserJButtonActionPerformed
@@ -214,10 +235,15 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backjButton1ActionPerformed
 
     private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
-        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if (organization != null){
-            populateEmployeeComboBox(organization);
-            populateRoleComboBox(enterprise);
+        
+        try{
+            String name = (String) organizationJComboBox.getSelectedItem();
+            if (name != null) {
+                populateEmployeeComboBox(name);
+                populateRoleComboBox(name);
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
     }//GEN-LAST:event_organizationJComboBoxActionPerformed
 
