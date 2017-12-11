@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package Business.WorkQueue;
+
+import java.util.Date;
+
 /**
  *
  * @author joshiaditya
@@ -12,22 +15,25 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
     
     private String gunType;
     private String motive;
-    private boolean isGunLegal = false;
-    private int incidentID;
-   // private int CaseID;
-
+    private boolean isGunLegal;
+    private boolean isGunIllegal;
+    private int incidentID;   
+    private String suspectAddress;
+    private boolean gunViolenceHistory;
+    private boolean noGunViolenceHistory;
+    private boolean associatedWithGang;
+    private boolean notAssociatedWithGang;
+    private String officerComments;
+    private String gangName;
+    private Date suspectDateOfBirth;
+    
     public int getIncidentID() {
         return incidentID;
     }
 
     public void setIncidentID(int incidentID) {
         this.incidentID = incidentID;
-    }   
-    private String suspectAddress;
-    private boolean gunViolenceHistory;
-    private boolean associatedWithGang;
-    private String officerComments;
-    private String gangName;
+    }
     
     public GunViolenceCaseWorkRequest(){
         super();
@@ -95,6 +101,38 @@ public class GunViolenceCaseWorkRequest extends CaseWorkRequest{
 
     public void setGangName(String gangName) {
         this.gangName = gangName;
+    }
+
+    public boolean isIsGunIllegal() {
+        return isGunIllegal;
+    }
+
+    public void setIsGunIllegal(boolean isGunIllegal) {
+        this.isGunIllegal = isGunIllegal;
+    }
+
+    public boolean isNoGunViolenceHistory() {
+        return noGunViolenceHistory;
+    }
+
+    public void setNoGunViolenceHistory(boolean noGunViolenceHistory) {
+        this.noGunViolenceHistory = noGunViolenceHistory;
+    }
+
+    public boolean isNotAssociatedWithGang() {
+        return notAssociatedWithGang;
+    }
+
+    public void setNotAssociatedWithGang(boolean notAssociatedWithGang) {
+        this.notAssociatedWithGang = notAssociatedWithGang;
+    }
+
+    public Date getSuspectDateOfBirth() {
+        return suspectDateOfBirth;
+    }
+
+    public void setSuspectDateOfBirth(Date suspectDateOfBirth) {
+        this.suspectDateOfBirth = suspectDateOfBirth;
     }
     
     @Override

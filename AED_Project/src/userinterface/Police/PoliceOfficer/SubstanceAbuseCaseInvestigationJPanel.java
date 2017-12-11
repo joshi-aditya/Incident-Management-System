@@ -15,6 +15,7 @@ import Business.WorkQueue.HospitalWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -54,25 +55,26 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         txtOfficerComments.setText(request.getOfficerComments());
         txtSuspectAddress.setText(request.getSuspectAddress());
         txtSuspectName.setText(request.getSuspectName());
-        
+        dob.setDate(request.getSuspectDateOfBirth());
+        txtIncidentDate.setText(request.getIncidentOcuredDate().toString());
         if(request.isAssociatedWithGang() == true)
             btnGangYes.setSelected(true);
-        if(request.isAssociatedWithGang() == false)
+        if(request.isNotAssociatedWithGang() == true)
             btnGangNo.setSelected(true);
         
-        if(request.isMakingDrugs() == true)
+        if(request.isSuspectMakingDrugs() == true)
             btnDrugManfYes.setSelected(true);
-        if(request.isMakingDrugs() == false)
+        if(request.isNotMakingDrugs() == true)
             btnDrugsManfNo.setSelected(true);
         
-        if(request.isSellingDrugs()== true)
+        if(request.isSuspectSellingDrugs() == true)
             btnSellDrugsYes.setSelected(true);
-        if(request.isSellingDrugs()== false)
+        if(request.isNotSellingDrugs() == true)
             btnSellDrugsNo.setSelected(true);
         
-        if(request.isSubsAbuseHistory()== true)
+        if(request.isHasSubsAbuseHistory() == true)
             btnYesHistory.setSelected(true);
-        if(request.isSubsAbuseHistory()== false)
+        if(request.isNoSubsAbuseHistory() == true)
             btnNoHistory.setSelected(true);
     }
     
@@ -149,7 +151,7 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         txtDrugSellerAddress = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        dob = new org.jdesktop.swingx.JXDatePicker();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtOfficerComments = new javax.swing.JTextArea();
@@ -159,6 +161,8 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         btnGangNo = new javax.swing.JRadioButton();
         jLabel16 = new javax.swing.JLabel();
         txtGangName = new javax.swing.JTextField();
+        txtIncidentDate = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
 
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +278,7 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
 
         jLabel12.setText("Address of drug seller:");
 
-        jLabel13.setText("Suspect's Date of Birth (DD/MM/YY):");
+        jLabel13.setText("Suspect's Date of Birth (DD/MM/YYYY):");
 
         jLabel14.setText("Medical Tests");
 
@@ -294,6 +298,10 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
 
         jLabel16.setText("Name of Group associated if any:");
 
+        txtIncidentDate.setEnabled(false);
+
+        jLabel18.setText("Incident date:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -303,28 +311,28 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel16)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(btnBack))
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel13)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel16))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIncidentDate)
                             .addComponent(btnSave)
                             .addComponent(caseidTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSuspectName)
@@ -344,13 +352,14 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                                 .addComponent(btnDrugsManfNo))
                             .addComponent(txtDrugSource)
                             .addComponent(txtDrugSellerAddress)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(dob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGangYes)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnGangNo))
-                            .addComponent(txtGangName))))
+                            .addComponent(txtGangName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(250, 250, 250)
@@ -378,90 +387,19 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel14))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCreateNewMedReq)
-                            .addComponent(btnViewDetails)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(caseidTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtSuspectAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtDrugsType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txtSuspectName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(btnYesHistory)
-                            .addComponent(btnNoHistory))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(btnSellDrugsYes)
-                            .addComponent(btnSellDrugsNo))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(btnDrugManfYes)
-                            .addComponent(btnDrugsManfNo))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtDrugSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtDrugSellerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(btnGangYes)
-                            .addComponent(btnGangNo))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(txtGangName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnViewDetails))
+                        .addGap(10, 10, 10)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,7 +407,81 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addComponent(btnSubmitMedReq)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(320, 320, 320)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(caseidTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtIncidentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(62, 62, 62)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel2)
+                                            .addComponent(txtSuspectAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel5)
+                                            .addComponent(txtDrugsType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel1)
+                                            .addComponent(txtSuspectName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(btnYesHistory)
+                                    .addComponent(btnNoHistory))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(btnSellDrugsYes)
+                                    .addComponent(btnSellDrugsNo))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(btnDrugManfYes)
+                                    .addComponent(btnDrugsManfNo))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(txtDrugSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(txtDrugSellerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(btnGangYes)
+                                    .addComponent(btnGangNo))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel16)
+                                    .addComponent(txtGangName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSave)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)))
+                        .addComponent(btnBack)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -561,26 +573,36 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
             request.setDrugSellerAddress(txtDrugSellerAddress.getText().trim());
             
             if(btnDrugManfYes.isSelected())
-                request.setMakingDrugs(true);
+                request.setSuspectMakingDrugs(true);
             if(btnDrugsManfNo.isSelected())
-                request.setMakingDrugs(false);
+                request.setNotMakingDrugs(true);
             
             if(btnYesHistory.isSelected())
-                request.setSubsAbuseHistory(true);
+                request.setHasSubsAbuseHistory(true);
             if(btnNoHistory.isSelected())
-                request.setSubsAbuseHistory(false);
+                request.setNoSubsAbuseHistory(true);
             
             if(btnSellDrugsYes.isSelected())
-                request.setSellingDrugs(true);
+                request.setSuspectSellingDrugs(true);
             if(btnSellDrugsNo.isSelected())
-                request.setSellingDrugs(false);
+                request.setNotSellingDrugs(true);
             
             if(btnGangYes.isSelected())
                 request.setAssociatedWithGang(true);
             if(btnGangNo.isSelected())
-                request.setAssociatedWithGang(false);
+                request.setNotAssociatedWithGang(true);
+            
+            Date date = dob.getDate();
+            if(date != null && date.before(new Date())){
 
-            JOptionPane.showMessageDialog(null, "Details Saved!!");
+                request.setSuspectDateOfBirth(date);
+                JOptionPane.showMessageDialog(null, "Details Saved!!");
+            }else if( date != null){
+                dob.setDate(null);
+                JOptionPane.showMessageDialog(null, "Invalid date input! All data except date saved!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Details Saved!!");
+            }
         }   
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -601,6 +623,7 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnViewDetails;
     private javax.swing.JRadioButton btnYesHistory;
     private javax.swing.JTextField caseidTextField;
+    private org.jdesktop.swingx.JXDatePicker dob;
     private javax.swing.ButtonGroup gangAssociation;
     private javax.swing.ButtonGroup historyBtnGroup;
     private javax.swing.JLabel jLabel1;
@@ -612,6 +635,7 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -624,13 +648,13 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.ButtonGroup sellingDrugsBtnGroup;
     private javax.swing.JTable tblMedReq;
     private javax.swing.JTextField txtDrugSellerAddress;
     private javax.swing.JTextField txtDrugSource;
     private javax.swing.JTextField txtDrugsType;
     private javax.swing.JTextField txtGangName;
+    private javax.swing.JTextField txtIncidentDate;
     private javax.swing.JTextArea txtOfficerComments;
     private javax.swing.JTextField txtSuspectAddress;
     private javax.swing.JTextField txtSuspectName;

@@ -42,7 +42,7 @@ public class PoliceManageUserAccountJPanel extends javax.swing.JPanel {
         organizationJComboBox.removeAllItems();
 
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            organizationJComboBox.addItem(organization);
+            organizationJComboBox.addItem(organization.getName());
         }
     }
     

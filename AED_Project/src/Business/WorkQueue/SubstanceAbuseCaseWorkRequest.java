@@ -13,20 +13,22 @@ import java.util.Date;
  */
 public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
     
-    private String testResult;
-    private Date testResultDate;
     private int incidentID;
-   // private int CaseID;
     private String suspectAddress;
     private String drugsType;
-    private boolean subsAbuseHistory;
-    private boolean sellingDrugs;
-    private boolean makingDrugs;
+    private boolean hasSubsAbuseHistory;
+    private boolean noSubsAbuseHistory;
+    private boolean suspectSellingDrugs;
+    private boolean notSellingDrugs;
+    private boolean suspectMakingDrugs;
+    private boolean notMakingDrugs;
     private String drugSellerName;
     private boolean associatedWithGang;
+    private boolean notAssociatedWithGang;
     private String officerComments;
     private String drugSellerAddress;
     private String gangName;
+    private Date suspectDateOfBirth;
     
     public SubstanceAbuseCaseWorkRequest(){
         super();
@@ -40,11 +42,6 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
         this.incidentID = incidentID;
     }
 
-
-    public String getTestResult() {
-        return testResult;
-    }
-    
     public String getSuspectAddress() {
         return suspectAddress;
     }
@@ -61,28 +58,52 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
         this.drugsType = drugsType;
     }
 
-    public boolean isSubsAbuseHistory() {
-        return subsAbuseHistory;
+    public boolean isHasSubsAbuseHistory() {
+        return hasSubsAbuseHistory;
     }
 
-    public void setSubsAbuseHistory(boolean subsAbuseHistory) {
-        this.subsAbuseHistory = subsAbuseHistory;
+    public void setHasSubsAbuseHistory(boolean hasSubsAbuseHistory) {
+        this.hasSubsAbuseHistory = hasSubsAbuseHistory;
     }
 
-    public boolean isSellingDrugs() {
-        return sellingDrugs;
+    public boolean isNoSubsAbuseHistory() {
+        return noSubsAbuseHistory;
     }
 
-    public void setSellingDrugs(boolean sellingDrugs) {
-        this.sellingDrugs = sellingDrugs;
+    public void setNoSubsAbuseHistory(boolean noSubsAbuseHistory) {
+        this.noSubsAbuseHistory = noSubsAbuseHistory;
     }
 
-    public boolean isMakingDrugs() {
-        return makingDrugs;
+    public boolean isSuspectSellingDrugs() {
+        return suspectSellingDrugs;
     }
 
-    public void setMakingDrugs(boolean makingDrugs) {
-        this.makingDrugs = makingDrugs;
+    public void setSuspectSellingDrugs(boolean suspectSellingDrugs) {
+        this.suspectSellingDrugs = suspectSellingDrugs;
+    }
+
+    public boolean isNotSellingDrugs() {
+        return notSellingDrugs;
+    }
+
+    public void setNotSellingDrugs(boolean notSellingDrugs) {
+        this.notSellingDrugs = notSellingDrugs;
+    }
+
+    public boolean isSuspectMakingDrugs() {
+        return suspectMakingDrugs;
+    }
+
+    public void setSuspectMakingDrugs(boolean suspectMakingDrugs) {
+        this.suspectMakingDrugs = suspectMakingDrugs;
+    }
+
+    public boolean isNotMakingDrugs() {
+        return notMakingDrugs;
+    }
+
+    public void setNotMakingDrugs(boolean notMakingDrugs) {
+        this.notMakingDrugs = notMakingDrugs;
     }
 
     public String getDrugSellerName() {
@@ -99,6 +120,14 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
 
     public void setAssociatedWithGang(boolean associatedWithGang) {
         this.associatedWithGang = associatedWithGang;
+    }
+
+    public boolean isNotAssociatedWithGang() {
+        return notAssociatedWithGang;
+    }
+
+    public void setNotAssociatedWithGang(boolean notAssociatedWithGang) {
+        this.notAssociatedWithGang = notAssociatedWithGang;
     }
 
     public String getOfficerComments() {
@@ -123,6 +152,14 @@ public class SubstanceAbuseCaseWorkRequest extends CaseWorkRequest{
 
     public void setGangName(String gangName) {
         this.gangName = gangName;
+    }
+
+    public Date getSuspectDateOfBirth() {
+        return suspectDateOfBirth;
+    }
+
+    public void setSuspectDateOfBirth(Date suspectDateOfBirth) {
+        this.suspectDateOfBirth = suspectDateOfBirth;
     }
     
     @Override

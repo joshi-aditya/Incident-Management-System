@@ -11,6 +11,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
+import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -43,12 +44,14 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblCases.getModel();
         model.setRowCount(0);
-
-        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
-                for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-                    if ((req instanceof GunViolenceCaseWorkRequest) || (req instanceof SubstanceAbuseCaseWorkRequest)) {
-
+        
+        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+            for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
+                for(WorkRequest req : ua.getWorkQueue().getWorkRequestList()){
+                    if((req instanceof GunViolenceCaseWorkRequest) || 
+                            (req instanceof SubstanceAbuseCaseWorkRequest) || 
+                            (req instanceof RobberyCaseWorkRequest)){
+                        
                         Object[] row = new Object[6];
                         row[0] = req;
                         row[1] = ((CaseWorkRequest) req).getIncidentType();
