@@ -318,44 +318,48 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if(request.getStatus().equals("Closed")){
+        try{
+            if(request.getStatus().equals("Closed")){
             
-            JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            
-            request.setSuspectName(txtSuspectName.getText().trim());
-            request.setSuspectAddress(txtAddress.getText().trim());
-            request.setGangName(txtGangName.getText());
-            request.setOfficerComments(txtOfficerComments.getText().trim());
-            request.setGunType(txtGunType.getText());
-            request.setMotive(txtMotive.getText());
-            
-            if(btnYes.isSelected())
-                request.setIsGunLegal(true);
-            if(btnNo.isSelected())
-                request.setIsGunIllegal(true);
-            
-            if(btnHistoryYes.isSelected())
-                request.setGunViolenceHistory(true);
-            if(btnHistoryNo.isSelected())
-                request.setNoGunViolenceHistory(true);
-            
-            if(btnGangYes.isSelected())
-                request.setAssociatedWithGang(true);
-            if(btnGangNo.isSelected())
-                request.setNotAssociatedWithGang(true);
-
-            Date date = dob.getDate();
-            if(date != null && date.before(new Date())){
-
-                request.setSuspectDateOfBirth(date);
-                JOptionPane.showMessageDialog(null, "Details Saved!!");
-            }else if( date != null){
-                dob.setDate(null);
-                JOptionPane.showMessageDialog(null, "Invalid date input! All data except date saved!");
+                JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Details Saved!!");
+
+                request.setSuspectName(txtSuspectName.getText().trim());
+                request.setSuspectAddress(txtAddress.getText().trim());
+                request.setGangName(txtGangName.getText());
+                request.setOfficerComments(txtOfficerComments.getText().trim());
+                request.setGunType(txtGunType.getText());
+                request.setMotive(txtMotive.getText());
+
+                if(btnYes.isSelected())
+                    request.setIsGunLegal(true);
+                if(btnNo.isSelected())
+                    request.setIsGunIllegal(true);
+
+                if(btnHistoryYes.isSelected())
+                    request.setGunViolenceHistory(true);
+                if(btnHistoryNo.isSelected())
+                    request.setNoGunViolenceHistory(true);
+
+                if(btnGangYes.isSelected())
+                    request.setAssociatedWithGang(true);
+                if(btnGangNo.isSelected())
+                    request.setNotAssociatedWithGang(true);
+
+                Date date = dob.getDate();
+                if(date != null && date.before(new Date())){
+
+                    request.setSuspectDateOfBirth(date);
+                    JOptionPane.showMessageDialog(null, "Details Saved!!");
+                }else if( date != null){
+                    dob.setDate(null);
+                    JOptionPane.showMessageDialog(null, "Invalid date input! All data except date saved!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Details Saved!!");
+                }
             }
+        }catch(Exception e){
+            System.out.println(e);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 

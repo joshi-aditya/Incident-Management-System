@@ -578,49 +578,53 @@ public class SubstanceAbuseCaseInvestigationJPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if(request.getStatus().equals("Closed")){
+        try{
+            if(request.getStatus().equals("Closed")){
             
-            JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            request.setDrugsType(cmbDrugsType.getSelectedItem().toString());
-            request.setSuspectAddress(txtSuspectAddress.getText().trim());
-            request.setSuspectName(txtSuspectName.getText().trim());
-            request.setDrugSellerName(txtDrugSource.getText().trim());
-            request.setOfficerComments(txtOfficerComments.getText().trim());
-            request.setDrugSellerAddress(txtDrugSellerAddress.getText().trim());
-            
-            if(btnDrugManfYes.isSelected())
-                request.setSuspectMakingDrugs(true);
-            if(btnDrugsManfNo.isSelected())
-                request.setNotMakingDrugs(true);
-            
-            if(btnYesHistory.isSelected())
-                request.setHasSubsAbuseHistory(true);
-            if(btnNoHistory.isSelected())
-                request.setNoSubsAbuseHistory(true);
-            
-            if(btnSellDrugsYes.isSelected())
-                request.setSuspectSellingDrugs(true);
-            if(btnSellDrugsNo.isSelected())
-                request.setNotSellingDrugs(true);
-            
-            if(btnGangYes.isSelected())
-                request.setAssociatedWithGang(true);
-            if(btnGangNo.isSelected())
-                request.setNotAssociatedWithGang(true);
-            
-            Date date = dob.getDate();
-            if(date != null && date.before(new Date())){
-
-                request.setSuspectDateOfBirth(date);
-                JOptionPane.showMessageDialog(null, "Details Saved!!");
-            }else if( date != null){
-                dob.setDate(null);
-                JOptionPane.showMessageDialog(null, "Invalid date input! All data except date saved!");
+                JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Details Saved!!");
+                request.setDrugsType(cmbDrugsType.getSelectedItem().toString());
+                request.setSuspectAddress(txtSuspectAddress.getText().trim());
+                request.setSuspectName(txtSuspectName.getText().trim());
+                request.setDrugSellerName(txtDrugSource.getText().trim());
+                request.setOfficerComments(txtOfficerComments.getText().trim());
+                request.setDrugSellerAddress(txtDrugSellerAddress.getText().trim());
+
+                if(btnDrugManfYes.isSelected())
+                    request.setSuspectMakingDrugs(true);
+                if(btnDrugsManfNo.isSelected())
+                    request.setNotMakingDrugs(true);
+
+                if(btnYesHistory.isSelected())
+                    request.setHasSubsAbuseHistory(true);
+                if(btnNoHistory.isSelected())
+                    request.setNoSubsAbuseHistory(true);
+
+                if(btnSellDrugsYes.isSelected())
+                    request.setSuspectSellingDrugs(true);
+                if(btnSellDrugsNo.isSelected())
+                    request.setNotSellingDrugs(true);
+
+                if(btnGangYes.isSelected())
+                    request.setAssociatedWithGang(true);
+                if(btnGangNo.isSelected())
+                    request.setNotAssociatedWithGang(true);
+
+                Date date = dob.getDate();
+                if(date != null && date.before(new Date())){
+
+                    request.setSuspectDateOfBirth(date);
+                    JOptionPane.showMessageDialog(null, "Details Saved!!");
+                }else if( date != null){
+                    dob.setDate(null);
+                    JOptionPane.showMessageDialog(null, "Invalid date input! All data except date saved!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Details Saved!!");
+                }
             }
-        }   
+        } catch(Exception e) {
+            System.out.println(e);
+        } 
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
