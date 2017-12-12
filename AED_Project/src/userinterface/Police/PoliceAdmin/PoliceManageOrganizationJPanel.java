@@ -181,7 +181,7 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
                     txtaddress.setText("");
                     txtZipcode.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Organization exists bys this name. Please choose a different name!");
+                    JOptionPane.showMessageDialog(null, "Organization exists by this name. Please choose a different name!");
                 }
         } else {
             JOptionPane.showMessageDialog(null, "Please enter all details!");

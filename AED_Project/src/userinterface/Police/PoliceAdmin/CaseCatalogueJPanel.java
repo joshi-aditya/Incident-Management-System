@@ -14,13 +14,9 @@ import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
-import com.teamdev.jxbrowser.chromium.Browser;
-import com.teamdev.jxbrowser.chromium.swing.BrowserView;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import userinterface.Analysis.AnalysisByIncidentType;
 import userinterface.Analysis.AnalysisBySubstanceType;
@@ -87,7 +83,7 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnReopenCase = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Master Case Catalogue");
@@ -139,10 +135,10 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("View Analysis on map");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnReopenCase.setText("Reopen Case");
+        btnReopenCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnReopenCaseActionPerformed(evt);
             }
         });
 
@@ -151,42 +147,42 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnBack))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(33, 33, 33)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton3)
-                        .addComponent(jButton2)))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(49, 49, 49)
+                                .addComponent(jButton2))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnBack, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnReopenCase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(28, 28, 28)
-                .addComponent(jButton2)
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBack)
-                    .addComponent(jButton3))
-                .addGap(117, 117, 117))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(33, 33, 33)
+                .addComponent(btnReopenCase)
+                .addGap(48, 48, 48)
+                .addComponent(btnBack)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -213,83 +209,31 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnReopenCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReopenCaseActionPerformed
         // TODO add your handling code here:
-        Browser browser = new Browser();
-        BrowserView view = new BrowserView(browser);
-        
-        String coordinates = null;
-        
-        coordinates = "";
-       /* 
-                  "          {lat: 30.774, lng: -80.190},\n"
-                + "          {lat: 35.466, lng: -66.118},\n"
-                + "          {lat: 32.321, lng: -64.757},\n"
-                + "          {lat: 28.774, lng: -80.190}
-*/
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(view, BorderLayout.CENTER);
-        frame.setSize(700, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        int selectedRow = tblCases.getSelectedRow();
+        if (selectedRow >= 0) {
+            WorkRequest request = (WorkRequest) tblCases.getValueAt(selectedRow, 0);
+            
+            if(request.getStatus().equals("Assigned")){
+                JOptionPane.showMessageDialog(this, "Case already open!", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+                
+                request.setStatus("Assigned");
+            }
+            populateTable();
 
-        browser.loadHTML("<!DOCTYPE html>\n"
-                + "<html>\n"
-                + "  <head>\n"
-                + "    <title>User-editable Shapes</title>\n"
-                + "    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n"
-                + "    <meta charset=\"utf-8\">\n"
-                + "    <style>\n"
-                + "      /* Always set the map height explicitly to define the size of the div\n"
-                + "       * element that contains the map. */\n"
-                + "      #map {\n"
-                + "        height: 100%;\n"
-                + "      }\n"
-                + "      /* Optional: Makes the sample page fill the window. */\n"
-                + "      html, body {\n"
-                + "        height: 100%;\n"
-                + "        margin: 0;\n"
-                + "        padding: 0;\n"
-                + "      }\n"
-                + "    </style>\n"
-                + "  </head>\n"
-                + "  <body>\n"
-                + "    <div id=\"map\"></div>\n"
-                + "    <script>\n"
-                + "      // This example adds a user-editable polygon to the map.\n"
-                + "      function initMap() {\n"
-                + "        var map = new google.maps.Map(document.getElementById('map'), {\n"
-                + "          center: {lat: 44.5452, lng: -78.5389},\n"
-                + "          zoom: 3\n"
-                + "        });\n"
-                + "\n"
-                + "           var triangleCoords = [\n"
-                +             coordinates
-                + "        ];\n"
-                + "\n"
-                + "        // Define a polygon and set its editable property to true.\n"
-                + "        var polygon = new google.maps.Polygon({\n"
-                + "          paths: triangleCoords,\n"
-                + "          editable: false\n"
-                + "        });\n"
-                + "        polygon.setMap(map);\n"
-                + "      }\n"
-                + "    </script>\n"
-                + "    <script async defer\n"
-                + "    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBR_JJcbibBdwvgGmO8OWXdPyh6mnAG7TE&callback=initMap\">\n"
-                + "    </script>\n"
-                + "  </body>\n"
-                + "</html>");
-                                         
-    }//GEN-LAST:event_jButton3ActionPerformed
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row from the table first!", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnReopenCaseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnReopenCase;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCases;

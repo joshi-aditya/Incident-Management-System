@@ -276,6 +276,8 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
             populateTable();
+            DefaultTableModel dtm = (DefaultTableModel) policeOfficerjTable.getModel();
+            dtm.setRowCount(0);
         }
 
     }//GEN-LAST:event_assignjButtonActionPerformed

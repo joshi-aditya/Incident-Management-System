@@ -7,7 +7,6 @@ package Business.Organization;
 
 import Business.Role.DoctorRole;
 import Business.Role.HospitalAdminRole;
-import Business.Role.LabAssistantRole;
 import Business.Role.Role;
 import java.util.HashSet;
 
@@ -20,13 +19,40 @@ public class HospitalOrganization extends Organization {
     public HospitalOrganization() {
         super(Organization.Type.HospitalOrganization.getValue());
     }
+    
+    private String name;
+    private String address;
+    private String zipcode;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
     @Override
     public HashSet<Role> getSupportedRole() {
         roles = new HashSet<>();
         roles.add(new HospitalAdminRole());
         roles.add(new DoctorRole());
-        roles.add(new LabAssistantRole());
         return roles;
     }
 

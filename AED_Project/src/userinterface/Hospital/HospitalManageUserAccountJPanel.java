@@ -10,15 +10,9 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.AmbulanceOrganization;
 import Business.Organization.HospitalOrganization;
 import Business.Organization.Organization;
-import Business.Organization.PoliceOrganization;
-import Business.Organization.Organization.Type;
-import static Business.Organization.Organization.Type.HospitalOrganization;
 import Business.Role.AmbulanceStaffRole;
 import Business.Role.DoctorRole;
-import Business.Role.HospitalAdminRole;
-import Business.Role.LabAssistantRole;
 import Business.Role.Role;
-import Business.Role.PoliceAdminRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -43,7 +37,6 @@ public class HospitalManageUserAccountJPanel extends javax.swing.JPanel {
         this.container = container;
 
         popOrganizationComboBox();
-       // employeeJComboBox.removeAllItems();
         popData();
     }
 
@@ -51,39 +44,37 @@ public class HospitalManageUserAccountJPanel extends javax.swing.JPanel {
         organizationJComboBox.removeAllItems();
 
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            organizationJComboBox.addItem(organization);
+            organizationJComboBox.addItem(organization.getName());
         }
     }
     
-    public void populateEmployeeComboBox(Organization organization){
+    public void populateEmployeeComboBox(String name){
         employeeJComboBox.removeAllItems();
         
-        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
-            employeeJComboBox.addItem(employee);
+        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if(org.getName().equals(name)){
+                for (Employee employee : org.getEmployeeDirectory().getEmployeeList()){
+                    employeeJComboBox.addItem(employee);
+                }
+            }
         }
+        
     }
-    
-    private void populateRoleComboBox(Enterprise e){
+    private void populateRoleComboBox(String name){
         roleJComboBox.removeAllItems();
-        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(organization instanceof AmbulanceOrganization){
-       // for (Role role : e.getSupportedRole()){
-            roleJComboBox.addItem(new AmbulanceStaffRole());
-        }
         
-        else if(organization instanceof HospitalOrganization){
-            
-            roleJComboBox.addItem(new HospitalAdminRole());
-            roleJComboBox.addItem(new DoctorRole());
-            roleJComboBox.addItem(new LabAssistantRole());
+        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if(org.getName().equals(name)){
+                if(org instanceof HospitalOrganization){
+                    
+                    roleJComboBox.addItem(new DoctorRole());
+                } 
+                else if(org instanceof AmbulanceOrganization){
+                    
+                    roleJComboBox.addItem(new AmbulanceStaffRole());
+                } 
+            }
         }
-        
-        /*
-        if(organization instanceof ProviderOrganization){
-             roleJComboBox.addItem(new ProviderRole());
-        }
-        */
-       // }
     }
 
     public void popData() {
@@ -209,58 +200,37 @@ public class HospitalManageUserAccountJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
-        String userName = nameJTextField.getText();
-        String password = passwordJTextField.getText();
-        if(!((userName.equals("") || (password.equals(""))))){
-            if(EcoSystem.checkIfUsernameIsUnique(userName)){
-                Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-                Employee employee = (Employee) employeeJComboBox.getSelectedItem();
-                Role role = (Role) roleJComboBox.getSelectedItem();
-                organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-                
-                /*
-                if (role instanceof PoliceAdminRole){
-                    PoliceOrganization organizations = new PoliceOrganization();
-                    enterprise.getOrganizationDirectory().createOrganization(Type.PoliceOrganization);
-                    organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+        try{
+            String userName = nameJTextField.getText();
+            String password = passwordJTextField.getText();
+            if(!((userName.equals("") || (password.equals(""))))){
+                if(EcoSystem.checkIfUsernameIsUnique(userName)){
+
+                    Organization organization = null;
+                    String name = (String) organizationJComboBox.getSelectedItem();
+                    for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+                        if(org.getName().equals(name)){
+                            organization = org;
+                        }
+                    }
+
+                    Employee employee = (Employee) employeeJComboBox.getSelectedItem();
+                    Role role = (Role) roleJComboBox.getSelectedItem();
+                    organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+
+                    popData();
+                    nameJTextField.setText("");
+                    passwordJTextField.setText("");
+                    JOptionPane.showMessageDialog(null,"User created successfully");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE); 
                 }
-                */
-//        else{
-//           Provider  organizations = new Provider();
-//            organizations.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-//              
-//        }
-
-
-        /*
-        if (organization instanceof SupplierOrganization){
-           Supplier s= new Supplier();
-            
-           s.setSupplierName(employee.getName());
-           ((SupplierOrganization) organization).getSupplierList().getSupplierList().add(s);
-          
+            } else {
+                 JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("e");
         }
-        if (organization instanceof ProviderOrganization){
-           Provider p= new Provider();
-            
-           p.setProviderName(employee.getName());
-           
-           ((ProviderOrganization) organization).setProvider(p);
-          
-        }
-        organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-        
-        */
-        popData();
-        JOptionPane.showMessageDialog(null,"User created successfully");
-        }
-        else{
-           JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE); 
-        }
-        }else{
-             JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
-        }
-        
     }//GEN-LAST:event_createUserJButtonActionPerformed
 
     private void backjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backjButton1ActionPerformed
@@ -271,10 +241,14 @@ public class HospitalManageUserAccountJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backjButton1ActionPerformed
 
     private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
-        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if (organization != null){
-            populateEmployeeComboBox(organization);
-            populateRoleComboBox(enterprise);
+        try{
+            String name = (String) organizationJComboBox.getSelectedItem();
+            if (name != null) {
+                populateEmployeeComboBox(name);
+                populateRoleComboBox(name);
+            }
+        } catch (Exception e){
+            System.out.println(e);
         }
     }//GEN-LAST:event_organizationJComboBoxActionPerformed
 
