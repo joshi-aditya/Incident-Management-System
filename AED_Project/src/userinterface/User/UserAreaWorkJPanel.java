@@ -13,7 +13,6 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BroadcastWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
 import java.awt.CardLayout;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -43,6 +42,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         this.ecoSystem = ecoSystem;
         populateTable();
         populatepoliceStatusTable();
+        populateUserIncidents();
     }
 
     public void populateTable() {
@@ -140,6 +140,26 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         }
          */
     }
+    
+    public void populateUserIncidents(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblUserReportedInc.getModel();
+        model.setRowCount(0);
+
+        for (int i = userAccount.getWorkQueue().getWorkRequestList().size() - 1; i >= 0; i--) {
+            if (userAccount.getWorkQueue().getWorkRequestList().get(i) instanceof IncidentWorkRequest) {
+
+                IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) organization.getWorkQueue().getWorkRequestList().get(i);
+                Object[] row = new Object[4];
+                row[0] = incidentWorkRequest;
+                row[1] = incidentWorkRequest.getRequestDate();
+                row[2] = incidentWorkRequest.getIncidentType();
+                row[3] = incidentWorkRequest.getMessage();
+
+                model.addRow(row);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,6 +175,11 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         tblMessage = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         policestatusTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblUserReportedInc = new javax.swing.JTable();
 
         jButton1.setText("Report an incident");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -199,32 +224,67 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(policestatusTable);
 
+        jLabel1.setText("Alerts");
+
+        jLabel2.setText("User Work Area");
+
+        jLabel3.setText("User Reported Incidents");
+
+        tblUserReportedInc.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Incident ID", "Reported Date", "Incident Type", "Details"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblUserReportedInc);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
                 .addContainerGap(219, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
                 .addComponent(jButton1)
-                .addGap(172, 172, 172))
+                .addGap(58, 58, 58)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -239,9 +299,14 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable policestatusTable;
     private javax.swing.JTable tblMessage;
+    private javax.swing.JTable tblUserReportedInc;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,12 +31,13 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
         this.network = network;
         this.request = request;
         this.userAccount = userAccount;
-        txtCaseID.setText(String.valueOf(request.getCaseID()));
         populateData();
     }
     
     public void populateData(){
         
+        txtCaseID.setText(String.valueOf(request.getCaseID()));
+        txtIncidentType.setText(request.getIncidentType());
         txtSuspectName.setText(request.getSuspectName());
         txtIncidentDate.setText(request.getIncidentOcuredDate().toString());
         txtAmountWorth.setText(request.getValueRobbed());
@@ -87,6 +88,8 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         txtOfficerComments = new javax.swing.JTextArea();
         btnGangYes = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtIncidentType = new javax.swing.JTextField();
 
         jLabel1.setText("Investigation Questionnaire");
 
@@ -140,6 +143,10 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
         btnGroupGang.add(btnGangYes);
         btnGangYes.setText("Yes");
 
+        jLabel4.setText("Incident Type:");
+
+        txtIncidentType.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,13 +155,13 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(btnBack)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel15)
                                 .addComponent(jLabel16)
-                                .addComponent(jLabel17))
+                                .addComponent(jLabel17)
+                                .addComponent(btnBack))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtGangName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,7 +177,8 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel10)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel3)
-                                .addComponent(jLabel5))
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtCaseID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,7 +189,8 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
                                         .addComponent(btnSuspectArmed)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnSuspectNotArmed))
-                                    .addComponent(txtAmountWorth))))))
+                                    .addComponent(txtAmountWorth)
+                                    .addComponent(txtIncidentType))))))
                 .addContainerGap(403, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -193,6 +202,10 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtCaseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtIncidentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIncidentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,10 +237,10 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
                 .addGap(18, 18, 18)
-                .addComponent(btnSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
-                .addComponent(btnBack)
-                .addGap(70, 70, 70))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(btnBack))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -278,6 +291,7 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane5;
@@ -286,6 +300,7 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCaseID;
     private javax.swing.JTextField txtGangName;
     private javax.swing.JTextField txtIncidentDate;
+    private javax.swing.JTextField txtIncidentType;
     private javax.swing.JTextArea txtOfficerComments;
     private javax.swing.JTextField txtSuspectName;
     // End of variables declaration//GEN-END:variables

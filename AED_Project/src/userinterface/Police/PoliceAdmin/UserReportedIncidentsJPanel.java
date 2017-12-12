@@ -7,7 +7,6 @@ package userinterface.Police.PoliceAdmin;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Organization.Organization;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -42,24 +41,41 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) ReportedIncidentTable.getModel();
         model.setRowCount(0);
         
-        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            ArrayList<WorkRequest> reqObj = org.getWorkQueue().getWorkRequestList();
-            for (int i = org.getWorkQueue().getWorkRequestList().size() - 1 ; i>=0 ; i--) {
-                if (reqObj.get(i) instanceof IncidentWorkRequest) {
+        ArrayList<WorkRequest> reqObj = enterprise.getWorkQueue().getWorkRequestList();
+        for(int i = enterprise.getWorkQueue().getWorkRequestList().size() - 1 ; i>=0 ; i-- ){
+            if(reqObj.get(i) instanceof IncidentWorkRequest){
+                
+                IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) reqObj.get(i);
+                Object[] row = new Object[5];
+                row[0] = incidentWorkRequest;
+                row[1] = incidentWorkRequest.getIncidentType();
+                //row[2] = incidentWorkRequest.getSender().getUserName();
+                row[2] = incidentWorkRequest.getSender().getFirstName()+" "+incidentWorkRequest.getSender().getLastName();
+                row[3] = incidentWorkRequest.getAddress()+" "+ incidentWorkRequest.getZipCode();
+                row[4] = incidentWorkRequest.getStatus();
 
-                    IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) reqObj.get(i);
-                    Object[] row = new Object[5];
-                    row[0] = incidentWorkRequest;
-                    row[1] = incidentWorkRequest.getIncidentType();
-                    //row[2] = incidentWorkRequest.getSender().getUserName();
-                    row[2] = incidentWorkRequest.getSender().getFirstName()+" "+incidentWorkRequest.getSender().getLastName();
-                    row[3] = incidentWorkRequest.getAddress()+" "+ incidentWorkRequest.getZipCode();
-                    row[4] = incidentWorkRequest.getStatus();
-
-                    model.addRow(row);
-                }
+                model.addRow(row);
             }
         }
+        
+//        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+//            ArrayList<WorkRequest> reqObj = org.getWorkQueue().getWorkRequestList();
+//            for (int i = org.getWorkQueue().getWorkRequestList().size() - 1 ; i>=0 ; i--) {
+//                if (reqObj.get(i) instanceof IncidentWorkRequest) {
+//
+//                    IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) reqObj.get(i);
+//                    Object[] row = new Object[5];
+//                    row[0] = incidentWorkRequest;
+//                    row[1] = incidentWorkRequest.getIncidentType();
+//                    //row[2] = incidentWorkRequest.getSender().getUserName();
+//                    row[2] = incidentWorkRequest.getSender().getFirstName()+" "+incidentWorkRequest.getSender().getLastName();
+//                    row[3] = incidentWorkRequest.getAddress()+" "+ incidentWorkRequest.getZipCode();
+//                    row[4] = incidentWorkRequest.getStatus();
+//
+//                    model.addRow(row);
+//                }
+//            }
+//        }
         
         //Timer to refresh table every 5 seconds
         new java.util.Timer().schedule( 

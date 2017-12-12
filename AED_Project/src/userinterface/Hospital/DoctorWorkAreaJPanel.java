@@ -53,25 +53,21 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) allWorkRequestJTable.getModel();
         dtm.setRowCount(0);
 
-        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {            
-            if(org instanceof HospitalOrganization){
-                for (WorkRequest req : org.getWorkQueue().getWorkRequestList()) {                
-                    if (req instanceof HospitalWorkRequest) {
-                        if(req.getStatus().equalsIgnoreCase("Not Assigned")){
+        for (WorkRequest req : organization.getWorkQueue().getWorkRequestList()) {                
+            if (req instanceof HospitalWorkRequest) {
+                if(req.getStatus().equalsIgnoreCase("Not Assigned")){
 
-                            Object[] row = new Object[4];
-                            row[0] = ((HospitalWorkRequest) req).getRequestId();
-                            row[1] = req;
-                            row[2] = ((HospitalWorkRequest) req).getSender();
-                            row[3] = ((HospitalWorkRequest) req).getStatus();
+                    Object[] row = new Object[4];
+                    row[0] = ((HospitalWorkRequest) req).getRequestId();
+                    row[1] = req;
+                    row[2] = ((HospitalWorkRequest) req).getSender();
+                    row[3] = ((HospitalWorkRequest) req).getStatus();
 
-                            dtm.addRow(row);
+                    dtm.addRow(row);
 
-                        }
-                    }
                 }
             }
-        }
+        }   
     }
  
     public void populateMyRequestsTable(){
@@ -262,7 +258,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
             
             populateAllRequestsTable();
             populateMyRequestsTable();
-            JOptionPane.showMessageDialog(null, "Case Assigned Successfully!");
+            JOptionPane.showMessageDialog(null, "Request Assigned Successfully!");
             
         }else{
             JOptionPane.showMessageDialog(null, "Please select a row from the cases table!", "Warning", JOptionPane.WARNING_MESSAGE);

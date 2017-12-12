@@ -19,16 +19,14 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.AmbulanceWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest.IncidentType;
-import java.io.File;
 import javax.swing.JPanel;
-import com.maxmind.geoip.Location;
-import com.maxmind.geoip.LookupService;
 import javax.swing.JOptionPane;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -137,33 +135,27 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(btnBack))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnReportIncident)
+                                .addGap(18, 18, 18)
+                                .addComponent(requestAmbulancejButton))
+                            .addComponent(zipCodejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                .addComponent(addressjTextField, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(addressjTextField)
-                                        .addGap(91, 91, 91))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(zipCodejTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnReportIncident)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(requestAmbulancejButton)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBack))
+                            .addComponent(IncidentreportComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5)))
@@ -193,10 +185,9 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReportIncident)
-                    .addComponent(requestAmbulancejButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addComponent(btnBack)
-                .addGap(54, 54, 54))
+                    .addComponent(requestAmbulancejButton)
+                    .addComponent(btnBack))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -244,16 +235,18 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
 
                 incidentWorkRequest.setLatitude(lat);
                 incidentWorkRequest.setLongitude(lng);
-
+                
+                userAccount.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
                 for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
                     if ((ent instanceof PoliceEnterprise)) {
-                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
-                            if ((organization instanceof PoliceOrganization)) {
-
-                                organization.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
-                                break;
-                            }
-                        }
+                        ent.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
+//                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
+//                            if ((organization instanceof PoliceOrganization)) {
+//
+//                                organization.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
+//                                break;
+//                            }
+//                        }
                     }
                 }
 
@@ -285,39 +278,18 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnReportIncidentActionPerformed
 
-    public String getLocation(String ipAddress) {
-
-        File file = new File("GeoLiteCity.dat");
-        return getLocation(ipAddress, file);
-
-    }
-
-    public String getLocation(String ipAddress, File file) {
-
-        //ServerLocation serverLocation = null;
-        String s = "";
-        try {
-
-            //serverLocation = new ServerLocation();
-            LookupService lookup = new LookupService(file, LookupService.GEOIP_MEMORY_CACHE);
-            Location locationServices = lookup.getLocation(ipAddress);
-
-            s = s + locationServices.region + String.valueOf(locationServices.latitude)
-                    + String.valueOf(locationServices.longitude) + locationServices.postalCode;
-
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-
-        return s;
-
-    }
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        
         userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        UserAreaWorkJPanel userAreaWorkJPanel = (UserAreaWorkJPanel) component;
+        userAreaWorkJPanel.populateTable();
+        userAreaWorkJPanel.populateUserIncidents();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
+        
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void requestAmbulancejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestAmbulancejButtonActionPerformed
