@@ -17,7 +17,7 @@ public class Validator {
    
     public static void onlyString(KeyEvent evt, JTextField field) {
         char c = evt.getKeyChar();
-        if (!((c >= 'A') && (c <= 'Z') || (c >= 'a') && (c <= 'z') || (c==evt.VK_SPACE) || (c==evt.VK_SHIFT)||
+        if (!((c >= 'A') && (c <= 'Z') || (c >= 'a') && (c <= 'z') || (c==evt.VK_SPACE) || !(evt.isShiftDown())||
             (c == evt.VK_BACK_SPACE) ||
             (c == evt.VK_DELETE))) {
 
