@@ -55,7 +55,7 @@ public class AnalysisBySubstanceType extends javax.swing.JPanel {
         int ketamineCount = 0;
         int lsdCount = 0;
         int methCount = 0;
-
+        
         for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
             for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
                 for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
