@@ -14,10 +14,31 @@ import Business.WorkQueue.GunViolenceCaseWorkRequest;
 import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import userinterface.Analysis.AnalysisByArea;
 import userinterface.Analysis.AnalysisByIncidentType;
 import userinterface.Analysis.AnalysisBySubstanceType;
 
@@ -33,6 +54,9 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private Enterprise enterprise;
     private Network network;
+    Map<String, ArrayList<String>> coordmap = new HashMap<String, ArrayList<String>>();
+    ArrayList<String> latlng = new ArrayList<>();
+    String referenceString;
 
     public CaseCatalogueJPanel(JPanel userProcessContainer, Enterprise enterprise, Network network) {
         initComponents();
@@ -45,14 +69,14 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblCases.getModel();
         model.setRowCount(0);
-        
-        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
-            for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
-                for(WorkRequest req : ua.getWorkQueue().getWorkRequestList()){
-                    if((req instanceof GunViolenceCaseWorkRequest) || 
-                            (req instanceof SubstanceAbuseCaseWorkRequest) || 
-                            (req instanceof RobberyCaseWorkRequest)){
-                        
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+                for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
+                    if ((req instanceof GunViolenceCaseWorkRequest)
+                            || (req instanceof SubstanceAbuseCaseWorkRequest)
+                            || (req instanceof RobberyCaseWorkRequest)) {
+
                         Object[] row = new Object[6];
                         row[0] = req;
                         row[1] = ((CaseWorkRequest) req).getIncidentType();
@@ -84,6 +108,8 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnReopenCase = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Master Case Catalogue");
@@ -142,6 +168,20 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton3.setText("View analysis on map");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("View analysis by area");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,20 +193,25 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(49, 49, 49)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnBack, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReopenCase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnBack, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnReopenCase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(47, 47, 47)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(34, 34, 34)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -177,10 +222,13 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(33, 33, 33)
-                .addComponent(btnReopenCase)
-                .addGap(48, 48, 48)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReopenCase)
+                    .addComponent(jButton4))
+                .addGap(27, 27, 27)
                 .addComponent(btnBack)
                 .addContainerGap(119, Short.MAX_VALUE))
         );
@@ -214,11 +262,11 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         int selectedRow = tblCases.getSelectedRow();
         if (selectedRow >= 0) {
             WorkRequest request = (WorkRequest) tblCases.getValueAt(selectedRow, 0);
-            
-            if(request.getStatus().equals("Assigned")){
+
+            if (request.getStatus().equals("Assigned")) {
                 JOptionPane.showMessageDialog(this, "Case already open!", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
-                
+
                 request.setStatus("Assigned");
             }
             populateTable();
@@ -228,12 +276,204 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnReopenCaseActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        double lat1 = 0;
+        double lng1 = 0;
+
+        WorkRequest tempRequest;
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+                for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
+                    if ((req instanceof GunViolenceCaseWorkRequest)
+                            || (req instanceof SubstanceAbuseCaseWorkRequest)
+                            || (req instanceof RobberyCaseWorkRequest)) {
+                        tempRequest = req;
+                        referenceString = "";
+                        latlng.clear();
+                        addtoArrayList(tempRequest);
+                    }
+                }
+                coordmap.put(referenceString, latlng);
+            }
+        }
+
+        String coordinates = "";
+
+        JOptionPane.showMessageDialog(this, coordmap.size());
+
+        Map.Entry<String, ArrayList<String>> entry = coordmap.entrySet().iterator().next();
+        String key = entry.getKey();
+        List<String> split = Arrays.asList(key.split(","));
+        ArrayList<String> value = entry.getValue();
+        coordinates = coordinates + "{lat: " + split.get(0) + ", lng: " + split.get(1) + "},";
+        for (String s : value) {
+            split = Arrays.asList(s.split(","));
+            coordinates = coordinates + "{lat: " + split.get(0) + ", lng: " + split.get(1) + "},";
+        }
+        coordinates = coordinates.substring(0, coordinates.length() - 1);
+        JOptionPane.showMessageDialog(this, coordinates);
+        /* coordinates =   {lat: 25.774, lng: -80.190},
+    {lat: 18.466, lng: -66.118},
+    {lat: 32.321, lng: -64.757},
+    {lat: 25.774, lng: -80.190}; 
+         */
+        Browser browser = new Browser();
+        BrowserView view = new BrowserView(browser);
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.add(view, BorderLayout.CENTER);
+        frame.setSize(700, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        browser.loadHTML("<!DOCTYPE html>\n"
+                + "<html>\n"
+                + "  <head>\n"
+                + "    <title>User-editable Shapes</title>\n"
+                + "    <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">\n"
+                + "    <meta charset=\"utf-8\">\n"
+                + "    <style>\n"
+                + "      /* Always set the map height explicitly to define the size of the div\n"
+                + "       * element that contains the map. */\n"
+                + "      #map {\n"
+                + "        height: 100%;\n"
+                + "      }\n"
+                + "      /* Optional: Makes the sample page fill the window. */\n"
+                + "      html, body {\n"
+                + "        height: 100%;\n"
+                + "        margin: 0;\n"
+                + "        padding: 0;\n"
+                + "      }\n"
+                + "    </style>\n"
+                + "  </head>\n"
+                + "  <body>\n"
+                + "    <div id=\"map\"></div>\n"
+                + "    <script>\n"
+                + "      // This example adds a user-editable polygon to the map.\n"
+                + "      function initMap() {\n"
+                + "        var map = new google.maps.Map(document.getElementById('map'), {\n"
+                + "          center: {lat: 44.5452, lng: -78.5389},\n"
+                + "          zoom: 3\n"
+                + "        });\n"
+                + "\n"
+                + "           var triangleCoords = [\n"
+                + coordinates
+                + "        ];\n"
+                + "\n"
+                + "        // Define a polygon and set its editable property to true.\n"
+                + "        var polygon = new google.maps.Polygon({\n"
+                + "          paths: triangleCoords,\n"
+                + "          editable: false\n"
+                + "        });\n"
+                + "        polygon.setMap(map);\n"
+                + "      }\n"
+                + "    </script>\n"
+                + "    <script async defer\n"
+                + "    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBR_JJcbibBdwvgGmO8OWXdPyh6mnAG7TE&callback=initMap\">\n"
+                + "    </script>\n"
+                + "  </body>\n"
+                + "</html>");
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        AnalysisByArea panel = new AnalysisByArea(userProcessContainer,enterprise, network);
+        userProcessContainer.add("AnalysisByArea", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+    public void addtoArrayList(WorkRequest tempRequest) {
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+                for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
+                    if ((req instanceof GunViolenceCaseWorkRequest)
+                            || (req instanceof SubstanceAbuseCaseWorkRequest)
+                            || (req instanceof RobberyCaseWorkRequest)) {
+                        if (req != tempRequest) {
+                            String s1, s2;
+                            s1 = ((CaseWorkRequest) tempRequest).getAddress() + "," + ((CaseWorkRequest) tempRequest).getZipCode();
+                            s2 = ((CaseWorkRequest) req).getAddress() + "," + ((CaseWorkRequest) req).getZipCode();
+                            getlatlong(s1, s2);
+
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    public void getlatlong(String s1, String s2) {
+        try {
+            Geocoder geocoder = new Geocoder();
+            GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(s1).setLanguage("en").getGeocoderRequest();
+            GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+            JSONObject json = new JSONObject(geocoderResponse);
+            JSONArray result = json.getJSONArray("results");
+            JSONObject result1 = result.getJSONObject(0);
+            JSONObject geometry = result1.getJSONObject("geometry");
+            JSONObject locat = geometry.getJSONObject("location");
+            double lat1 = locat.getDouble("lat");
+            double lng1 = locat.getDouble("lng");
+            coordmap.put(String.valueOf(lat1) + "," + String.valueOf(lng1), new ArrayList<String>());
+            referenceString = String.valueOf(lat1) + "," + String.valueOf(lng1);
+            Geocoder geocoder1 = new Geocoder();
+            GeocoderRequest geocoderRequest1 = new GeocoderRequestBuilder().setAddress(s2).setLanguage("en").getGeocoderRequest();
+            GeocodeResponse geocoderResponse1 = geocoder1.geocode(geocoderRequest1);
+            JSONObject json1 = new JSONObject(geocoderResponse1);
+            JSONArray result2 = json1.getJSONArray("results");
+            JSONObject result3 = result2.getJSONObject(0);
+            JSONObject geometry1 = result3.getJSONObject("geometry");
+            JSONObject locat1 = geometry1.getJSONObject("location");
+            double lat2 = locat1.getDouble("lat");
+            double lng2 = locat1.getDouble("lng");
+
+            URL u;
+            InputStream is = null;
+            DataInputStream dis;
+            String s;
+            String s3 = "";
+
+            String ns;
+            ns = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + lat2 + "," + lng2 + "&destinations=" + lat1 + "," + lng1 + "&mode=driving&language=en-EN&sensor=false";
+            u = new URL(ns);
+            is = u.openStream();
+            dis = new DataInputStream(new BufferedInputStream(is));
+
+            while ((s = dis.readLine()) != null) {
+                //System.out.println(s);  //----------prints out entire JSON
+                s3 = s3 + s;
+            }
+
+            JSONObject json3 = new JSONObject(s3);
+            JSONArray result5 = json3.getJSONArray("rows");
+            JSONObject result6 = result5.getJSONObject(0);
+            JSONArray geometry5 = result6.getJSONArray("elements");
+            JSONObject geometry6 = geometry5.getJSONObject(0);
+            JSONObject locat6 = geometry6.getJSONObject("distance");
+            String distance = locat6.getString("text");
+            String[] sr = distance.split(" ");
+            double distance1 = Double.parseDouble(sr[0]);
+            if (distance1 <= 0.8) {
+                latlng.add(String.valueOf(lat2) + "," + String.valueOf(lng2));
+            }
+
+        } catch (Exception ex) {
+            System.out.println("" + ex.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReopenCase;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCases;

@@ -11,6 +11,7 @@ import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
+import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.BorderLayout;
@@ -57,9 +58,9 @@ public class AnalysisByIncidentType extends javax.swing.JPanel {
                         } else if (req instanceof SubstanceAbuseCaseWorkRequest) {
                             substanceCount++;
                         }
-                        // else if(req instanceof RobberyCaseWorkRequest){
-                        //       
-                        //     }
+                        else if(req instanceof RobberyCaseWorkRequest){
+                             robberyCount++;  
+                        }
                     }
                 }
             }
@@ -68,7 +69,7 @@ public class AnalysisByIncidentType extends javax.swing.JPanel {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.setValue(gunCount, "", "Gun Voilence");
         dataset.setValue(substanceCount, "", "Substance Abuse");
-        //  dataset.setValue(robberyCount, "", "Robbery");
+        dataset.setValue(robberyCount, "", "Robbery");
         JFreeChart chart = ChartFactory.createBarChart("Analysis by Incident", "", "", dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot catPlot = chart.getCategoryPlot();
         catPlot.setRangeGridlinePaint(Color.BLACK);

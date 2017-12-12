@@ -6,8 +6,12 @@ package userinterface.Government;
 
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
+import static Business.Organization.Organization.Type.User;
 import Business.Organization.OrganizationDirectory;
+import Business.Organization.UserOrganization;
+import static Business.Role.Role.RoleType.User;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,42 +23,43 @@ public class GovernmentManageOrganizationJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory directory;
     private JPanel userProcessContainer;
-    
+
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public GovernmentManageOrganizationJPanel(JPanel userProcessContainer,OrganizationDirectory directory) {
+    public GovernmentManageOrganizationJPanel(JPanel userProcessContainer, OrganizationDirectory directory) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.directory = directory;
-        
+
         populateTable();
         populateCombo();
     }
-    
-    private void populateCombo(){
+
+    private void populateCombo() {
         organizationJComboBox.removeAllItems();
-       // for (Type type : Organization.Type.values()){
-         //   if (!type.getValue().equals(Type.Admin.getValue()))
-                organizationJComboBox.addItem(Type.GovernmentOrganization);
-                organizationJComboBox.addItem(Type.User);
-               // organizationJComboBox.addItem(Type.Supplier);
+        // for (Type type : Organization.Type.values()){
+        //   if (!type.getValue().equals(Type.Admin.getValue()))
+        organizationJComboBox.addItem(Type.GovernmentOrganization);
+        organizationJComboBox.addItem(Type.User);
+        // organizationJComboBox.addItem(Type.Supplier);
         //}
     }
 
-    private void populateTable(){
+    private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();
-        
+
         model.setRowCount(0);
-        
-        for (Organization organization : directory.getOrganizationList()){
+
+        for (Organization organization : directory.getOrganizationList()) {
             Object[] row = new Object[2];
             row[0] = organization.getOrganizationID();
             row[1] = organization.getName();
-            
+
             model.addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,8 +138,26 @@ public class GovernmentManageOrganizationJPanel extends javax.swing.JPanel {
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
 
         Type type = (Type) organizationJComboBox.getSelectedItem();
-        directory.createOrganization(type);
-        populateTable();
+        if (!type.equals(null)) {
+            boolean organizationExists = false;
+
+            for (Organization org : directory.getOrganizationList()) {
+                if (org instanceof UserOrganization) {
+                    organizationExists = true;
+
+                }
+            }
+            if (organizationExists == false) {
+                directory.createOrganization(type);
+                populateTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Organization for this type already exists!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter value", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_addJButtonActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed

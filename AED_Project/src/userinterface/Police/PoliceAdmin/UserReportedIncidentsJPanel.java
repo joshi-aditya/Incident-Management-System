@@ -85,7 +85,7 @@ public class UserReportedIncidentsJPanel extends javax.swing.JPanel {
                     populateTable();
                 }
             }, 
-            5000
+            5000000
         );
     }
 
