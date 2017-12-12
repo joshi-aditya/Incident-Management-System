@@ -15,12 +15,18 @@ import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import com.lowagie.text.Document;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.HeaderFooter;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.CardLayout;
 import java.awt.Graphics2D;
 import java.io.FileOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,7 +71,7 @@ public class AnalysisByArea extends javax.swing.JPanel {
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
                 for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-                    
+
                     String zip = ((CaseWorkRequest) req).getZipCode();
                     zipcodes.add(zip);
                 }
@@ -74,16 +80,16 @@ public class AnalysisByArea extends javax.swing.JPanel {
         hs.addAll(zipcodes);
         zipcodes.clear();
         zipcodes.addAll(hs);
-        
-        for(int hashvalue=0;hashvalue<zipcodes.size();hashvalue++){
+
+        for (int hashvalue = 0; hashvalue < zipcodes.size(); hashvalue++) {
             String zip1 = null;
             int gunCount = 0;
             int substanceCount = 0;
             int robberyCount = 0;
-            
-            for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
-                for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
-                    for(WorkRequest req : ua.getWorkQueue().getWorkRequestList()){
+
+            for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+                    for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
                         zip1 = ((CaseWorkRequest) req).getZipCode();
                         if (zipcodes.get(hashvalue).equals(zip1)) {
                             if (req instanceof GunViolenceCaseWorkRequest) {
@@ -97,7 +103,7 @@ public class AnalysisByArea extends javax.swing.JPanel {
                     }
                 }
             }
-            
+
             Object[] row = new Object[4];
             row[0] = zipcodes.get(hashvalue);
             row[1] = gunCount;
@@ -116,10 +122,32 @@ public class AnalysisByArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        areaTable = new javax.swing.JTable();
+        headerlbl = new javax.swing.JLabel();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        areaTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Zipcode", "Gun Voilence", "Substance Abuse", "Robbery"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(areaTable);
 
         jButton1.setText("<<Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -135,56 +163,36 @@ public class AnalysisByArea extends javax.swing.JPanel {
             }
         });
 
-        areaTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Zipcode", "Gun Violence", "Robbery", "Substance Abuse"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(areaTable);
-        if (areaTable.getColumnModel().getColumnCount() > 0) {
-            areaTable.getColumnModel().getColumn(0).setResizable(false);
-            areaTable.getColumnModel().getColumn(1).setResizable(false);
-            areaTable.getColumnModel().getColumn(2).setResizable(false);
-            areaTable.getColumnModel().getColumn(3).setResizable(false);
-        }
+        headerlbl.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        headerlbl.setText("INCIDENT REPORT PER ZIP CODE PER EVENT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(headerlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
                         .addComponent(jButton1)
-                        .addGap(123, 123, 123)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(headerlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGap(106, 106, 106))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -197,42 +205,66 @@ public class AnalysisByArea extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Document document = new Document();
-        boolean shapes = true;
-            try {
-                PdfWriter writer;
-                if (shapes) {
-                    writer = PdfWriter.getInstance(document,
-                            new FileOutputStream("IncidentReport.pdf"));
-                } else {
-                    writer = PdfWriter.getInstance(document,
-                            new FileOutputStream("IncidentReport.pdf"));
+        DefaultTableModel model = (DefaultTableModel) areaTable.getModel();
+        model.setRowCount(0);
+        int incidentCount = 0;
+        ArrayList<String> zipcodes = new ArrayList<>();
+        Set<String> hs = new HashSet<>();
+        Map<String, ArrayList<String>> crimeCountMap = new HashMap<String, ArrayList<String>>();
+        ArrayList<String> incidentTypes = new ArrayList<>();
+
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+                for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
+
+                    String zip = ((CaseWorkRequest) req).getZipCode();
+                    zipcodes.add(zip);
                 }
-                document.open();
-                PdfContentByte cb = writer.getDirectContent();
-                PdfTemplate tp = cb.createTemplate(500, 500);
-                Graphics2D g2;
-                if (shapes) {
-                    g2 = tp.createGraphicsShapes(500, 500);
-                } else {
-                    g2 = tp.createGraphics(500, 500);
-                }
-               // shapes=true;
-                areaTable.print(g2);
-                g2.dispose();
-                cb.addTemplate(tp, 30, 300);
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
             }
-            document.close();
-            JOptionPane.showMessageDialog(null, "Report generated succesfully");
+        }
+        hs.addAll(zipcodes);
+        zipcodes.clear();
+        zipcodes.addAll(hs);
+
+        for (int hashvalue = 0; hashvalue < zipcodes.size(); hashvalue++) {
+            String zip1 = null;
+            int gunCount = 0;
+            int substanceCount = 0;
+            int robberyCount = 0;
+
+            for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+                    for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
+                        zip1 = ((CaseWorkRequest) req).getZipCode();
+                        if (zipcodes.get(hashvalue).equals(zip1)) {
+                            if (req instanceof GunViolenceCaseWorkRequest) {
+                                gunCount++;
+                            } else if (req instanceof RobberyCaseWorkRequest) {
+                                robberyCount++;
+                            } else if (req instanceof SubstanceAbuseCaseWorkRequest) {
+                                substanceCount++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Object[] row = new Object[4];
+            row[0] = zipcodes.get(hashvalue);
+            row[1] = gunCount;
+            row[2] = robberyCount;
+            row[3] = substanceCount;
+            model.addRow(row);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable areaTable;
+    private javax.swing.JLabel headerlbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
