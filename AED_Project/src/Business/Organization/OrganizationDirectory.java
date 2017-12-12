@@ -51,14 +51,12 @@ public class OrganizationDirectory {
             organization = new UserOrganization();
             organizationList.add(organization);
         }
+        
         else if (type.getValue().equals(Organization.Type.GovernmentOrganization.getValue())){
             organization = new GovernmentOrganization();
             organizationList.add(organization);
         }
-        
-        //add Fire
-        //add DrugEnforcement
-        
+    
         return organization;
     }
     
