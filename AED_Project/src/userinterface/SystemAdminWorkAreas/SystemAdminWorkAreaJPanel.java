@@ -130,6 +130,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jSplitPane1.setRightComponent(jPanel1);
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(150, 332));
+
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("System");
         JTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         JTree.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

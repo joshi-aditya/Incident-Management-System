@@ -7,8 +7,6 @@ package Business.Enterprise;
 
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
-import Business.Role.Role;
-import java.util.HashSet;
 
 /**
  *
@@ -29,9 +27,7 @@ public abstract class Enterprise extends Organization {
         
         PoliceEnterprise("Police Enterprise"),
         HospitalEnterprise("Hospital Enterprise"),
-        FireRescueEnterprise("Fire Rescue Enterprise"),
-        GovernmentEnterprise("Government Enterprise"),
-        CourtEnterprise("Court Enterprise");
+        GovernmentEnterprise("Government Enterprise");
         
         private String value;
 

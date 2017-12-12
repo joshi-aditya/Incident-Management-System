@@ -91,6 +91,7 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txtIncidentType = new javax.swing.JTextField();
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Investigation Questionnaire");
 
         jLabel5.setText("Case ID:");
@@ -240,7 +241,7 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnBack))
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

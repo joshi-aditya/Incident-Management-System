@@ -93,10 +93,10 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             networkJTable.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 63, 404, 91));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 404, 130));
 
-        jLabel1.setText("Name");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 257, -1, -1));
+        jLabel1.setText("Name:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, -1));
 
         submitJButton.setText("Submit");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -104,14 +104,14 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 submitJButtonActionPerformed(evt);
             }
         });
-        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 253, -1, -1));
+        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 120, -1));
 
         nameJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nameJTextFieldKeyPressed(evt);
             }
         });
-        add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 254, 93, -1));
+        add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 210, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -119,10 +119,11 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 352, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Manage Network Panel");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 150, 20));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 240, 20));
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed

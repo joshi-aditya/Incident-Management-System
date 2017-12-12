@@ -35,16 +35,6 @@ public class EnterpriseDirectory {
             enterpriseList.add(enterprise);
         }
         
-        else  if (type == Enterprise.EnterpriseType.CourtEnterprise){
-            enterprise = new CourtEnterprise(name);
-            enterpriseList.add(enterprise);
-        }
-        
-        else  if (type == Enterprise.EnterpriseType.FireRescueEnterprise){
-            enterprise = new FireRescueEnterprise(name);
-            enterpriseList.add(enterprise);
-        }
-        
         else  if (type == Enterprise.EnterpriseType.GovernmentEnterprise){
             enterprise = new GovernmentEnterprise(name);
             enterpriseList.add(enterprise);

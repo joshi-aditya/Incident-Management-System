@@ -111,29 +111,29 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(enterpriseJTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 58, 523, 95));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 523, 160));
 
-        jLabel1.setText("Network");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 201, -1, -1));
+        jLabel1.setText("Network:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, -1));
 
         networkJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(networkJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 198, 136, -1));
+        add(networkJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 210, -1));
 
-        jLabel2.setText("Name");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 294, -1, -1));
+        jLabel2.setText("Name:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, -1, -1));
 
         nameJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nameJTextFieldKeyPressed(evt);
             }
         });
-        add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 291, 136, -1));
+        add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, 210, -1));
 
-        jLabel3.setText("Enterprise Type");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 254, -1, -1));
+        jLabel3.setText("Enterprise Type:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, 20));
 
         enterpriseTypeJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(enterpriseTypeJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 251, 136, -1));
+        add(enterpriseTypeJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 210, -1));
 
         submitJButton.setText("Submit");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +141,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                 submitJButtonActionPerformed(evt);
             }
         });
-        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 331, -1, -1));
+        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 140, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -149,10 +149,11 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 331, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Manage Enterprise Panel");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed

@@ -58,9 +58,9 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("My Work Area -Adminstrative Role");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Enterprise Admin Work Area");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         userJButton.setText("Manage User");
         userJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +68,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 userJButtonActionPerformed(evt);
             }
         });
-        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 250, -1));
+        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 250, -1));
 
         manageEmployeeJButton.setText("Manage Employee");
         manageEmployeeJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +76,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageEmployeeJButtonActionPerformed(evt);
             }
         });
-        add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 250, -1));
+        add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 250, -1));
 
         manageOrganizationJButton.setText("Manage Organization");
         manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +84,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageOrganizationJButtonActionPerformed(evt);
             }
         });
-        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 250, -1));
+        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 250, -1));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Enterprise :");
@@ -99,7 +99,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnBroadcastMsgActionPerformed(evt);
             }
         });
-        add(btnBroadcastMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 230, -1));
+        add(btnBroadcastMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 230, -1));
 
         btnUserReportedIncidents.setText("User Reported Incidents");
         btnUserReportedIncidents.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +107,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnUserReportedIncidentsActionPerformed(evt);
             }
         });
-        add(btnUserReportedIncidents, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 230, -1));
+        add(btnUserReportedIncidents, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 230, -1));
 
         manageCaseBtn.setText("Manage Unassigned Cases");
         manageCaseBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +115,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageCaseBtnActionPerformed(evt);
             }
         });
-        add(manageCaseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 230, -1));
+        add(manageCaseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 230, -1));
 
         btnMasterCaseCatalogue.setText("Master Case Catalogue");
         btnMasterCaseCatalogue.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +123,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnMasterCaseCatalogueActionPerformed(evt);
             }
         });
-        add(btnMasterCaseCatalogue, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 230, -1));
+        add(btnMasterCaseCatalogue, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 230, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed

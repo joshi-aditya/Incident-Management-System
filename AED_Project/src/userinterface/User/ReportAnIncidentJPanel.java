@@ -11,9 +11,7 @@ import Business.Enterprise.GovernmentEnterprise;
 import Business.Enterprise.HospitalEnterprise;
 import Business.Enterprise.PoliceEnterprise;
 import Business.Network.Network;
-import Business.Organization.AmbulanceOrganization;
 import Business.Organization.Organization;
-import Business.Organization.PoliceOrganization;
 import Business.Organization.UserOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.AmbulanceWorkRequest;
@@ -84,7 +82,8 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         msgTextArea = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        requestAmbulancejButton = new javax.swing.JButton();
+        ambReqd = new javax.swing.JCheckBox();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel1.setText("What kind of incident you want to report ?");
 
@@ -118,15 +117,10 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         msgTextArea.setRows(5);
         jScrollPane1.setViewportView(msgTextArea);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Report an incident");
 
-        requestAmbulancejButton.setText("Request Ambulance");
-        requestAmbulancejButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                requestAmbulancejButtonActionPerformed(evt);
-            }
-        });
+        jLabel6.setText("Request Ambulance");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -140,17 +134,16 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(btnBack))
+                            .addComponent(btnBack)
+                            .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnReportIncident)
-                                .addGap(18, 18, 18)
-                                .addComponent(requestAmbulancejButton))
                             .addComponent(zipCodejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                .addComponent(addressjTextField, javax.swing.GroupLayout.Alignment.LEADING))))
+                                .addComponent(addressjTextField, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(btnReportIncident)
+                            .addComponent(ambReqd)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -184,10 +177,13 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ambReqd)
+                    .addComponent(jLabel6))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReportIncident)
-                    .addComponent(requestAmbulancejButton)
                     .addComponent(btnBack))
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -240,13 +236,25 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
                     if ((ent instanceof PoliceEnterprise)) {
                         ent.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
-//                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
-//                            if ((organization instanceof PoliceOrganization)) {
-//
-//                                organization.getWorkQueue().getWorkRequestList().add(incidentWorkRequest);
-//                                break;
-//                            }
-//                        }
+                    }
+                }
+                
+                if(ambReqd.isSelected()){
+                    AmbulanceWorkRequest ambulance = new AmbulanceWorkRequest();
+
+                    ambulance.setAddress(address);
+                    ambulance.setZipCode(zipCode);
+                    ambulance.setMessage(message);
+                    ambulance.setSender(userAccount);
+                    ambulance.setStatus("Ambulance Requested");
+                    ambulance.setIncidentType(IncidentreportComboBox.getSelectedItem().toString());
+                    ambulance.setLatitude(lat);
+                    ambulance.setLongitude(lng);
+                    
+                    for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
+                        if (ent instanceof HospitalEnterprise) {
+                            ent.getWorkQueue().getWorkRequestList().add(ambulance);
+                        }
                     }
                 }
 
@@ -269,6 +277,7 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
                 addressjTextField.setText("");
                 zipCodejTextField.setText("");
                 msgTextArea.setText("");
+                ambReqd.setSelected(false);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Please enter all the details");
@@ -292,68 +301,11 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void requestAmbulancejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestAmbulancejButtonActionPerformed
-        // TODO add your handling code here:
-        try {
-            if (!addressjTextField.getText().trim().isEmpty() && !zipCodejTextField.getText().trim().isEmpty()) {
-                String address = addressjTextField.getText();
-                String zipCode = zipCodejTextField.getText();
-                String message = msgTextArea.getText();
-                String type = IncidentreportComboBox.getSelectedItem().toString();
-
-                AmbulanceWorkRequest ambulance = new AmbulanceWorkRequest();
-
-                ambulance.setAddress(address);
-                ambulance.setZipCode(zipCode);
-                ambulance.setMessage(message);
-                ambulance.setSender(userAccount);
-                ambulance.setStatus("Ambulance Requested");
-                ambulance.setIncidentType(type);
-
-                String addressString = (address + ", " + zipCode);
-
-                Geocoder geocoder = new Geocoder();
-                GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(addressString).setLanguage("en").getGeocoderRequest();
-                GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-
-                JSONObject json = new JSONObject(geocoderResponse);
-                JSONArray result = json.getJSONArray("results");
-                JSONObject result1 = result.getJSONObject(0);
-                JSONObject geometry = result1.getJSONObject("geometry");
-                JSONObject locat = geometry.getJSONObject("location");
-                double lat = locat.getDouble("lat");
-                double lng = locat.getDouble("lng");
-
-                ambulance.setLatitude(lat);
-                ambulance.setLongitude(lng);
-
-                for (Enterprise ent : network.getEnterpriseDirectory().getEnterpriseList()) {
-                    if (ent instanceof HospitalEnterprise) {
-                        for (Organization organization : ent.getOrganizationDirectory().getOrganizationList()) {
-                            if (organization instanceof AmbulanceOrganization) {
-
-                                organization.getWorkQueue().getWorkRequestList().add(ambulance);
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                JOptionPane.showMessageDialog(null, "Request for ambulance has been raised");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Please enter all the details");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please enter the correct details");
-        }
-
-    }//GEN-LAST:event_requestAmbulancejButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> IncidentreportComboBox;
     private javax.swing.JTextField addressjTextField;
+    private javax.swing.JCheckBox ambReqd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReportIncident;
     private javax.swing.JLabel jLabel1;
@@ -361,9 +313,9 @@ public class ReportAnIncidentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea msgTextArea;
-    private javax.swing.JButton requestAmbulancejButton;
     private javax.swing.JTextField zipCodejTextField;
     // End of variables declaration//GEN-END:variables
 }
