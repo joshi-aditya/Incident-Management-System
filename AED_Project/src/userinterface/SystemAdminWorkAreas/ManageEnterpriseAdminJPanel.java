@@ -8,9 +8,6 @@ import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import Business.Role.AmbulanceStaffRole;
-import Business.Role.CourtAdminRole;
-import Business.Role.FireRescueAdminRole;
 import Business.Role.GovernmentAdminRole;
 import Business.Role.HospitalAdminRole;
 import Business.Role.PoliceAdminRole;
@@ -203,10 +200,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 }    
                 else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.HospitalEnterprise) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new HospitalAdminRole());
-                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.FireRescueEnterprise) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new FireRescueAdminRole());
-                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.CourtEnterprise) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new CourtAdminRole());
                 }
                 else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.GovernmentEnterprise) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new GovernmentAdminRole());

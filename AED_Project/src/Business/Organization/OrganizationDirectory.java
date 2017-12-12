@@ -24,11 +24,8 @@ public class OrganizationDirectory {
     
     public Organization createOrganization(Organization.Type type){
         Organization organization = null;
-        if (type.getValue().equals(Organization.Type.CriminalCourtOrganization.getValue())){
-            organization = new CriminalCourtOrganization();
-            organizationList.add(organization);
-        }
-        else if (type.getValue().equals(Organization.Type.User.getValue())){
+        
+        if (type.getValue().equals(Organization.Type.User.getValue())){
             organization = new UserOrganization();
             organizationList.add(organization);
         }

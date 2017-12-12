@@ -25,10 +25,8 @@ public abstract class Role {
         Doctor("Doctor"),
         LabAssistant("Lab Assistant"),
         PoliceAdmin("Police Admin"),
-        CourtAdmin("Court Admin"),
         HospitalAdmin("Hospital Admin"),
         AmbulanceStaff("Ambulance Staff"),
-        FireRescueAdmin("Fire Rescue Admin"),
         GovernmentAdmin("Government Admin"),
         PoliceOfficerRole("Police Officer");
 

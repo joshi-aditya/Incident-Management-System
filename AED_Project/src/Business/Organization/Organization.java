@@ -27,14 +27,9 @@ public abstract class Organization {
     public enum Type{
         AmbulanceOrganization("Ambulance Organization"),
         PoliceOrganization("Police Organization"),
-        CivilCourtOrganization("CivilCourt Organization"), 
-        CriminalCourtOrganization("CriminalCourt Organization"), 
-        DrugEnforcementOrganization("DrugEnforcement Organization"),
         GovernmentOrganization("Government Organization"),
         User("User"),
-        HospitalOrganization("Hospital Organization"),
-        InvestigationOrganization("InvestigationOrganization"),
-        FireRescueOrganization("FireRescue Organization");
+        HospitalOrganization("Hospital Organization");
         private String value;
         private Type(String value) {
             this.value = value;
