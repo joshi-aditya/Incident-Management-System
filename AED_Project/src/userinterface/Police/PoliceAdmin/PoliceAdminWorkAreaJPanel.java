@@ -109,7 +109,7 @@ public class PoliceAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
         add(btnUserReportedIncidents, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 230, -1));
 
-        manageCaseBtn.setText("Manage Cases");
+        manageCaseBtn.setText("Manage Unassigned Cases");
         manageCaseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageCaseBtnActionPerformed(evt);

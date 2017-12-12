@@ -121,7 +121,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="manageCaseBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Manage Cases"/>
+        <Property name="text" type="java.lang.String" value="Manage Unassigned Cases"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageCaseBtnActionPerformed"/>

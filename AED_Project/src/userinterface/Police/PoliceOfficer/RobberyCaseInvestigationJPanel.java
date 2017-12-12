@@ -246,26 +246,32 @@ public class RobberyCaseInvestigationJPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if(request.getStatus().equals("Closed")){
+        try{
+           if(request.getStatus().equals("Closed")){
 
             JOptionPane.showMessageDialog(this, "Cannot update a closed case!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
+            } else {
 
-            request.setGangName(txtGangName.getText().trim());
-            request.setOfficerComments(txtOfficerComments.getText().trim());
-            request.setValueRobbed(txtAmountWorth.getText().trim());
-            request.setSuspectName(txtSuspectName.getText().trim());
-            
-            if(btnGangYes.isSelected())
-                request.setAssociatedWithGang(true);
-            if(btnGangNo.isSelected())
-                request.setNotAssociatedWithGang(true);
-            
-            if(btnSuspectArmed.isSelected())
-                request.setIsSuspectArmed(true);
-            if(btnSuspectNotArmed.isSelected())
-                request.setSuspectNotArmed(true);
-        }
+                request.setGangName(txtGangName.getText().trim());
+                request.setOfficerComments(txtOfficerComments.getText().trim());
+                request.setValueRobbed(txtAmountWorth.getText().trim());
+                request.setSuspectName(txtSuspectName.getText().trim());
+
+                if(btnGangYes.isSelected())
+                    request.setAssociatedWithGang(true);
+                if(btnGangNo.isSelected())
+                    request.setNotAssociatedWithGang(true);
+
+                if(btnSuspectArmed.isSelected())
+                    request.setIsSuspectArmed(true);
+                if(btnSuspectNotArmed.isSelected())
+                    request.setSuspectNotArmed(true);
+
+                JOptionPane.showMessageDialog(null, "Details Saved!!");
+            } 
+        } catch (Exception e){
+            System.out.println(e);
+        } 
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
