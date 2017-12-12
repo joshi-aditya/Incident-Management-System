@@ -133,11 +133,11 @@ public class AnalysisByArea extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Zipcode", "Gun Voilence", "Robbery", "Substance Abuse"
+                "Zipcode", "Incident Type", "Crime Count"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,7 +176,7 @@ public class AnalysisByArea extends javax.swing.JPanel {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
