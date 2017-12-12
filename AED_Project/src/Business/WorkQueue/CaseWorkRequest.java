@@ -23,6 +23,8 @@ public class CaseWorkRequest extends WorkRequest {
     private String address;
     private String zipCode;
     private int CaseID;
+    private double latitute;
+    private double longitude;
     //private String status;
 
     public CaseWorkRequest() {
@@ -87,6 +89,22 @@ public class CaseWorkRequest extends WorkRequest {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public double getLatitute() {
+        return latitute;
+    }
+
+    public void setLatitute(double latitute) {
+        this.latitute = latitute;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override

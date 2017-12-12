@@ -170,6 +170,7 @@ public class GunViolenceCaseInvestigationJPanel extends javax.swing.JPanel {
         txtOfficerComments.setRows(5);
         jScrollPane5.setViewportView(txtOfficerComments);
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Investigation Questionnaire");
 
         gangAssociation.add(btnGangYes);

@@ -70,7 +70,7 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtZipcode = new javax.swing.JTextField();
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Create new case");
 
         jLabel2.setText("Incident Type:");
@@ -126,7 +126,8 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(backJButton))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnSubmit)
@@ -135,10 +136,7 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                             .addComponent(txtIncidentType)
                             .addComponent(txtReportedBy)
                             .addComponent(txtDate)
-                            .addComponent(txtZipcode)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backJButton)))
+                            .addComponent(txtZipcode))))
                 .addContainerGap(276, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,13 +168,13 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
-                        .addComponent(backJButton)
-                        .addGap(44, 44, 44))
+                        .addGap(44, 247, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSubmit)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSubmit)
+                            .addComponent(backJButton))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -206,6 +204,8 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                     req.setAddress(txtAddress.getText().trim());
                     req.setZipCode(txtZipcode.getText().trim());
                     req.setIncidentID(incidentWorkRequest.getIncidentId());
+                    req.setLatitute(incidentWorkRequest.getLatitude());
+                    req.setLongitude(incidentWorkRequest.getLongitude());
                     req.setStatus("Open");
                 
                     enterprise.getWorkQueue().getWorkRequestList().add(req);
@@ -222,6 +222,8 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                     req.setAddress(txtAddress.getText().trim());
                     req.setZipCode(txtZipcode.getText().trim());
                     req.setIncidentID(incidentWorkRequest.getIncidentId());
+                    req.setLatitute(incidentWorkRequest.getLatitude());
+                    req.setLongitude(incidentWorkRequest.getLongitude());
                     req.setStatus("Open");
                 
                     enterprise.getWorkQueue().getWorkRequestList().add(req);
@@ -238,6 +240,8 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
                     req.setInitialObservation(txtObservations.getText().trim());
                     req.setAddress(txtAddress.getText().trim());
                     req.setZipCode(txtZipcode.getText().trim());
+                    req.setLatitute(incidentWorkRequest.getLatitude());
+                    req.setLongitude(incidentWorkRequest.getLongitude());
                     req.setStatus("Open");
                 
                     enterprise.getWorkQueue().getWorkRequestList().add(req);
