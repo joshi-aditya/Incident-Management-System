@@ -145,14 +145,14 @@ public class PoliceManageOrganizationJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, -1, -1));
 
         jLabel2.setText("Organization Name:");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, -1));
         add(txtname, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 210, -1));
 
         jLabel3.setText("Address:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
         add(txtaddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 210, -1));
 
         jLabel4.setText("Zipcode:");
