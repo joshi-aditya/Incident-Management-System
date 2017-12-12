@@ -11,6 +11,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
+import Business.WorkQueue.IncidentWorkRequest;
 import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
@@ -282,20 +283,20 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         double lng1 = 0;
 
         WorkRequest tempRequest;
-
+        
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
                 for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
                     if ((req instanceof GunViolenceCaseWorkRequest)
                             || (req instanceof SubstanceAbuseCaseWorkRequest)
                             || (req instanceof RobberyCaseWorkRequest)) {
-                        tempRequest = req;
                         referenceString = "";
+                        tempRequest = req;
+                       
                         latlng.clear();
                         addtoArrayList(tempRequest);
                     }
-                }
-                coordmap.put(referenceString, latlng);
+                }               
             }
         }
 
@@ -315,9 +316,9 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
         coordinates = coordinates.substring(0, coordinates.length() - 1);
         JOptionPane.showMessageDialog(this, coordinates);
         /* coordinates =   {lat: 25.774, lng: -80.190},
-    {lat: 18.466, lng: -66.118},
-    {lat: 32.321, lng: -64.757},
-    {lat: 25.774, lng: -80.190}; 
+        {lat: 18.466, lng: -66.118},
+        {lat: 32.321, lng: -64.757},
+        {lat: 25.774, lng: -80.190}; 
          */
         Browser browser = new Browser();
         BrowserView view = new BrowserView(browser);
@@ -371,7 +372,7 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                 + "      }\n"
                 + "    </script>\n"
                 + "    <script async defer\n"
-                + "    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBR_JJcbibBdwvgGmO8OWXdPyh6mnAG7TE&callback=initMap\">\n"
+                + "    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBq3R5cATnGaO7Y1U7AxHHU7OCJdrHGU4M&callback=initMap\">\n"
                 + "    </script>\n"
                 + "  </body>\n"
                 + "</html>");
@@ -398,13 +399,12 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                             s1 = ((CaseWorkRequest) tempRequest).getAddress() + "," + ((CaseWorkRequest) tempRequest).getZipCode();
                             s2 = ((CaseWorkRequest) req).getAddress() + "," + ((CaseWorkRequest) req).getZipCode();
                             getlatlong(s1, s2);
-
                         }
-
                     }
                 }
             }
         }
+        //coordmap.put(referenceString, latlng);
     }
 
     public void getlatlong(String s1, String s2) {
@@ -419,7 +419,7 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
             JSONObject locat = geometry.getJSONObject("location");
             double lat1 = locat.getDouble("lat");
             double lng1 = locat.getDouble("lng");
-            coordmap.put(String.valueOf(lat1) + "," + String.valueOf(lng1), new ArrayList<String>());
+            //coordmap.put(String.valueOf(lat1) + "," + String.valueOf(lng1), new ArrayList<String>());
             referenceString = String.valueOf(lat1) + "," + String.valueOf(lng1);
             Geocoder geocoder1 = new Geocoder();
             GeocoderRequest geocoderRequest1 = new GeocoderRequestBuilder().setAddress(s2).setLanguage("en").getGeocoderRequest();
@@ -458,8 +458,10 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
             String distance = locat6.getString("text");
             String[] sr = distance.split(" ");
             double distance1 = Double.parseDouble(sr[0]);
-            if (distance1 <= 0.8) {
+            if (distance1 <= 4.0) {
+                latlng = coordmap.get(referenceString);
                 latlng.add(String.valueOf(lat2) + "," + String.valueOf(lng2));
+                coordmap.put(referenceString,latlng);
             }
 
         } catch (Exception ex) {
