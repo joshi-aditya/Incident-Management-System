@@ -62,7 +62,7 @@ public class AmbulanceStaffWorkAreaJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         
         
-        for(WorkRequest req : organization.getWorkQueue().getWorkRequestList()){
+        for(WorkRequest req : enterprise.getWorkQueue().getWorkRequestList()){
             
             if( req instanceof AmbulanceWorkRequest){
                 
@@ -97,6 +97,7 @@ public class AmbulanceStaffWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         ambulanceRquestsjTable = new javax.swing.JTable();
         sendAmbulancejButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         ambulanceRquestsjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,6 +133,9 @@ public class AmbulanceStaffWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Ambulance Staff Work Area");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,21 +143,25 @@ public class AmbulanceStaffWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(285, 285, 285)
+                        .addComponent(sendAmbulancejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(305, 305, 305)
-                        .addComponent(sendAmbulancejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(60, 60, 60)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
+                .addGap(42, 42, 42)
                 .addComponent(sendAmbulancejButton)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -188,6 +196,7 @@ public class AmbulanceStaffWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ambulanceRquestsjTable;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sendAmbulancejButton;
     // End of variables declaration//GEN-END:variables

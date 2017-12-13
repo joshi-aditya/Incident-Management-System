@@ -188,79 +188,83 @@ public class CreateNewCaseJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        
-        if(!txtAddress.getText().trim().isEmpty() &&
-           !txtObservations.getText().trim().isEmpty() &&
-           !txtZipcode.getText().trim().isEmpty()){
-            
-                if(incidentWorkRequest.getIncidentType().getValue().equals(
-                        IncidentWorkRequest.IncidentType.Gun_Violence.getValue())){
-                    
-                    GunViolenceCaseWorkRequest req = new GunViolenceCaseWorkRequest();
-                    req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
-                    req.setIncidentReportedBy(incidentWorkRequest.getSender());
-                    req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
-                    req.setInitialObservation(txtObservations.getText().trim());
-                    req.setAddress(txtAddress.getText().trim());
-                    req.setZipCode(txtZipcode.getText().trim());
-                    req.setIncidentID(incidentWorkRequest.getIncidentId());
-                    req.setLatitute(incidentWorkRequest.getLatitude());
-                    req.setLongitude(incidentWorkRequest.getLongitude());
-                    req.setStatus("Open");
-                
-                    enterprise.getWorkQueue().getWorkRequestList().add(req);
-                }
-                
-                if(incidentWorkRequest.getIncidentType().getValue().equals(
-                        IncidentWorkRequest.IncidentType.Substance_Abuse.getValue())){
-                    
-                    SubstanceAbuseCaseWorkRequest req = new SubstanceAbuseCaseWorkRequest();
-                    req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
-                    req.setIncidentReportedBy(incidentWorkRequest.getSender());
-                    req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
-                    req.setInitialObservation(txtObservations.getText().trim());
-                    req.setAddress(txtAddress.getText().trim());
-                    req.setZipCode(txtZipcode.getText().trim());
-                    req.setIncidentID(incidentWorkRequest.getIncidentId());
-                    req.setLatitute(incidentWorkRequest.getLatitude());
-                    req.setLongitude(incidentWorkRequest.getLongitude());
-                    req.setStatus("Open");
-                
-                    enterprise.getWorkQueue().getWorkRequestList().add(req);
-                }
-                
-                if(incidentWorkRequest.getIncidentType().getValue().equals(
-                        IncidentWorkRequest.IncidentType.Robbery.getValue())){
-                    
-                    RobberyCaseWorkRequest req = new RobberyCaseWorkRequest();
-                    
-                    req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
-                    req.setIncidentReportedBy(incidentWorkRequest.getSender());
-                    req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
-                    req.setInitialObservation(txtObservations.getText().trim());
-                    req.setAddress(txtAddress.getText().trim());
-                    req.setZipCode(txtZipcode.getText().trim());
-                    req.setLatitute(incidentWorkRequest.getLatitude());
-                    req.setLongitude(incidentWorkRequest.getLongitude());
-                    req.setStatus("Open");
-                
-                    enterprise.getWorkQueue().getWorkRequestList().add(req);
-                }
-                
-                incidentWorkRequest.setCaseCreated(true);
-                
-                JOptionPane.showMessageDialog(null, "Case created!");
-                
-                txtAddress.setText("");
-                txtDate.setText("");
-                txtIncidentType.setText("");
-                txtObservations.setText("");
-                txtReportedBy.setText("");
-                txtZipcode.setText("");
-                
-        }else{
-            JOptionPane.showMessageDialog(this, "Please enter all details!", "Warning", JOptionPane.WARNING_MESSAGE);
+        if(incidentWorkRequest.getStatus().equals("Authenticated")){
+            if(!txtAddress.getText().trim().isEmpty() &&
+                !txtObservations.getText().trim().isEmpty() &&
+                !txtZipcode.getText().trim().isEmpty()){
+
+                     if(incidentWorkRequest.getIncidentType().getValue().equals(
+                             IncidentWorkRequest.IncidentType.Gun_Violence.getValue())){
+
+                         GunViolenceCaseWorkRequest req = new GunViolenceCaseWorkRequest();
+                         req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
+                         req.setIncidentReportedBy(incidentWorkRequest.getSender());
+                         req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
+                         req.setInitialObservation(txtObservations.getText().trim());
+                         req.setAddress(txtAddress.getText().trim());
+                         req.setZipCode(txtZipcode.getText().trim());
+                         req.setIncidentID(incidentWorkRequest.getIncidentId());
+                         req.setLatitute(incidentWorkRequest.getLatitude());
+                         req.setLongitude(incidentWorkRequest.getLongitude());
+                         req.setStatus("Open");
+
+                         enterprise.getWorkQueue().getWorkRequestList().add(req);
+                     }
+
+                     if(incidentWorkRequest.getIncidentType().getValue().equals(
+                             IncidentWorkRequest.IncidentType.Substance_Abuse.getValue())){
+
+                         SubstanceAbuseCaseWorkRequest req = new SubstanceAbuseCaseWorkRequest();
+                         req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
+                         req.setIncidentReportedBy(incidentWorkRequest.getSender());
+                         req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
+                         req.setInitialObservation(txtObservations.getText().trim());
+                         req.setAddress(txtAddress.getText().trim());
+                         req.setZipCode(txtZipcode.getText().trim());
+                         req.setIncidentID(incidentWorkRequest.getIncidentId());
+                         req.setLatitute(incidentWorkRequest.getLatitude());
+                         req.setLongitude(incidentWorkRequest.getLongitude());
+                         req.setStatus("Open");
+
+                         enterprise.getWorkQueue().getWorkRequestList().add(req);
+                     }
+
+                     if(incidentWorkRequest.getIncidentType().getValue().equals(
+                             IncidentWorkRequest.IncidentType.Robbery.getValue())){
+
+                         RobberyCaseWorkRequest req = new RobberyCaseWorkRequest();
+
+                         req.setIncidentOcuredDate(incidentWorkRequest.getRequestDate());
+                         req.setIncidentReportedBy(incidentWorkRequest.getSender());
+                         req.setIncidentType(incidentWorkRequest.getIncidentType().getValue());
+                         req.setInitialObservation(txtObservations.getText().trim());
+                         req.setAddress(txtAddress.getText().trim());
+                         req.setZipCode(txtZipcode.getText().trim());
+                         req.setLatitute(incidentWorkRequest.getLatitude());
+                         req.setLongitude(incidentWorkRequest.getLongitude());
+                         req.setStatus("Open");
+
+                         enterprise.getWorkQueue().getWorkRequestList().add(req);
+                     }
+
+                     incidentWorkRequest.setCaseCreated(true);
+
+                     JOptionPane.showMessageDialog(null, "Case created!");
+
+                     txtAddress.setText("");
+                     txtDate.setText("");
+                     txtIncidentType.setText("");
+                     txtObservations.setText("");
+                     txtReportedBy.setText("");
+                     txtZipcode.setText("");
+
+             }else{
+                 JOptionPane.showMessageDialog(this, "Please enter all details!", "Warning", JOptionPane.WARNING_MESSAGE);
+             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please authenticate the case!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
+        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
 
