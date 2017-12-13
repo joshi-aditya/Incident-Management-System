@@ -60,7 +60,7 @@ public class AnalysisBySubstanceType extends javax.swing.JPanel {
                 for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
                     for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
                         for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-                            if (req instanceof SubstanceAbuseCaseWorkRequest) {
+                            if ((req instanceof SubstanceAbuseCaseWorkRequest) && (((SubstanceAbuseCaseWorkRequest) req).getDrugsType() != null)) {
                                 if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("MARIJUANA")) {
                                     mariCount++;
                                 } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("HASHISH")) {
