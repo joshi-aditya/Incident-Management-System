@@ -205,57 +205,58 @@ public class AnalysisByArea extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) areaTable.getModel();
-        model.setRowCount(0);
-        int incidentCount = 0;
-        ArrayList<String> zipcodes = new ArrayList<>();
-        Set<String> hs = new HashSet<>();
-        Map<String, ArrayList<String>> crimeCountMap = new HashMap<String, ArrayList<String>>();
-        ArrayList<String> incidentTypes = new ArrayList<>();
-
-        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
-                for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-
-                    String zip = ((CaseWorkRequest) req).getZipCode();
-                    zipcodes.add(zip);
-                }
-            }
+        Document document = new Document();
+        boolean shapes = true;
+        if (Paths.get(System.getProperty("user.dir") + "/IncidentReport.pdf") != null) {
+            Path path = Paths.get(System.getProperty("user.dir") + "/IncidentReport.pdf");
+            path.toFile().delete();
         }
-        hs.addAll(zipcodes);
-        zipcodes.clear();
-        zipcodes.addAll(hs);
+        try {
+            PdfWriter writer;
+            Phrase phrase1 = new Phrase("INCIDENT REPORT PER ZIP CODE PER EVENT: ", FontFactory.getFont(FontFactory.TIMES_ROMAN, 28, Font.NORMAL));
 
-        for (int hashvalue = 0; hashvalue < zipcodes.size(); hashvalue++) {
-            String zip1 = null;
-            int gunCount = 0;
-            int substanceCount = 0;
-            int robberyCount = 0;
-
-            for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
-                    for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-                        zip1 = ((CaseWorkRequest) req).getZipCode();
-                        if (zipcodes.get(hashvalue).equals(zip1)) {
-                            if (req instanceof GunViolenceCaseWorkRequest) {
-                                gunCount++;
-                            } else if (req instanceof RobberyCaseWorkRequest) {
-                                robberyCount++;
-                            } else if (req instanceof SubstanceAbuseCaseWorkRequest) {
-                                substanceCount++;
-                            }
-                        }
-                    }
-                }
+            if (shapes) {
+                writer = PdfWriter.getInstance(document,
+                        new FileOutputStream("IncidentReport.pdf"));
+            } else {
+                writer = PdfWriter.getInstance(document,
+                        new FileOutputStream("IncidentReport.pdf"));
             }
+            document.open();
+            HeaderFooter header = new HeaderFooter(phrase1, true);
+            document.setHeader(header);
+            PdfContentByte cb = writer.getDirectContent();
+            PdfTemplate tp = cb.createTemplate(1000, 1000);
+            PdfTemplate tp1 = cb.createTemplate(1000, 1000);
+            Graphics2D g2;
+            if (shapes) {
+                g2 = tp.createGraphicsShapes(500, 500);
+            } else {
+                g2 = tp.createGraphics(500, 500);
+            }
+            //document.close();
+            Graphics2D g3;
+            if (shapes) {
+                g3 = tp1.createGraphicsShapes(500, 500);
+            } else {
+                g3 = tp1.createGraphics(500, 500);
 
-            Object[] row = new Object[4];
-            row[0] = zipcodes.get(hashvalue);
-            row[1] = gunCount;
-            row[2] = robberyCount;
-            row[3] = substanceCount;
-            model.addRow(row);
+            }
+            // shapes=true;
+            headerlbl.print(g3);
+
+            areaTable.print(g2);
+            g2.dispose();
+            cb.addTemplate(tp1, 30, 150);
+            g3.dispose();
+            cb.addTemplate(tp, 30, 300);
+            document.close();
+            JOptionPane.showMessageDialog(null, "Report generated succesfully");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

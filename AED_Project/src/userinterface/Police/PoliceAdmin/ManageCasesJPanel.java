@@ -358,8 +358,8 @@ public class ManageCasesJPanel extends javax.swing.JPanel {
                         double distance1 = Double.parseDouble(sr[0]);
                         JSONObject locat7 = geometry6.getJSONObject("duration");
                         String timetoreach = locat7.getString("text");
-                        System.out.println(distance1);
-                        System.out.println(timetoreach);
+                        //System.out.println(distance1);
+                        //System.out.println(timetoreach);
                         //distanceArray.add(distance1);
                         if (distance1 < minDistance) {
                             minDistance = distance1;

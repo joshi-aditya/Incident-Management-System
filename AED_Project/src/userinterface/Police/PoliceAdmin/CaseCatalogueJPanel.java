@@ -85,7 +85,6 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                         row[3] = org.getName();
                         row[4] = ua.getEmployee().getName();
                         row[5] = req.getStatus();
-
                         model.addRow(row);
                     }
                 }
@@ -194,21 +193,20 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReopenCase, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnReopenCase, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(82, 82, 82)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,18 +214,21 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(btnReopenCase))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3)
-                    .addComponent(btnBack))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(52, 52, 52)
+                        .addComponent(jButton2)
+                        .addGap(66, 66, 66)
+                        .addComponent(jButton4)
+                        .addGap(61, 61, 61)
+                        .addComponent(jButton3)))
+                .addGap(42, 42, 42)
+                .addComponent(btnReopenCase)
+                .addGap(18, 18, 18)
+                .addComponent(btnBack)
+                .addContainerGap(183, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -275,11 +276,9 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        double lat1 = 0;
-        double lng1 = 0;
 
         WorkRequest tempRequest;
-        
+
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
                 for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
@@ -288,29 +287,31 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                             || (req instanceof RobberyCaseWorkRequest)) {
                         referenceString = "";
                         tempRequest = req;
-                       
-                        latlng.clear();
+
                         addtoArrayList(tempRequest);
                     }
-                }               
+                }
             }
         }
 
         String coordinates = "";
 
-        JOptionPane.showMessageDialog(this, coordmap.size());
+       // JOptionPane.showMessageDialog(this, coordmap.size());
 
         Map.Entry<String, ArrayList<String>> entry = coordmap.entrySet().iterator().next();
         String key = entry.getKey();
         List<String> split = Arrays.asList(key.split(","));
         ArrayList<String> value = entry.getValue();
         coordinates = coordinates + "{lat: " + split.get(0) + ", lng: " + split.get(1) + "},";
+        coordinates = coordinates + "\n";
         for (String s : value) {
             split = Arrays.asList(s.split(","));
             coordinates = coordinates + "{lat: " + split.get(0) + ", lng: " + split.get(1) + "},";
+            coordinates = coordinates + "\n";
         }
+        coordinates = coordinates.trim();
         coordinates = coordinates.substring(0, coordinates.length() - 1);
-        JOptionPane.showMessageDialog(this, coordinates);
+       // JOptionPane.showMessageDialog(this, coordinates);
         /* coordinates =   {lat: 25.774, lng: -80.190},
         {lat: 18.466, lng: -66.118},
         {lat: 32.321, lng: -64.757},
@@ -351,12 +352,12 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                 + "      // This example adds a user-editable polygon to the map.\n"
                 + "      function initMap() {\n"
                 + "        var map = new google.maps.Map(document.getElementById('map'), {\n"
-                + "          center: {lat: 44.5452, lng: -78.5389},\n"
-                + "          zoom: 3\n"
+                + "          center: {lat: 42.3611, lng: -71.0570},\n"
+                + "          zoom: 10\n"
                 + "        });\n"
                 + "\n"
                 + "           var triangleCoords = [\n"
-                + coordinates
+                + coordinates + "\n"
                 + "        ];\n"
                 + "\n"
                 + "        // Define a polygon and set its editable property to true.\n"
@@ -368,7 +369,7 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                 + "      }\n"
                 + "    </script>\n"
                 + "    <script async defer\n"
-                + "    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBq3R5cATnGaO7Y1U7AxHHU7OCJdrHGU4M&callback=initMap\">\n"
+                + "    src=\"https://maps.google.com/maps/api/js?key=AIzaSyBCBSU4984aYzMDuyD8imEBqXnxrQKTOQw&callback=initMap\">\n"
                 + "    </script>\n"
                 + "  </body>\n"
                 + "</html>");
@@ -377,7 +378,7 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        AnalysisByArea panel = new AnalysisByArea(userProcessContainer,enterprise, network);
+        AnalysisByArea panel = new AnalysisByArea(userProcessContainer, enterprise, network);
         userProcessContainer.add("AnalysisByArea", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -391,18 +392,61 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
                             || (req instanceof SubstanceAbuseCaseWorkRequest)
                             || (req instanceof RobberyCaseWorkRequest)) {
                         if (req != tempRequest) {
-                            String s1, s2;
-                            s1 = ((CaseWorkRequest) tempRequest).getAddress() + "," + ((CaseWorkRequest) tempRequest).getZipCode();
-                            s2 = ((CaseWorkRequest) req).getAddress() + "," + ((CaseWorkRequest) req).getZipCode();
-                            getlatlong(s1, s2);
+                            double lat1, lat2, lng1, lng2;
+                            lat1 = ((CaseWorkRequest) tempRequest).getLatitute();
+                            lng1 = ((CaseWorkRequest) tempRequest).getLongitude();
+                            lat2 = ((CaseWorkRequest) req).getLatitute();
+                            lng2 = ((CaseWorkRequest) req).getLongitude();
+                            distFrom(lat1, lng1, lat2, lng2);
                         }
                     }
                 }
             }
         }
         //coordmap.put(referenceString, latlng);
+    //coordmap.put(referenceString, latlng);
     }
 
+public void distFrom(double lat1, double lng1, double lat2, double lng2) {
+
+         double earthRadius = 6371000; //meters
+        //double earthRadius = 3959; //miles
+        referenceString = String.valueOf(lat1) + "," + String.valueOf(lng1);
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLng = Math.toRadians(lng2 - lng1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double dist = (double) (earthRadius * c);
+        dist = dist / 1000;
+        if (dist <= 3.0) {
+            try {
+                try {
+                    if (!coordmap.containsKey(referenceString)) {
+                        coordmap.put(referenceString, new ArrayList<>());
+                        latlng = coordmap.get(referenceString);
+                        latlng.add(String.valueOf(lat2) + "," + String.valueOf(lng2));
+                        coordmap.put(referenceString, latlng);
+                    } else {
+                        latlng = coordmap.get(referenceString);
+                        latlng.add(String.valueOf(lat2) + "," + String.valueOf(lng2));
+                        coordmap.put(referenceString, latlng);
+                    }
+                } catch (Exception e) {
+//                    coordmap.put(referenceString, new ArrayList<>());
+//                    latlng = coordmap.get(referenceString);
+//                    latlng.add(String.valueOf(lat2) + "," + String.valueOf(lng2));
+//                    coordmap.put(referenceString, latlng);
+                }
+            } catch (Exception ex) {
+                System.out.println("" + ex.getMessage());
+            }
+        }
+        //return dist;
+    }
+
+    /*
     public void getlatlong(String s1, String s2) {
         try {
             Geocoder geocoder = new Geocoder();
@@ -457,13 +501,14 @@ public class CaseCatalogueJPanel extends javax.swing.JPanel {
             if (distance1 <= 4.0) {
                 latlng = coordmap.get(referenceString);
                 latlng.add(String.valueOf(lat2) + "," + String.valueOf(lng2));
-                coordmap.put(referenceString,latlng);
+                coordmap.put(referenceString, latlng);
             }
 
         } catch (Exception ex) {
             System.out.println("" + ex.getMessage());
         }
     }
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

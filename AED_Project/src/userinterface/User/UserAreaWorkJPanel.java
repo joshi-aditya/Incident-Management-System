@@ -41,7 +41,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         this.network = network;
         this.ecoSystem = ecoSystem;
         populateTable();
-        populatepoliceStatusTable();
+       // populatepoliceStatusTable();
         populateUserIncidents();
     }
 
@@ -72,7 +72,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                 60000
         );
     }
-
+/*
     public void populatepoliceStatusTable() {
         DefaultTableModel model = (DefaultTableModel) policestatusTable.getModel();
         model.setRowCount(0);
@@ -90,6 +90,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                 }
             }
         }
+    */
         /*
         for (int i : ecoSystem.getTimingMap().keySet()) {
             //create har user ka incident directory
@@ -139,7 +140,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
             }
         }
          */
-    }
+    //}
     
     public void populateUserIncidents(){
         
@@ -173,8 +174,6 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMessage = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        policestatusTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -205,24 +204,6 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tblMessage);
-
-        policestatusTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Police Officer", "Incident type ", "Time to Reach for Police Officer"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(policestatusTable);
 
         jLabel1.setText("Alerts broadcast by Police:");
 
@@ -258,14 +239,13 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
+                            .addGap(530, 530, 530))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(219, Short.MAX_VALUE))
         );
@@ -277,9 +257,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jButton1)
                 .addGap(40, 40, 40)
@@ -305,9 +283,7 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable policestatusTable;
     private javax.swing.JTable tblMessage;
     private javax.swing.JTable tblUserReportedInc;
     // End of variables declaration//GEN-END:variables
