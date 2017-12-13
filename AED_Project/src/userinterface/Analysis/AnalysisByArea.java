@@ -11,6 +11,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CaseWorkRequest;
 import Business.WorkQueue.GunViolenceCaseWorkRequest;
+import Business.WorkQueue.HospitalWorkRequest;
 import Business.WorkQueue.RobberyCaseWorkRequest;
 import Business.WorkQueue.SubstanceAbuseCaseWorkRequest;
 import Business.WorkQueue.WorkRequest;
@@ -71,9 +72,10 @@ public class AnalysisByArea extends javax.swing.JPanel {
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
                 for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-
-                    String zip = ((CaseWorkRequest) req).getZipCode();
-                    zipcodes.add(zip);
+                    if (!(req instanceof HospitalWorkRequest)) {
+                        String zip = ((CaseWorkRequest) req).getZipCode();
+                        zipcodes.add(zip);
+                    }
                 }
             }
         }
@@ -90,14 +92,16 @@ public class AnalysisByArea extends javax.swing.JPanel {
             for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
                 for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
                     for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-                        zip1 = ((CaseWorkRequest) req).getZipCode();
-                        if (zipcodes.get(hashvalue).equals(zip1)) {
-                            if (req instanceof GunViolenceCaseWorkRequest) {
-                                gunCount++;
-                            } else if (req instanceof RobberyCaseWorkRequest) {
-                                robberyCount++;
-                            } else if (req instanceof SubstanceAbuseCaseWorkRequest) {
-                                substanceCount++;
+                        if (!(req instanceof HospitalWorkRequest)) {
+                            zip1 = ((CaseWorkRequest) req).getZipCode();
+                            if (zipcodes.get(hashvalue).equals(zip1)) {
+                                if (req instanceof GunViolenceCaseWorkRequest) {
+                                    gunCount++;
+                                } else if (req instanceof RobberyCaseWorkRequest) {
+                                    robberyCount++;
+                                } else if (req instanceof SubstanceAbuseCaseWorkRequest) {
+                                    substanceCount++;
+                                }
                             }
                         }
                     }

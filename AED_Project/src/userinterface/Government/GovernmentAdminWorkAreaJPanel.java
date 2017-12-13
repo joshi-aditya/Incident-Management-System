@@ -7,6 +7,9 @@ package userinterface.Government;
 
 import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;
+import java.io.File;
+import java.nio.file.Paths;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -28,9 +31,12 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel.setText(enterprise.getName());
         messageview.setVisible(false);
         viewButton.setVisible(false);
-       // if(){
-            
-        //}
+        if((new File(System.getProperty("user.dir")+"/IncidentReport.pdf")).exists()){
+            JOptionPane.showMessageDialog(this, "NEW MESSAGE RECEIVED, CHECK DETAILS!");
+            messageview.setText("REPORT HAS BEEN PUBLISHED BY POLICE!");
+            messageview.setVisible(true);
+            viewButton.setVisible(true);
+        }
     }
 
     /**
@@ -90,6 +96,11 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, -1, -1));
 
         viewButton.setText("View Published Analysis");
+        viewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewButtonActionPerformed(evt);
+            }
+        });
         add(viewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
 
         messageview.setText("jLabel3");
@@ -121,6 +132,22 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
+        // TODO add your handling code here:
+        try{
+        if ((new File(System.getProperty("user.dir")+"/IncidentReport.pdf")).exists()) {
+            String s = (System.getProperty("user.dir")+"/IncidentReport.pdf").toString();
+			Process p = Runtime
+			   .getRuntime()
+			   .exec("rundll32 url.dll,FileProtocolHandler "+s);
+			p.waitFor();
+
+		}
+        }catch(Exception e){
+            System.out.println(""+e.getMessage());
+        }
+    }//GEN-LAST:event_viewButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
