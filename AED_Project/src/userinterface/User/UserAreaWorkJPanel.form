@@ -32,6 +32,8 @@
                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jButton1" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
+                  <Component id="messageview" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="viewButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="219" max="32767" attributes="0"/>
           </Group>
@@ -52,7 +54,11 @@
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane3" min="-2" pref="225" max="-2" attributes="0"/>
-              <EmptySpace pref="94" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Component id="messageview" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="viewButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="137" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -168,5 +174,18 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="messageview">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel4"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="viewButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="VIEW REPORT"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewButtonActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

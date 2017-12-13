@@ -8,9 +8,9 @@ package userinterface.Government;
 import Business.Enterprise.Enterprise;
 import java.awt.CardLayout;
 import java.io.File;
-import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -31,11 +31,13 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel.setText(enterprise.getName());
         messageview.setVisible(false);
         viewButton.setVisible(false);
-        if((new File(System.getProperty("user.dir")+"/IncidentReport.pdf")).exists()){
+        publishUsersBtn.setVisible(false);
+        if ((new File(System.getProperty("user.dir") + "/IncidentReport.pdf")).exists()) {
             JOptionPane.showMessageDialog(this, "NEW MESSAGE RECEIVED, CHECK DETAILS!");
             messageview.setText("REPORT HAS BEEN PUBLISHED BY POLICE!");
             messageview.setVisible(true);
             viewButton.setVisible(true);
+            publishUsersBtn.setVisible(true);            
         }
     }
 
@@ -56,6 +58,7 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         viewButton = new javax.swing.JButton();
         messageview = new javax.swing.JLabel();
+        publishUsersBtn = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -105,6 +108,14 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         messageview.setText("jLabel3");
         add(messageview, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, -1, -1));
+
+        publishUsersBtn.setText("PUBLISH TO USERS");
+        publishUsersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publishUsersBtnActionPerformed(evt);
+            }
+        });
+        add(publishUsersBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void manageEmployeeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmployeeJButtonActionPerformed
@@ -135,19 +146,31 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
         // TODO add your handling code here:
-        try{
-        if ((new File(System.getProperty("user.dir")+"/IncidentReport.pdf")).exists()) {
-            String s = (System.getProperty("user.dir")+"/IncidentReport.pdf").toString();
-			Process p = Runtime
-			   .getRuntime()
-			   .exec("rundll32 url.dll,FileProtocolHandler "+s);
-			p.waitFor();
+        try {
+            if ((new File(System.getProperty("user.dir") + "/IncidentReport.pdf")).exists()) {
+                String s = (System.getProperty("user.dir") + "/IncidentReport.pdf").toString();
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler " + s);
+                p.waitFor();
 
-		}
+            }
+        } catch (Exception e) {
+            System.out.println("" + e.getMessage());
+        }
+    }//GEN-LAST:event_viewButtonActionPerformed
+
+    private void publishUsersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publishUsersBtnActionPerformed
+        // TODO add your handling code here:
+        File oldName = new File(System.getProperty("user.dir") + "/IncidentReport.pdf");
+        File newName = new File(System.getProperty("user.dir") + "/IncidentReportUser.pdf");
+        try{
+            FileUtils.copyFile(oldName, newName);
+            JOptionPane.showMessageDialog(this, "Published to all users!!");
         }catch(Exception e){
             System.out.println(""+e.getMessage());
         }
-    }//GEN-LAST:event_viewButtonActionPerformed
+    }//GEN-LAST:event_publishUsersBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -158,6 +181,7 @@ public class GovernmentAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton manageEmployeeJButton;
     private javax.swing.JButton manageOrganizationJButton;
     private javax.swing.JLabel messageview;
+    private javax.swing.JButton publishUsersBtn;
     private javax.swing.JLabel valueLabel;
     private javax.swing.JButton viewButton;
     // End of variables declaration//GEN-END:variables

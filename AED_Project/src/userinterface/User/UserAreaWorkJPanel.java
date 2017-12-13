@@ -13,6 +13,8 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BroadcastWorkRequest;
 import Business.WorkQueue.IncidentWorkRequest;
 import java.awt.CardLayout;
+import java.io.File;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,8 +43,15 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         this.network = network;
         this.ecoSystem = ecoSystem;
         populateTable();
-       // populatepoliceStatusTable();
         populateUserIncidents();
+        messageview.setVisible(false);
+        viewButton.setVisible(false);
+        if ((new File(System.getProperty("user.dir") + "/IncidentReportUser.pdf")).exists()) {
+            JOptionPane.showMessageDialog(this, "NEW MESSAGE RECEIVED, CHECK DETAILS!");
+            messageview.setText("A new report has been published by Government!");
+            messageview.setVisible(true);
+            viewButton.setVisible(true);          
+        }
     }
 
     public void populateTable() {
@@ -72,75 +81,6 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                 60000
         );
     }
-/*
-    public void populatepoliceStatusTable() {
-        DefaultTableModel model = (DefaultTableModel) policestatusTable.getModel();
-        model.setRowCount(0);
-        for (int i : ecoSystem.getTimingMap().keySet()) {
-            for (int j : userAccount.getIncidentList()) {
-                if (i == j) {
-                    if (ecoSystem.getTimingMap().get(i).size() == 3) {
-                        Object[] row = new Object[3];
-                        row[0] = ecoSystem.getTimingMap().get(i).get(2);
-                        row[1] = ecoSystem.getTimingMap().get(i).get(0);
-                        row[2] = ecoSystem.getTimingMap().get(i).get(1);
-                        model.addRow(row);
-                       // break;
-                    }
-                }
-            }
-        }
-    */
-        /*
-        for (int i : ecoSystem.getTimingMap().keySet()) {
-            //create har user ka incident directory
-            if (incident 
-                
-                
-                present 
-            
-            
-            in user ke incident directory me
-            
-            
-            
-                ){
-            Arraylist<String> al = ecosytem.gettimingmap().get(i)
-                {
-                    for (int i = 0; i < al.size() , i++) {
-                        1. incidentype al
-                        .get(0) or else al[0];
-                        2. timetoreach
-                        3. police wale ka naam        
-                    }
-                }
-            }
-        }
-         */
- /*
-        //trial
-        ArrayList<String> a1 = new ArrayList<>();
-        for (int i : ecoSystem.getTimingMap().keySet()) {
-            for (int i1 = organization.getWorkQueue().getWorkRequestList().size() - 1; i1 >= 0; i1--) {
-                if (organization.getWorkQueue().getWorkRequestList().get(i1) instanceof IncidentWorkRequest) {
-                    IncidentWorkRequest incidentWorkRequest = (IncidentWorkRequest) organization.getWorkQueue().getWorkRequestList().get(i);
-                    if (this.userAccount.getUserName().equalsIgnoreCase(incidentWorkRequest.getSender().getUserName())) {
-                        //a1 = ecoSystem.getTimingMap().get(i);
-                        a1 = ecoSystem.getInfoString();
-                        for (int j = 0; j < a1.size(); j++) {
-                            Object[] row = new Object[2];
-                            row[0] = a1.get(0);
-                            row[1] = a1.get(1);
-                            row[3] = a1.get(3);
-                            model.addRow(row);
-                        }
-                    }
-
-                }
-            }
-        }
-         */
-    //}
     
     public void populateUserIncidents(){
         
@@ -179,6 +119,8 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblUserReportedInc = new javax.swing.JTable();
+        messageview = new javax.swing.JLabel();
+        viewButton = new javax.swing.JButton();
 
         jButton1.setText("Report an incident");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -230,6 +172,15 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(tblUserReportedInc);
 
+        messageview.setText("jLabel4");
+
+        viewButton.setText("VIEW REPORT");
+        viewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,7 +197,9 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel3))
                             .addGap(530, 530, 530))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(messageview)
+                    .addComponent(viewButton))
                 .addContainerGap(219, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -264,7 +217,11 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(messageview)
+                .addGap(18, 18, 18)
+                .addComponent(viewButton)
+                .addContainerGap(137, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -276,6 +233,22 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
+        // TODO add your handling code here:
+         try {
+            if ((new File(System.getProperty("user.dir") + "/IncidentReportUser.pdf")).exists()) {
+                String s = (System.getProperty("user.dir") + "/IncidentReportUser.pdf").toString();
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler " + s);
+                p.waitFor();
+
+            }
+        } catch (Exception e) {
+            System.out.println("" + e.getMessage());
+        }
+    }//GEN-LAST:event_viewButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -284,7 +257,9 @@ public class UserAreaWorkJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel messageview;
     private javax.swing.JTable tblMessage;
     private javax.swing.JTable tblUserReportedInc;
+    private javax.swing.JButton viewButton;
     // End of variables declaration//GEN-END:variables
 }
