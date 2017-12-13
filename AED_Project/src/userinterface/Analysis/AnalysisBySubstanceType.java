@@ -55,57 +55,60 @@ public class AnalysisBySubstanceType extends javax.swing.JPanel {
         int ketamineCount = 0;
         int lsdCount = 0;
         int methCount = 0;
+        try {
+            for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                    for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+                        for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
+                            if (req instanceof SubstanceAbuseCaseWorkRequest) {
+                                if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("MARIJUANA")) {
+                                    mariCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("HASHISH")) {
+                                    hashishCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("HEROIN")) {
+                                    heroinCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("OPIUM")) {
+                                    opiumCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("COCAINE")) {
+                                    cocaineCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("AMPHETAMINE")) {
+                                    ampCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("KETAMINE")) {
+                                    ketamineCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("LSD")) {
+                                    lsdCount++;
+                                } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("METHAMPHETAMINE")) {
+                                    methCount++;
 
-        for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-            for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
-                    for (WorkRequest req : ua.getWorkQueue().getWorkRequestList()) {
-                        if (req instanceof SubstanceAbuseCaseWorkRequest) {
-                            if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("MARIJUANA")) {
-                                mariCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("HASHISH")) {
-                                hashishCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("HEROIN")) {
-                                heroinCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("OPIUM")) {
-                                opiumCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("COCAINE")) {
-                                cocaineCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("AMPHETAMINE")) {
-                                ampCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("KETAMINE")) {
-                                ketamineCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("LSD")) {
-                                lsdCount++;
-                            } else if (((SubstanceAbuseCaseWorkRequest) req).getDrugsType().equalsIgnoreCase("METHAMPHETAMINE")) {
-                                methCount++;
+                                }
 
                             }
-
                         }
                     }
                 }
+
+                DefaultPieDataset pieDataset = new DefaultPieDataset();
+                pieDataset.setValue("MARIJUANA", mariCount);
+                pieDataset.setValue("HASHISH", hashishCount);
+                pieDataset.setValue("HEROIN", heroinCount);
+                pieDataset.setValue("OPIUM", opiumCount);
+                pieDataset.setValue("COCAINE", cocaineCount);
+                pieDataset.setValue("AMPHETAMINE", ampCount);
+                pieDataset.setValue("KETAMINE", ketamineCount);
+                pieDataset.setValue("LSD", lsdCount);
+                pieDataset.setValue("METHAMPHETAMINE", methCount);
+
+                JFreeChart chart = ChartFactory.createPieChart3D("Analysis by Substance Type", pieDataset, true, true, true);
+                PiePlot3D P = (PiePlot3D) chart.getPlot();
+
+                ChartPanel chartPanel = new ChartPanel(chart);
+                Panel.setLayout(new BorderLayout());
+                Panel.removeAll();
+                Panel.add(chartPanel);
+                Panel.validate();
             }
-
-            DefaultPieDataset pieDataset = new DefaultPieDataset();
-            pieDataset.setValue("MARIJUANA", mariCount);
-            pieDataset.setValue("HASHISH", hashishCount);
-            pieDataset.setValue("HEROIN", heroinCount);
-            pieDataset.setValue("OPIUM", opiumCount);
-            pieDataset.setValue("COCAINE", cocaineCount);
-            pieDataset.setValue("AMPHETAMINE", ampCount);
-            pieDataset.setValue("KETAMINE", ketamineCount);
-            pieDataset.setValue("LSD", lsdCount);
-            pieDataset.setValue("METHAMPHETAMINE", methCount);
-
-            JFreeChart chart = ChartFactory.createPieChart3D("Analysis by Substance Type", pieDataset, true, true, true);
-            PiePlot3D P = (PiePlot3D) chart.getPlot();
-
-            ChartPanel chartPanel = new ChartPanel(chart);
-            Panel.setLayout(new BorderLayout());
-            Panel.removeAll();
-            Panel.add(chartPanel);
-            Panel.validate();
+        } catch (Exception ex) {
+            System.out.println("" + ex.getMessage());
         }
 
     }
